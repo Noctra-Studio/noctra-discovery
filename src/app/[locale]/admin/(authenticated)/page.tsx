@@ -104,16 +104,16 @@ export default async function AdminDashboard({
       {/* Header */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <h1 className="text-4xl font-display mb-1 uppercase tracking-tight">
+          <h1 className="text-4xl font-black mb-1 uppercase tracking-tight">
             {t("title")}
           </h1>
-          <p className="font-body text-[#555] text-sm font-light">
+          <p className="font-body text-[#555] text-sm font-normal">
             {t("subtitle")}
           </p>
         </div>
         <Link
           href={`/${locale}/admin/forms/new`}
-          className="bg-white text-black px-6 py-3 font-semibold tracking-[0.08em] uppercase text-sm hover:bg-[#00E5A0] transition-colors flex items-center gap-2 flex-shrink-0">
+          className="bg-white text-black px-6 py-3 font-semibold rounded-full tracking-[0.08em] uppercase text-sm hover:bg-[#00E5A0] transition-colors flex items-center gap-2 flex-shrink-0">
           <Plus size={16} />
           {t("createNew")}
         </Link>
@@ -124,9 +124,9 @@ export default async function AdminDashboard({
         {stats.map((stat, i) => (
           <div
             key={i}
-            className="p-6 bg-[#141414] border border-[#222] flex flex-col justify-center">
+            className="p-6 bg-[#141414] border border-[#222] rounded-xl flex flex-col justify-center">
             <span
-              className={`font-display text-5xl leading-none mb-2 ${stat.color}`}>
+              className={`text-5xl font-black leading-none mb-2 ${stat.color}`}>
               {stat.value}
             </span>
             <span className="font-mono text-[9px] uppercase tracking-[0.3em] text-[#555]">
@@ -138,7 +138,7 @@ export default async function AdminDashboard({
 
       {/* Forms Table Wrapper */}
       <div className="space-y-6">
-        <h2 className="font-display text-2xl uppercase tracking-tight">
+        <h2 className="text-2xl font-black uppercase tracking-tight">
           Tus Formularios
         </h2>
         {forms && forms.length > 0 ? (
@@ -149,19 +149,19 @@ export default async function AdminDashboard({
             currentPage={page}
           />
         ) : (
-          <div className="p-20 text-center bg-[#141414] border border-[#222]">
-            <div className="w-16 h-16 bg-[#080808] border border-[#222] flex items-center justify-center mx-auto mb-6">
+          <div className="p-20 text-center bg-[#141414] border border-[#222] rounded-xl">
+            <div className="w-16 h-16 bg-[#080808] border border-[#222] rounded-xl flex items-center justify-center mx-auto mb-6">
               <Plus size={32} className="text-[#222]" />
             </div>
-            <h3 className="font-display text-2xl text-[#333] mb-2 uppercase">
+            <h3 className="text-2xl font-black text-[#333] mb-2 uppercase">
               Sin formularios todavía
             </h3>
-            <p className="text-[#555] font-body text-sm font-light mb-8 max-w-xs mx-auto">
+            <p className="text-[#555] font-body text-sm font-normal mb-8 max-w-xs mx-auto">
               Crea el primero para comenzar.
             </p>
             <Link
               href={`/${locale}/admin/forms/new`}
-              className="inline-flex bg-white text-black px-8 py-3 font-semibold tracking-[0.08em] uppercase text-sm hover:bg-[#00E5A0] transition-colors">
+              className="inline-flex bg-white text-black px-8 py-3 font-semibold rounded-full tracking-[0.08em] uppercase text-sm hover:bg-[#00E5A0] transition-colors">
               Crear primer formulario →
             </Link>
           </div>
@@ -171,7 +171,7 @@ export default async function AdminDashboard({
       {/* Mobile FAB */}
       <Link
         href={`/${locale}/admin/forms/new`}
-        className="lg:hidden fixed bottom-6 right-6 w-14 h-14 bg-white text-black flex items-center justify-center shadow-lg shadow-black/50 hover:bg-[#00E5A0] transition-colors">
+        className="lg:hidden fixed bottom-6 right-6 w-14 h-14 bg-white text-black rounded-full flex items-center justify-center shadow-lg shadow-black/50 hover:bg-[#00E5A0] transition-colors">
         <Plus size={32} />
       </Link>
     </div>

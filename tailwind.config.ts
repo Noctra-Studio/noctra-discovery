@@ -20,8 +20,9 @@ const config: Config = {
         accent: "#00E5A0",
       },
       fontFamily: {
-        display: ["var(--font-bebas-neue)", "sans-serif"],
-        body: ["var(--font-dm-sans)", "sans-serif"],
+        display: ["var(--font-satoshi)", "sans-serif"],
+        body: ["var(--font-satoshi)", "sans-serif"],
+        sans: ["var(--font-satoshi)", "sans-serif"],
         mono: ["var(--font-dm-mono)", "monospace"],
       },
     },

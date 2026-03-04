@@ -72,7 +72,7 @@ export default function FormsTableClient({
     const isCompleted = status === "completed";
     return (
       <span
-        className={`inline-flex items-center px-2.5 py-1 text-[9px] font-mono font-bold uppercase tracking-[0.15em] ${
+        className={`inline-flex items-center px-2.5 py-1 text-[9px] font-mono font-bold uppercase tracking-[0.15em] rounded-full ${
           isCompleted
             ? "bg-[#00E5A0]/10 text-[#00E5A0] border border-[#00E5A0]/20"
             : "bg-[#555]/10 text-[#555] border border-[#222]"
@@ -83,21 +83,21 @@ export default function FormsTableClient({
   };
 
   const LangBadge = ({ lang }: { lang: string }) => (
-    <span className="inline-flex items-center gap-1.5 text-[10px] font-mono uppercase text-[#888] bg-[#080808] px-2 py-1 border border-[#222] tracking-widest">
+    <span className="inline-flex items-center gap-1.5 text-[10px] font-mono uppercase text-[#888] bg-[#080808] px-2 py-1 border border-[#222] tracking-widest rounded-md">
       <Globe size={10} />
       {lang}
     </span>
   );
 
   return (
-    <div className="bg-[#141414] border border-[#222] overflow-hidden flex flex-col">
+    <div className="bg-[#141414] border border-[#222] rounded-xl overflow-hidden flex flex-col">
       {/* Mobile view: Stacked cards */}
       <div className="block lg:hidden divide-y divide-[#222]">
         {forms.map((f) => (
           <div key={f.id} className="p-5 space-y-5">
             <div className="flex items-start justify-between">
               <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-[#080808] border border-[#222] flex items-center justify-center overflow-hidden flex-shrink-0">
+                <div className="w-12 h-12 bg-[#080808] border border-[#222] rounded-xl flex items-center justify-center overflow-hidden flex-shrink-0">
                   {f.client_logo_url ? (
                     <img
                       src={f.client_logo_url}
@@ -105,13 +105,13 @@ export default function FormsTableClient({
                       className="w-full h-full object-contain p-2"
                     />
                   ) : (
-                    <span className="font-display text-[#333] text-xl">
+                    <span className="text-xl font-black text-[#333]">
                       {f.client_name.charAt(0)}
                     </span>
                   )}
                 </div>
                 <div>
-                  <p className="font-display text-lg text-white uppercase tracking-tight">
+                  <p className="text-lg font-black text-white uppercase tracking-tight">
                     {f.client_name}
                   </p>
                   <p className="text-[10px] text-[#555] font-mono tracking-widest uppercase mt-1">
@@ -204,7 +204,7 @@ export default function FormsTableClient({
                 className={`${deletingId === f.id ? "opacity-30" : ""} hover:bg-[#0A0A0A] transition-colors group`}>
                 <td className="px-6 py-5">
                   <div className="flex items-center gap-4">
-                    <div className="w-10 h-10 bg-[#080808] border border-[#222] flex items-center justify-center overflow-hidden flex-shrink-0 group-hover:border-[#444] transition-colors">
+                    <div className="w-10 h-10 bg-[#080808] border border-[#222] rounded-xl flex items-center justify-center overflow-hidden flex-shrink-0 group-hover:border-[#444] transition-colors">
                       {f.client_logo_url ? (
                         <img
                           src={f.client_logo_url}
@@ -212,17 +212,17 @@ export default function FormsTableClient({
                           className="w-full h-full object-contain p-1.5"
                         />
                       ) : (
-                        <span className="font-display text-[#333] text-xl">
+                        <span className="text-xl font-black text-[#333]">
                           {f.client_name.charAt(0)}
                         </span>
                       )}
                     </div>
-                    <span className="font-display text-white uppercase tracking-tight text-lg">
+                    <span className="text-lg font-black text-white uppercase tracking-tight">
                       {f.client_name}
                     </span>
                   </div>
                 </td>
-                <td className="px-6 py-5 text-[#888] text-[13px] font-light">
+                <td className="px-6 py-5 text-[#888] text-[13px] font-normal">
                   {f.directed_to}
                 </td>
                 <td className="px-6 py-5">
@@ -281,7 +281,7 @@ export default function FormsTableClient({
               onClick={() =>
                 router.push(`/${locale}/admin?page=${currentPage - 1}`)
               }
-              className="p-2 border border-[#222] hover:bg-[#141414] hover:text-white disabled:opacity-20 transition-colors">
+              className="p-2 border border-[#222] rounded-lg hover:bg-[#141414] hover:text-white disabled:opacity-20 transition-colors">
               <ChevronLeft size={16} />
             </button>
             <button
@@ -289,7 +289,7 @@ export default function FormsTableClient({
               onClick={() =>
                 router.push(`/${locale}/admin?page=${currentPage + 1}`)
               }
-              className="p-2 border border-[#222] hover:bg-[#141414] hover:text-white disabled:opacity-20 transition-colors">
+              className="p-2 border border-[#222] rounded-lg hover:bg-[#141414] hover:text-white disabled:opacity-20 transition-colors">
               <ChevronRight size={16} />
             </button>
           </div>

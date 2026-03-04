@@ -110,7 +110,7 @@
         "title": "La personalidad de la marca.",
         "desc": "Definamos cómo se ve, suena y siente {clientName}.",
         "questions": {
-          "q_perception_rank": { "label": "¿Cómo quieres que perciban a {clientName}?", "hint": "Ordena de más a menos importante.", "placeholder": "" },
+          "q_perception_rank": { "label": "¿Cómo quieres que perciban a {clientName}?", "hint": "Ordena de más a menos importante.", "placeholder": "", "addLabel": "Añadir atributo personalizado...", "customPlaceholder": "Escribe tu atributo..." },
           "q_visual_refs": { "label": "¿Qué marcas admiras visualmente?", "hint": "Elige hasta 3 referencias.", "placeholder": "" },
           "q_accent_color": { "label": "¿Qué color de acento representa mejor a {clientName}?", "hint": "El color principal de la marca.", "placeholder": "" },
           "q_visual_style": { "label": "¿Estilo visual general?", "hint": "Elige hasta 3 estilos.", "placeholder": "" },
@@ -225,6 +225,10 @@
       { "hex": "#00FF88", "name": "Verde Matrix" },
       { "hex": "#F5F5F0", "name": "Solo B&W" }
     ],
+    "customColor": {
+      "label": "OTRO COLOR...",
+      "customLabel": "PERSONALIZADO"
+    },
     "states": {
       "alreadySubmitted": {
         "title": "Formulario Enviado",

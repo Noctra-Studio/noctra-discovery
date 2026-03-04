@@ -19,7 +19,7 @@ export default async function NewFormPage({
           className="p-2 rounded-full border border-[#222] bg-[#0E0E0E] text-gray-400 hover:text-white hover:border-[#444] transition-colors">
           <ArrowLeft size={18} />
         </Link>
-        <h1 className="font-display text-2xl lg:text-3xl text-white">
+        <h1 className="text-2xl lg:text-3xl text-white font-black uppercase tracking-tight">
           {t("title")}
         </h1>
       </header>

@@ -110,7 +110,7 @@
         "title": "Brand personality.",
         "desc": "Let's define how {clientName} looks, sounds, and feels.",
         "questions": {
-          "q_perception_rank": { "label": "How do you want {clientName} to be perceived?", "hint": "Rank from most to least important.", "placeholder": "" },
+          "q_perception_rank": { "label": "How do you want {clientName} to be perceived?", "hint": "Rank from most to least important.", "placeholder": "", "addLabel": "Add custom attribute...", "customPlaceholder": "Type your attribute..." },
           "q_visual_refs": { "label": "Which brands do you admire visually?", "hint": "Choose up to 3 references.", "placeholder": "" },
           "q_accent_color": { "label": "Which accent color best represents {clientName}?", "hint": "The main brand color.", "placeholder": "" },
           "q_visual_style": { "label": "Overall visual style?", "hint": "Choose up to 3 styles.", "placeholder": "" },
@@ -225,6 +225,10 @@
       { "hex": "#00FF88", "name": "Matrix Green" },
       { "hex": "#F5F5F0", "name": "Only B&W" }
     ],
+    "customColor": {
+      "label": "OTHER COLOR...",
+      "customLabel": "CUSTOM"
+    },
     "states": {
       "alreadySubmitted": {
         "title": "Form Submitted",

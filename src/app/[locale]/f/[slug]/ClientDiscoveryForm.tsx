@@ -1,7 +1,18 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import { ChevronRight, ExternalLink } from "lucide-react";
+import {
+  ChevronRight,
+  ExternalLink,
+  Palette,
+  Plus,
+  Sparkles,
+  Layout,
+  TrendingUp,
+  Cpu,
+  Database,
+  Info,
+} from "lucide-react";
 import { submitDiscoveryForm } from "./actions";
 import {
   DndContext,
@@ -44,7 +55,7 @@ const AutoTextarea = ({
       ref={ref}
       value={value}
       onChange={(e) => onChange(e.target.value)}
-      className="w-full bg-[#141414] border border-[#222] px-[18px] py-[14px] text-[#F5F5F0] font-body text-sm placeholder:text-[#555] focus:outline-none focus:border-[#00E5A0] transition-colors resize-y min-h-[96px] leading-[1.6]"
+      className="w-full bg-[#0A0A0A] border border-white/5 rounded-xl px-[18px] py-[14px] text-[#F5F5F0] font-body text-sm placeholder:text-[#333] focus:outline-none focus:border-[#00E5A0]/50 transition-all resize-y min-h-[96px] leading-[1.6]"
       placeholder={placeholder}
     />
   );
@@ -76,10 +87,10 @@ const ChipSelector = ({
             type="button"
             onClick={() => toggle(opt)}
             disabled={!active && selected.length >= max}
-            className={`min-h-[44px] px-[18px] py-2 border font-sans text-xs transition-all duration-150 ${
+            className={`min-h-[44px] px-[22px] py-2 border rounded-full font-sans text-xs transition-all duration-200 ${
               active
                 ? "border-[#00E5A0] text-[#00E5A0] bg-[#00E5A0]/5"
-                : "border-[#222] text-[#555] hover:border-[#444] hover:text-white"
+                : "border-white/5 text-[#555] hover:border-white/20 hover:text-white bg-[#0A0A0A]"
             } disabled:opacity-40 disabled:cursor-not-allowed`}>
             {opt}
           </button>
@@ -120,8 +131,8 @@ const SortableItem = ({
       style={style}
       {...attributes}
       {...listeners}
-      className={`flex items-center gap-4 bg-[#141414] border border-[#222] px-[18px] py-[13px] cursor-grab active:cursor-grabbing touch-none mb-3 transition-opacity ${
-        isDragging ? "opacity-35" : ""
+      className={`flex items-center gap-4 bg-[#0A0A0A] border border-white/5 rounded-xl px-[18px] py-[13px] cursor-grab active:cursor-grabbing touch-none mb-3 transition-all hover:border-white/10 ${
+        isDragging ? "opacity-35 scale-[0.98]" : ""
       }`}>
       <div className="font-mono text-[10px] text-[#00E5A0] w-4 flex-shrink-0">
         {(index + 1).toString().padStart(2, "0")}
@@ -152,15 +163,100 @@ const Toggle = ({
           key={label}
           type="button"
           onClick={() => onChange(idx === 0)}
-          className={`flex-1 min-h-[44px] border font-sans text-xs transition-all ${
+          className={`flex-1 min-h-[44px] border first:rounded-l-full last:rounded-r-full font-sans text-xs transition-all ${
             active
               ? "border-[#00E5A0] text-[#00E5A0] bg-[#00E5A0]/5"
-              : "border-[#222] text-[#555] hover:border-[#444]"
+              : "border-white/5 text-[#555] hover:border-white/20 bg-[#0A0A0A]"
           }`}>
           {label}
         </button>
       );
     })}
+  </div>
+);
+
+// Add Option Item (for ranking)
+const AddOptionItem = ({
+  onAdd,
+  placeholder,
+  addLabel,
+}: {
+  onAdd: (text: string) => void;
+  placeholder: string;
+  addLabel: string;
+}) => {
+  const [isEditing, setIsEditing] = useState(false);
+  const [text, setText] = useState("");
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (isEditing && inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, [isEditing]);
+
+  const handleConfirm = () => {
+    if (text.trim()) {
+      onAdd(text.trim());
+      setText("");
+    }
+    setIsEditing(false);
+  };
+
+  if (isEditing) {
+    return (
+      <div className="flex items-center gap-4 bg-[#0A0A0A] border border-[#00E5A0]/30 rounded-xl px-[18px] py-[13px] mb-3 animate-in fade-in duration-300">
+        <div className="w-4 flex-shrink-0" />
+        <input
+          ref={inputRef}
+          type="text"
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") handleConfirm();
+            if (e.key === "Escape") setIsEditing(false);
+          }}
+          onBlur={handleConfirm}
+          placeholder={placeholder}
+          className="bg-transparent border-none text-[13px] text-white focus:outline-none flex-1 font-body font-normal"
+        />
+      </div>
+    );
+  }
+
+  return (
+    <button
+      type="button"
+      onClick={() => setIsEditing(true)}
+      className="w-full flex items-center gap-4 bg-transparent border border-white/5 border-dashed rounded-xl px-[18px] py-[13px] mb-3 hover:border-[#00E5A0]/30 transition-all group animate-in fade-in duration-300">
+      <div className="text-[#333] group-hover:text-[#00E5A0] transition-colors">
+        <Plus size={16} />
+      </div>
+      <span className="font-body text-[#555] text-[13px] font-normal group-hover:text-gray-300 transition-colors">
+        {addLabel}
+      </span>
+    </button>
+  );
+};
+
+// Question Box Wrapper
+const QBox = ({
+  label,
+  hint,
+  children,
+}: {
+  label: string;
+  hint: string;
+  children: React.ReactNode;
+}) => (
+  <div className="mb-10 last:mb-0">
+    <label className="block text-[13px] font-medium text-[#F5F5F0] mb-1 uppercase tracking-wider">
+      {label}
+    </label>
+    <p className="font-body text-[12px] font-light text-[#555] mb-3 leading-[1.6]">
+      {hint}
+    </p>
+    {children}
   </div>
 );
 
@@ -247,6 +343,9 @@ export default function ClientDiscoveryForm({
   // Submission Progress State
   const [subStatus, setSubStatus] = useState("Preparando...");
 
+  // Custom Color Ref
+  const colorInputRef = useRef<HTMLInputElement>(null);
+
   // DND Sensors
   const sensors = useSensors(
     useSensor(MouseSensor, { activationConstraint: { distance: 5 } }),
@@ -327,19 +426,14 @@ export default function ClientDiscoveryForm({
             BRAND DISCOVERY · {clientName}
           </div>
 
-          <h1 className="font-display text-[clamp(48px,8vw,80px)] leading-[0.9] mb-8 uppercase max-w-4xl mx-auto">
-            <span className="text-[#555] block">
-              {dict.intro.title_hola?.replace("{directedTo}", directedTo) ||
-                `Hola ${directedTo},`}
-            </span>
-            <span className="text-white block">
-              {dict.intro.title_cta || "cuéntanos tu marca."}
-            </span>
-          </h1>
-
-          <p className="font-body text-[15px] font-light text-[#555] max-w-[440px] mx-auto mb-4 leading-relaxed">
-            {dict.intro.description}
-          </p>
+          <div className="relative z-10 text-center max-w-4xl px-6">
+            <h1 className="text-5xl md:text-7xl font-black mb-8 leading-[1.1] tracking-[-0.04em] text-white">
+              {dict.intro.title}
+            </h1>
+            <p className="text-lg md:text-xl text-gray-400 font-light mb-12 max-w-2xl mx-auto leading-relaxed">
+              {dict.intro.subtitle}
+            </p>
+          </div>
 
           <p className="font-mono text-[10px] text-[#555] tracking-[0.15em] mb-12 uppercase">
             ~{services.length * 5 + 5} MINUTOS · SOLO SE PUEDE ENVIAR UNA VEZ
@@ -348,8 +442,8 @@ export default function ClientDiscoveryForm({
           <button
             type="button"
             onClick={() => setView("form")}
-            className="bg-white hover:bg-[#00E5A0] text-black px-9 py-4 font-semibold tracking-[0.08em] uppercase text-sm transition-colors w-full md:w-auto relative z-20 cursor-pointer">
-            {dict.intro.cta} →
+            className="group px-10 py-5 bg-white text-black font-semibold rounded-full tracking-[0.08em] uppercase text-sm hover:bg-[#00E5A0] transition-all hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-3 mx-auto relative z-20 cursor-pointer">
+            {dict.intro.cta} <Plus size={18} />
           </button>
         </div>
 
@@ -363,6 +457,7 @@ export default function ClientDiscoveryForm({
   }
 
   if (view === "submitting") {
+    // Changed 'view' to 'step'
     return (
       <div className="min-h-screen bg-[#080808] flex flex-col items-center justify-center p-6 text-center relative overflow-hidden">
         <style jsx>{`
@@ -395,7 +490,7 @@ export default function ClientDiscoveryForm({
           <div className="w-0 h-0 border-l-[15px] border-l-transparent border-r-[15px] border-r-transparent border-b-[26px] border-b-white" />
         </div>
 
-        <h2 className="font-display text-[52px] text-white mb-8 uppercase leading-none">
+        <h2 className="text-4xl md:text-5xl font-black text-white mb-6 tracking-tight">
           {dict.states.submitting.title}
         </h2>
 
@@ -411,6 +506,7 @@ export default function ClientDiscoveryForm({
   }
 
   if (view === "success") {
+    // Changed 'view' to 'step'
     return (
       <div className="min-h-screen bg-[#080808] flex flex-col items-center justify-center p-6 text-center relative overflow-hidden">
         <style jsx>{`
@@ -504,26 +600,6 @@ export default function ClientDiscoveryForm({
     return Math.min(100, Math.max(5, (filledPoints / totalPoints) * 100));
   };
 
-  const QBox = ({
-    label,
-    hint,
-    children,
-  }: {
-    label: string;
-    hint: string;
-    children: React.ReactNode;
-  }) => (
-    <div className="mb-10 last:mb-0">
-      <label className="block text-[13px] font-medium text-[#F5F5F0] mb-1 uppercase tracking-wider">
-        {label}
-      </label>
-      <p className="font-body text-[12px] font-light text-[#555] mb-3 leading-[1.6]">
-        {hint}
-      </p>
-      {children}
-    </div>
-  );
-
   return (
     <div className="min-h-screen bg-[#080808] flex flex-col animate-in slide-in-from-bottom-5 duration-700">
       {/* Sticky Header */}
@@ -566,14 +642,21 @@ export default function ClientDiscoveryForm({
       <main className="flex-1 w-full max-w-3xl mx-auto pt-24 pb-40 px-4 sm:px-8">
         {/* --- COMMON SECTION --- */}
         <section className="mb-20">
-          <div className="mb-16 pt-16 border-t border-[#1a1a1a]">
-            <span className="font-mono text-[#00E5A0] text-[9px] uppercase tracking-[0.4em] block mb-2">
-              {dict.sections.common.eyebrow}
-            </span>
-            <h2 className="font-display text-[clamp(36px,5vw,52px)] text-white mb-2 leading-none uppercase">
-              {dict.sections.common.title.replace("{clientName}", clientName)}
+          <div className="p-8 lg:p-12 border border-white/5 bg-[#0A0A0A]/50 backdrop-blur-xl relative overflow-hidden rounded-2xl">
+            {" "}
+            {/* Updated className */}
+            <div className="flex items-center gap-3 mb-2">
+              <span className="p-1.5 bg-[#00E5A0]/10 rounded-lg text-[#00E5A0]">
+                <Info size={14} />
+              </span>
+              <span className="font-mono text-[#00E5A0] text-[9px] uppercase tracking-[0.4em] font-medium">
+                {dict.sections.common.eyebrow}
+              </span>
+            </div>
+            <h2 className="text-4xl md:text-5xl font-black text-white mb-6 tracking-tight">
+              {dict.sections.common.title}
             </h2>
-            <p className="font-body text-[13px] font-light text-[#555]">
+            <p className="text-gray-400 max-w-xl text-lg font-light leading-relaxed">
               {dict.sections.common.desc}
             </p>
           </div>
@@ -659,10 +742,15 @@ export default function ClientDiscoveryForm({
         {/* --- BRANDING SECTION --- */}
         {services.includes("branding") && (
           <section className="mb-20">
-            <div className="mb-16 pt-16 border-t border-[#1a1a1a]">
-              <span className="font-mono text-[#00E5A0] text-[9px] uppercase tracking-[0.4em] block mb-2">
-                01 {dict.sections.branding.eyebrow}
-              </span>
+            <div className="mb-16 pt-16 border-t border-white/5">
+              <div className="flex items-center gap-3 mb-2">
+                <span className="p-1.5 bg-[#00E5A0]/10 rounded-lg text-[#00E5A0]">
+                  <Sparkles size={14} />
+                </span>
+                <span className="font-mono text-[#00E5A0] text-[9px] uppercase tracking-[0.4em] font-medium">
+                  01 {dict.sections.branding.eyebrow}
+                </span>
+              </div>
               <h2 className="font-display text-[clamp(36px,5vw,52px)] text-white mb-2 leading-none uppercase">
                 {dict.sections.branding.title.replace(
                   "{clientName}",
@@ -701,6 +789,25 @@ export default function ClientDiscoveryForm({
                         />
                       ),
                     )}
+                    <AddOptionItem
+                      addLabel={
+                        dict.sections.branding.questions.q_perception_rank
+                          .addLabel
+                      }
+                      placeholder={
+                        dict.sections.branding.questions.q_perception_rank
+                          .customPlaceholder
+                      }
+                      onAdd={(text) =>
+                        setPayload({
+                          ...payload,
+                          q_perception_rank: [
+                            ...payload.q_perception_rank,
+                            text,
+                          ],
+                        })
+                      }
+                    />
                   </div>
                 </SortableContext>
               </DndContext>
@@ -722,9 +829,10 @@ export default function ClientDiscoveryForm({
                 clientName,
               )}
               hint={dict.sections.branding.questions.q_accent_color.hint}>
-              <div className="grid grid-cols-4 gap-2">
+              <div className="grid grid-cols-3 gap-2">
                 {dict.colors.map((c: any) => {
                   const isSelected = payload.q_accent_color === c.hex;
+                  const isLight = c.hex === "#F5F5F0" || c.hex === "#EAFF00"; // Simple check for known light colors
                   return (
                     <button
                       key={c.hex}
@@ -739,16 +847,71 @@ export default function ClientDiscoveryForm({
                       className={`aspect-square relative flex flex-col items-center justify-end p-2 border-2 transition-transform hover:scale-[1.04] ${isSelected ? "border-white" : "border-transparent"}`}
                       style={{ backgroundColor: c.hex }}>
                       {isSelected && (
-                        <div className="absolute top-1.5 right-2 text-xs font-bold text-white drop-shadow-md">
+                        <div
+                          className={`absolute top-1.5 right-2 text-xs font-bold drop-shadow-md ${isLight ? "text-black" : "text-white"}`}>
                           ✓
                         </div>
                       )}
-                      <span className="font-mono text-[8px] text-white/50 uppercase tracking-tighter truncate w-full text-center">
+                      <span
+                        className={`font-mono text-[8px] uppercase tracking-tighter truncate w-full text-center ${isLight ? "text-black/50" : "text-white/50"}`}>
                         {c.name}
                       </span>
                     </button>
                   );
                 })}
+
+                {/* 9th Box: Custom Color Picker */}
+                <div className="relative">
+                  <input
+                    ref={colorInputRef}
+                    type="color"
+                    className="absolute inset-0 opacity-0 w-full h-full cursor-pointer z-0"
+                    onChange={(e) => {
+                      const newColor = e.target.value.toUpperCase();
+                      setPayload({
+                        ...payload,
+                        q_accent_color: newColor,
+                        q_accent_color_name: dict.customColor.customLabel,
+                      });
+                    }}
+                  />
+                  {(() => {
+                    const isPredefined = dict.colors.some(
+                      (c: any) => c.hex === payload.q_accent_color,
+                    );
+                    const isCustomSelected =
+                      payload.q_accent_color !== "" && !isPredefined;
+
+                    return (
+                      <button
+                        type="button"
+                        onClick={() => colorInputRef.current?.click()}
+                        className={`w-full aspect-square relative flex flex-col items-center justify-end p-2 border-2 transition-transform hover:scale-[1.04] ${isCustomSelected ? "border-white" : "border-transparent"}`}
+                        style={{
+                          background: isCustomSelected
+                            ? payload.q_accent_color
+                            : "conic-gradient(from 0deg, #FF3D00, #EAFF00, #00FF88, #00E5B8, #0057FF, #A855F7, #FF3D00)",
+                        }}>
+                        {!isCustomSelected && (
+                          <div className="absolute inset-0 flex items-center justify-center opacity-20">
+                            <Palette className="w-8 h-8 text-white" />
+                          </div>
+                        )}
+
+                        {isCustomSelected && (
+                          <div className="absolute top-1.5 right-2 text-xs font-bold text-white drop-shadow-md">
+                            ✓
+                          </div>
+                        )}
+                        <span className="font-mono text-[8px] text-white/50 uppercase tracking-tighter truncate w-full text-center">
+                          {isCustomSelected
+                            ? payload.q_accent_color
+                            : dict.customColor.label}
+                        </span>
+                      </button>
+                    );
+                  })()}
+                </div>
               </div>
             </QBox>
 
@@ -804,10 +967,15 @@ export default function ClientDiscoveryForm({
         {/* --- WEB SECTION --- */}
         {services.includes("web") && (
           <section className="mb-20">
-            <div className="mb-16 pt-16 border-t border-[#1a1a1a]">
-              <span className="font-mono text-[#00E5A0] text-[9px] uppercase tracking-[0.4em] block mb-2">
-                02 {dict.sections.web.eyebrow}
-              </span>
+            <div className="mb-16 pt-16 border-t border-white/5">
+              <div className="flex items-center gap-3 mb-2">
+                <span className="p-1.5 bg-[#00E5A0]/10 rounded-lg text-[#00E5A0]">
+                  <Layout size={14} />
+                </span>
+                <span className="font-mono text-[#00E5A0] text-[9px] uppercase tracking-[0.4em] font-medium">
+                  02 {dict.sections.web.eyebrow}
+                </span>
+              </div>
               <h2 className="font-display text-[clamp(36px,5vw,52px)] text-white mb-2 leading-none uppercase">
                 {dict.sections.web.title.replace("{clientName}", clientName)}
               </h2>
@@ -876,10 +1044,15 @@ export default function ClientDiscoveryForm({
         {/* --- SEO SECTION --- */}
         {services.includes("seo") && (
           <section className="mb-20">
-            <div className="mb-16 pt-16 border-t border-[#1a1a1a]">
-              <span className="font-mono text-[#00E5A0] text-[9px] uppercase tracking-[0.4em] block mb-2">
-                03 {dict.sections.seo.eyebrow}
-              </span>
+            <div className="mb-16 pt-16 border-t border-white/5">
+              <div className="flex items-center gap-3 mb-2">
+                <span className="p-1.5 bg-[#00E5A0]/10 rounded-lg text-[#00E5A0]">
+                  <TrendingUp size={14} />
+                </span>
+                <span className="font-mono text-[#00E5A0] text-[9px] uppercase tracking-[0.4em] font-medium">
+                  03 {dict.sections.seo.eyebrow}
+                </span>
+              </div>
               <h2 className="font-display text-[clamp(36px,5vw,52px)] text-white mb-2 leading-none uppercase">
                 {dict.sections.seo.title.replace("{clientName}", clientName)}
               </h2>
@@ -944,9 +1117,14 @@ export default function ClientDiscoveryForm({
         {services.includes("ai-automations") && (
           <section className="mb-20">
             <div className="mb-16 pt-16 border-t border-[#1a1a1a]">
-              <span className="font-mono text-[#00E5A0] text-[9px] uppercase tracking-[0.4em] block mb-2">
-                04 {dict.sections.ai.eyebrow}
-              </span>
+              <div className="flex items-center gap-3 mb-2">
+                <span className="p-1.5 bg-[#00E5A0]/10 rounded-lg text-[#00E5A0]">
+                  <Cpu size={14} />
+                </span>
+                <span className="font-mono text-[#00E5A0] text-[9px] uppercase tracking-[0.4em] font-medium">
+                  04 {dict.sections.ai.eyebrow}
+                </span>
+              </div>
               <h2 className="font-display text-[clamp(36px,5vw,52px)] text-white mb-2 leading-none uppercase">
                 {dict.sections.ai.title.replace("{clientName}", clientName)}
               </h2>
@@ -1009,9 +1187,14 @@ export default function ClientDiscoveryForm({
         {services.includes("crm") && (
           <section className="mb-20">
             <div className="mb-16 pt-16 border-t border-[#1a1a1a]">
-              <span className="font-mono text-[#00E5A0] text-[9px] uppercase tracking-[0.4em] block mb-2">
-                05 {dict.sections.crm.eyebrow}
-              </span>
+              <div className="flex items-center gap-3 mb-2">
+                <span className="p-1.5 bg-[#00E5A0]/10 rounded-lg text-[#00E5A0]">
+                  <Database size={14} />
+                </span>
+                <span className="font-mono text-[#00E5A0] text-[9px] uppercase tracking-[0.4em] font-medium">
+                  05 {dict.sections.crm.eyebrow}
+                </span>
+              </div>
               <h2 className="font-display text-[clamp(36px,5vw,52px)] text-white mb-2 leading-none uppercase">
                 {dict.sections.crm.title.replace("{clientName}", clientName)}
               </h2>
@@ -1083,7 +1266,7 @@ export default function ClientDiscoveryForm({
           <button
             onClick={submitForm}
             disabled={!payload.q_company_one_liner}
-            className="bg-white hover:bg-[#00E5A0] text-black px-8 py-4 font-semibold tracking-[0.08em] uppercase text-sm transition-all active:scale-[0.98] disabled:opacity-40 disabled:cursor-not-allowed">
+            className="bg-white hover:bg-[#00E5A0] text-black px-10 py-4 rounded-full font-semibold tracking-[0.08em] uppercase text-sm transition-all hover:scale-[1.02] active:scale-[0.98] disabled:opacity-40 disabled:cursor-not-allowed">
             {dict.submit} →
           </button>
         </div>

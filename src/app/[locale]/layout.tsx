@@ -1,19 +1,14 @@
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
-import { Bebas_Neue, DM_Sans, DM_Mono } from "next/font/google";
+import { DM_Mono } from "next/font/google";
+import localFont from "next/font/local";
 import { ToastProvider } from "@/components/ui/Toast";
 import { Cursor } from "@/components/ui/Cursor";
 import "../globals.css";
 
-const bebasNeue = Bebas_Neue({
-  weight: "400",
-  subsets: ["latin"],
-  variable: "--font-bebas-neue",
-});
-
-const dmSans = DM_Sans({
-  subsets: ["latin"],
-  variable: "--font-dm-sans",
+const satoshi = localFont({
+  src: "../../../public/fonts/Satoshi-Variable.woff2",
+  variable: "--font-satoshi",
 });
 
 const dmMono = DM_Mono({
@@ -33,9 +28,7 @@ export default async function LocaleLayout({
   const messages = await getMessages();
 
   return (
-    <html
-      lang={locale}
-      className={`${bebasNeue.variable} ${dmSans.variable} ${dmMono.variable}`}>
+    <html lang={locale} className={`${satoshi.variable} ${dmMono.variable}`}>
       <head>
         <link
           rel="icon"
