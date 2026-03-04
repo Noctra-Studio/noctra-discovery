@@ -1,0 +1,167 @@
+{
+  "admin": {
+    "login": {
+      "title": "Login",
+      "subtitle": "Sign in to access administration",
+      "emailLabel": "Email",
+      "passwordLabel": "Password",
+      "submitButton": "Sign in",
+      "error": "Invalid credentials",
+      "errorMissing": "Please fill in all fields"
+    },
+    "dashboard": {
+      "title": "Forms Dashboard",
+      "subtitle": "Select a form or create a new one.",
+      "createNew": "Create new form",
+      "tableClient": "Client",
+      "tableSlug": "Slug",
+      "tableStatus": "Status",
+      "tableDate": "Creation Date",
+      "tableActions": "Actions",
+      "statusPending": "Pending",
+      "statusSubmitted": "Completed",
+      "logout": "Log out"
+    },
+    "newForm": {
+      "title": "Create New Form",
+      "clientName": "Client Name",
+      "directedTo": "Directed to",
+      "slug": "Slug (URL)",
+      "slugHint": "Example: my-client",
+      "language": "Language",
+      "langEs": "Spanish",
+      "langEn": "English",
+      "submitButton": "Create and generate link",
+      "success": "Form created successfully",
+      "error": "Error creating form"
+    },
+    "formDetail": {
+      "title": "Form Details",
+      "submissionTitle": "Client Responses",
+      "noSubmission": "Responses have not been submitted yet.",
+      "generatePdf": "Generate PDF"
+    }
+  },
+  "discoveryForm": {
+    "intro": {
+      "eyebrow": "Brand Discovery",
+      "title": "Tell us about your brand.",
+      "description": "We want to deeply understand your project so we can create a visual identity that truly resonates with you and your audience.",
+      "duration": "~10 minutes · Can only be submitted once",
+      "cta": "Start"
+    },
+    "progress": "Step {current} of {total}",
+    "sections": {
+      "s1": {
+        "label": "01 — Essence",
+        "title": "Who are you?",
+        "desc": "The fundamental pillars of the brand.",
+        "questions": {
+          "q1": { "label": "What exactly do you do?", "hint": "Describe your product or service.", "placeholder": "Type here..." },
+          "q2": { "label": "Why do you do it?", "hint": "Your purpose or mission.", "placeholder": "Type here..." },
+          "q3": { "label": "If your brand were a person, what 3 adjectives would describe it?", "hint": "E.g.: Innovative, Rebellious, Elegant.", "placeholder": "Type here..." }
+        }
+      },
+      "s2": {
+        "label": "02 — Positioning",
+        "title": "Market and Audience",
+        "desc": "Where you fit in and who you talk to.",
+        "questions": {
+          "q1": { "label": "Who is your ideal client?", "hint": "Who are you trying to reach.", "placeholder": "Type here..." },
+          "q2": { "label": "What is your main differentiator?", "hint": "Why do they choose you?", "placeholder": "Type here..." },
+          "q3": { "label": "Rank these perceptions", "hint": "Order from most to least important how you want to be perceived based on quality or price.", "placeholder": "" },
+          "q4": { "label": "What is the gap in the market you are filling?", "hint": "That thing nobody else does.", "placeholder": "Type here..." }
+        }
+      },
+      "s3": {
+        "label": "03 — Visual",
+        "title": "Visual Direction",
+        "desc": "Design style and preferences.",
+        "questions": {
+          "q1": { "label": "Choose up to 3 visual references you like from the market.", "hint": "Other relevant brands.", "placeholder": "" },
+          "q2": { "label": "Select the main accent color.", "hint": "The color that resonates most with the brand.", "placeholder": "" },
+          "q3": { "label": "Select up to 3 visual styles.", "hint": "Pick the ones that best represent your vision.", "placeholder": "" },
+          "q4": { "label": "What current elements do you want to keep? (optional)", "hint": "A color, an isotype, etc.", "placeholder": "Type here..." },
+          "q5": { "label": "What do you NEVER want to see? (optional)", "hint": "Styles or ideas you hate.", "placeholder": "Type here..." }
+        }
+      },
+      "s4": {
+        "label": "04 — Voice",
+        "title": "Tone and Message",
+        "desc": "How the brand speaks and communicates.",
+        "questions": {
+          "q1": { "label": "Choose up to 3 voice attributes.", "hint": "Verbal personality.", "placeholder": "" },
+          "q2": { "label": "If you had a one-line tagline, what would it be?", "hint": "The phrase that summarizes everything.", "placeholder": "Type here..." },
+          "q3": { "label": "What tone do you want to avoid at all costs?", "hint": "E.g.: Formal, boring, childish.", "placeholder": "Type here..." }
+        }
+      },
+      "s5": {
+        "label": "05 — Vision",
+        "title": "The Future",
+        "desc": "Where are you heading.",
+        "questions": {
+          "q1": { "label": "How do you see the brand in 5 years?", "hint": "Long term goals.", "placeholder": "Type here..." }
+        }
+      }
+    },
+    "chips": {
+      "refs": ["Linear", "Vercel", "Stripe", "Palantir", "Apple", "Figma", "SpaceX", "Notion", "AWS", "IBM"],
+      "style": ["Extreme minimalism", "Technical and precise", "Bold and editorial", "Premium corporate", "Futuristic and dark", "Human and warm"],
+      "voice": ["Direct and blunt", "Technical but accessible", "Empathetic and human", "Challenger and provocative", "Authority and trust", "Educational", "Inspirational"],
+      "perception": ["Reliable and solid", "Innovative and cutting-edge", "Accessible and human", "Powerful and high-impact"]
+    },
+    "colors": [
+      { "hex": "#00E5B8", "name": "Teal" },
+      { "hex": "#0057FF", "name": "Electric Blue" },
+      { "hex": "#FF3D00", "name": "Fire Red" },
+      { "hex": "#EAFF00", "name": "Neon Yellow" },
+      { "hex": "#A855F7", "name": "Purple" },
+      { "hex": "#FF6B00", "name": "Orange" },
+      { "hex": "#00FF88", "name": "Matrix Green" },
+      { "hex": "#F5F5F0", "name": "Only B&W" }
+    ],
+    "states": {
+      "alreadySubmitted": {
+        "title": "Form Submitted",
+        "message": "This Brand Discovery form has already been completed and submitted."
+      },
+      "submitting": {
+        "title": "Submitting...",
+        "message": "Saving your responses securely."
+      },
+      "success": {
+        "title": "All Done!",
+        "message": "We have received your responses successfully. We'll be in touch soon."
+      },
+      "error": {
+        "title": "An error occurred",
+        "message": "We couldn't submit your responses. Please try again."
+      }
+    },
+    "submit": "Submit Discovery"
+  },
+  "pdf": {
+    "cover": {
+      "title": "Brand Discovery Results",
+      "preparedFor": "Prepared for",
+      "date": "Date"
+    },
+    "sections": {
+      "essence": "01 — Essence",
+      "positioning": "02 — Positioning",
+      "visual": "03 — Visual",
+      "voice": "04 — Voice",
+      "vision": "05 — Vision"
+    },
+    "footer": {
+      "page": "Page"
+    }
+  },
+  "common": {
+    "noctraStudio": "Noctra Studio",
+    "poweredBy": "Powered by Noctra Studio",
+    "confidential": "Confidential Document",
+    "back": "Back",
+    "next": "Next"
+  }
+}

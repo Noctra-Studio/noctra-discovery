@@ -1,0 +1,167 @@
+{
+  "admin": {
+    "login": {
+      "title": "Login",
+      "subtitle": "Ingresa para acceder a la administración",
+      "emailLabel": "Email",
+      "passwordLabel": "Contraseña",
+      "submitButton": "Ingresar",
+      "error": "Credenciales inválidas",
+      "errorMissing": "Completa todos los campos"
+    },
+    "dashboard": {
+      "title": "Dashboard de Formularios",
+      "subtitle": "Selecciona un formulario o crea uno nuevo.",
+      "createNew": "Crear nuevo formulario",
+      "tableClient": "Cliente",
+      "tableSlug": "Slug",
+      "tableStatus": "Estado",
+      "tableDate": "Fecha de creación",
+      "tableActions": "Acciones",
+      "statusPending": "Pendiente",
+      "statusSubmitted": "Completado",
+      "logout": "Cerrar sesión"
+    },
+    "newForm": {
+      "title": "Crear Nuevo Formulario",
+      "clientName": "Nombre del Cliente",
+      "directedTo": "Dirigido a",
+      "slug": "Slug (URL)",
+      "slugHint": "Ejemplo: mi-cliente",
+      "language": "Idioma",
+      "langEs": "Español",
+      "langEn": "Inglés",
+      "submitButton": "Crear y generar link",
+      "success": "Formulario creado con éxito",
+      "error": "Error al crear el formulario"
+    },
+    "formDetail": {
+      "title": "Detalle del Formulario",
+      "submissionTitle": "Respuestas del Cliente",
+      "noSubmission": "Aún no se han enviado las respuestas.",
+      "generatePdf": "Generar PDF"
+    }
+  },
+  "discoveryForm": {
+    "intro": {
+      "eyebrow": "Brand Discovery",
+      "title": "Cuéntanos tu marca.",
+      "description": "Queremos conocer a fondo tu proyecto para poder crear una identidad visual que realmente resuene contigo y con tu audiencia.",
+      "duration": "~10 minutos · Solo se puede enviar una vez",
+      "cta": "Comenzar"
+    },
+    "progress": "Paso {current} de {total}",
+    "sections": {
+      "s1": {
+        "label": "01 — Esencia",
+        "title": "¿Quiénes son?",
+        "desc": "Las bases fundamentales de la marca.",
+        "questions": {
+          "q1": { "label": "¿Qué hacen exactamente?", "hint": "Describe tu producto o servicio.", "placeholder": "Escribe aquí..." },
+          "q2": { "label": "¿Por qué lo hacen?", "hint": "Su propósito o misión.", "placeholder": "Escribe aquí..." },
+          "q3": { "label": "Si su marca fuera una persona, ¿qué 3 adjetivos la describirían?", "hint": "Ej: Innovadora, Rebelde, Elegante.", "placeholder": "Escribe aquí..." }
+        }
+      },
+      "s2": {
+        "label": "02 — Posicionamiento",
+        "title": "Mercado y Audiencia",
+        "desc": "¿Dónde encajan y a quién le hablan?",
+        "questions": {
+          "q1": { "label": "¿Quién es su cliente ideal?", "hint": "A quién intentan llegar.", "placeholder": "Escribe aquí..." },
+          "q2": { "label": "¿Cuál es su principal diferenciador?", "hint": "¿Por qué los eligen a ustedes?", "placeholder": "Escribe aquí..." },
+          "q3": { "label": "Rankea estas percepciones", "hint": "Ordena de más a menos importante cómo quieres que te perciban según tu nivel de calidad o precio.", "placeholder": "" },
+          "q4": { "label": "¿Cuál es el gap o hueco en el mercado que están llenando?", "hint": "Eso que nadie más hace.", "placeholder": "Escribe aquí..." }
+        }
+      },
+      "s3": {
+        "label": "03 — Visual",
+        "title": "Dirección Visual",
+        "desc": "Preferencias de diseño y estilo.",
+        "questions": {
+          "q1": { "label": "Elige hasta 3 referencias visuales del mercado que te gusten.", "hint": "Otras marcas relevantes.", "placeholder": "" },
+          "q2": { "label": "Selecciona el color de acento principal.", "hint": "El color que más resuena con la marca.", "placeholder": "" },
+          "q3": { "label": "Selecciona hasta 3 estilos visuales.", "hint": "Elige los que mejor representan tu visión.", "placeholder": "" },
+          "q4": { "label": "¿Qué elementos actuales quieren conservar? (opcional)", "hint": "Un color, un isotipo, etc.", "placeholder": "Escribe aquí..." },
+          "q5": { "label": "¿Qué NO quieren ver jamás? (opcional)", "hint": "Estilos o ideas que odian.", "placeholder": "Escribe aquí..." }
+        }
+      },
+      "s4": {
+        "label": "04 — Voz",
+        "title": "Tono y Mensaje",
+        "desc": "Cómo habla y se comunica la marca.",
+        "questions": {
+          "q1": { "label": "Elige hasta 3 atributos de voz.", "hint": "La personalidad verbal.", "placeholder": "" },
+          "q2": { "label": "Si tuvieran un eslogan de una línea, ¿cuál sería?", "hint": "La frase que resume todo.", "placeholder": "Escribe aquí..." },
+          "q3": { "label": "¿Qué tono quieren evitar a toda costa?", "hint": "Ej: Formal, aburrido, infantil.", "placeholder": "Escribe aquí..." }
+        }
+      },
+      "s5": {
+        "label": "05 — Visión",
+        "title": "El Futuro",
+        "desc": "Hacia dónde se dirigen.",
+        "questions": {
+          "q1": { "label": "¿Cómo ven la marca en 5 años?", "hint": "Metas a largo plazo.", "placeholder": "Escribe aquí..." }
+        }
+      }
+    },
+    "chips": {
+      "refs": ["Linear", "Vercel", "Stripe", "Palantir", "Apple", "Figma", "SpaceX", "Notion", "AWS", "IBM"],
+      "style": ["Minimalismo extremo", "Técnico y preciso", "Bold y editorial", "Corporativo premium", "Futurista y oscuro", "Humano y cálido"],
+      "voice": ["Directo y sin rodeos", "Técnico pero accesible", "Empático y humano", "Retador y provocador", "Autoridad y confianza", "Educativo", "Inspiracional"],
+      "perception": ["Confiable y sólida", "Innovadora y cutting-edge", "Accesible y humana", "Poderosa y de alto impacto"]
+    },
+    "colors": [
+      { "hex": "#00E5B8", "name": "Teal" },
+      { "hex": "#0057FF", "name": "Azul Eléctrico" },
+      { "hex": "#FF3D00", "name": "Rojo Fuego" },
+      { "hex": "#EAFF00", "name": "Amarillo Neón" },
+      { "hex": "#A855F7", "name": "Violeta" },
+      { "hex": "#FF6B00", "name": "Naranja" },
+      { "hex": "#00FF88", "name": "Verde Matrix" },
+      { "hex": "#F5F5F0", "name": "Solo B&W" }
+    ],
+    "states": {
+      "alreadySubmitted": {
+        "title": "Formulario Enviado",
+        "message": "Este formulario de Brand Discovery ya ha sido completado y enviado."
+      },
+      "submitting": {
+        "title": "Enviando...",
+        "message": "Guardando tus respuestas de forma segura."
+      },
+      "success": {
+        "title": "¡Todo Listo!",
+        "message": "Hemos recibido tus respuestas correctamente. Nos pondremos en contacto muy pronto."
+      },
+      "error": {
+        "title": "Ocurrió un error",
+        "message": "No pudimos enviar tus respuestas. Por favor, intenta de nuevo."
+      }
+    },
+    "submit": "Enviar Discovery"
+  },
+  "pdf": {
+    "cover": {
+      "title": "Resultados de Brand Discovery",
+      "preparedFor": "Preparado para",
+      "date": "Fecha"
+    },
+    "sections": {
+      "essence": "01 — Esencia",
+      "positioning": "02 — Posicionamiento",
+      "visual": "03 — Visual",
+      "voice": "04 — Voz",
+      "vision": "05 — Visión"
+    },
+    "footer": {
+      "page": "Página"
+    }
+  },
+  "common": {
+    "noctraStudio": "Noctra Studio",
+    "poweredBy": "Powered by Noctra Studio",
+    "confidential": "Documento Confidencial",
+    "back": "Volver",
+    "next": "Siguiente"
+  }
+}
