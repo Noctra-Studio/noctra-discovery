@@ -42,73 +42,178 @@
       "generatePdf": "Generar PDF"
     }
   },
+  "forms": {
+    "title": "Formularios",
+    "eyebrow": "Noctra Discovery · Formularios",
+    "subtitle": "{total} formularios · {completed} completados",
+    "newForm": "+ Nuevo formulario",
+    "search": "Buscar cliente o slug...",
+    "filterAll": "Todos",
+    "filterPending": "Pendientes",
+    "filterCompleted": "Completados",
+    "filterService": "Todos los servicios",
+    "sortNewest": "Más recientes",
+    "sortOldest": "Más antiguos",
+    "sortAZ": "A–Z cliente",
+    "sortCompleted": "Completados primero",
+    "colClient": "Cliente",
+    "colServices": "Servicios",
+    "colLanguage": "Idioma",
+    "colStatus": "Estado",
+    "colCreated": "Creado",
+    "colActions": "Acciones",
+    "statusCompleted": "Completado",
+    "statusPending": "Pendiente",
+    "statusExpired": "Expirado",
+    "copyUrl": "Copiar URL",
+    "urlCopied": "URL copiada",
+    "viewDetail": "Ver detalle",
+    "delete": "Eliminar",
+    "emptyTitle": "Sin formularios",
+    "emptyDesc": "Crea el primero para comenzar.",
+    "emptyFilter": "Sin resultados para este filtro.",
+    "clearFilters": "Limpiar filtros",
+    "showing": "Mostrando {from}–{to} de {total}",
+    "deleteModal": {
+      "title": "¿Eliminar formulario?",
+      "desc": "Esto eliminará permanentemente el formulario de {clientName} y todas sus respuestas. Esta acción no se puede deshacer.",
+      "cancel": "Cancelar",
+      "confirm": "Eliminar"
+    }
+  },
   "discoveryForm": {
     "intro": {
-      "eyebrow": "Brand Discovery",
-      "title": "Cuéntanos tu marca.",
-      "description": "Queremos conocer a fondo tu proyecto para poder crear una identidad visual que realmente resuene contigo y con tu audiencia.",
-      "duration": "~10 minutos · Solo se puede enviar una vez",
+      "eyebrow": "Discovery",
+      "title": "Cuéntanos tu proyecto.",
+      "title_hola": "Hola {directedTo},",
+      "title_cta": "cuéntanos tu marca.",
+      "description": "Queremos conocer a fondo tu empresa para poder crear una solución que realmente resuene contigo y con tu audiencia.",
+      "duration": "~{minutes} minutos · Solo se puede enviar una vez",
       "cta": "Comenzar"
     },
     "progress": "Paso {current} de {total}",
     "sections": {
-      "s1": {
-        "label": "01 — Esencia",
-        "title": "¿Quiénes son?",
-        "desc": "Las bases fundamentales de la marca.",
+      "common": {
+        "eyebrow": "00 — Tu empresa",
+        "title": "Cuéntanos quiénes son.",
+        "desc": "La base de todo. Sin filtros, sin pitch.",
         "questions": {
-          "q1": { "label": "¿Qué hacen exactamente?", "hint": "Describe tu producto o servicio.", "placeholder": "Escribe aquí..." },
-          "q2": { "label": "¿Por qué lo hacen?", "hint": "Su propósito o misión.", "placeholder": "Escribe aquí..." },
-          "q3": { "label": "Si su marca fuera una persona, ¿qué 3 adjetivos la describirían?", "hint": "Ej: Innovadora, Rebelde, Elegante.", "placeholder": "Escribe aquí..." }
+          "q_company_one_liner": { "label": "¿Qué hace {clientName} en una oración?", "hint": "Describe tu producto o servicio de forma simple.", "placeholder": "Escribe aquí..." },
+          "q_company_why": { "label": "¿Por qué existe {clientName}? ¿Cuál fue el origen?", "hint": "Describe tu propósito o misión.", "placeholder": "Escribe aquí..." },
+          "q_company_adjectives": { "label": "Si {clientName} fuera una persona, ¿qué 3 adjetivos la describirían?", "hint": "Ej: Innovadora, Rebelde, Elegante.", "placeholder": "Escribe aquí..." },
+          "q_ideal_client": { "label": "¿Cuál es el cliente ideal?", "hint": "Industria, tamaño, rol, dolor.", "placeholder": "Escribe aquí..." },
+          "q_differentiator": { "label": "¿Cuál es el diferenciador real?", "hint": "No \"calidad y precio\".", "placeholder": "Escribe aquí..." }
         }
       },
-      "s2": {
-        "label": "02 — Posicionamiento",
-        "title": "Mercado y Audiencia",
-        "desc": "¿Dónde encajan y a quién le hablan?",
+      "branding": {
+        "eyebrow": "— Branding & Identidad Visual",
+        "title": "La personalidad de la marca.",
+        "desc": "Definamos cómo se ve, suena y siente {clientName}.",
         "questions": {
-          "q1": { "label": "¿Quién es su cliente ideal?", "hint": "A quién intentan llegar.", "placeholder": "Escribe aquí..." },
-          "q2": { "label": "¿Cuál es su principal diferenciador?", "hint": "¿Por qué los eligen a ustedes?", "placeholder": "Escribe aquí..." },
-          "q3": { "label": "Rankea estas percepciones", "hint": "Ordena de más a menos importante cómo quieres que te perciban según tu nivel de calidad o precio.", "placeholder": "" },
-          "q4": { "label": "¿Cuál es el gap o hueco en el mercado que están llenando?", "hint": "Eso que nadie más hace.", "placeholder": "Escribe aquí..." }
+          "q_perception_rank": { "label": "¿Cómo quieres que perciban a {clientName}?", "hint": "Ordena de más a menos importante.", "placeholder": "" },
+          "q_visual_refs": { "label": "¿Qué marcas admiras visualmente?", "hint": "Elige hasta 3 referencias.", "placeholder": "" },
+          "q_accent_color": { "label": "¿Qué color de acento representa mejor a {clientName}?", "hint": "El color principal de la marca.", "placeholder": "" },
+          "q_visual_style": { "label": "¿Estilo visual general?", "hint": "Elige hasta 3 estilos.", "placeholder": "" },
+          "q_keep_elements": { "label": "¿Hay elementos de la marca actual que quieras conservar?", "hint": "Un color, un isotipo, etc.", "placeholder": "Escribe aquí..." },
+          "q_voice_attrs": { "label": "¿Cómo comunica {clientName}?", "hint": "La personalidad verbal.", "placeholder": "" },
+          "q_tagline": { "label": "¿Cuál sería el tagline ideal?", "hint": "La frase que resume todo.", "placeholder": "Escribe aquí..." },
+          "q_tone_avoid": { "label": "¿Qué tono debe evitar siempre?", "hint": "Ej: Formal, aburrido, infantil.", "placeholder": "Escribe aquí..." },
+          "q_never": { "label": "¿Qué NO quieres que {clientName} sea jamás?", "hint": "Estilos o ideas que odian.", "placeholder": "Escribe aquí..." }
         }
       },
-      "s3": {
-        "label": "03 — Visual",
-        "title": "Dirección Visual",
-        "desc": "Preferencias de diseño y estilo.",
+      "web": {
+        "eyebrow": "— Diseño Web",
+        "title": "El sitio que {clientName} necesita.",
+        "desc": "Estructura, contenido y funcionalidades del proyecto.",
         "questions": {
-          "q1": { "label": "Elige hasta 3 referencias visuales del mercado que te gusten.", "hint": "Otras marcas relevantes.", "placeholder": "" },
-          "q2": { "label": "Selecciona el color de acento principal.", "hint": "El color que más resuena con la marca.", "placeholder": "" },
-          "q3": { "label": "Selecciona hasta 3 estilos visuales.", "hint": "Elige los que mejor representan tu visión.", "placeholder": "" },
-          "q4": { "label": "¿Qué elementos actuales quieren conservar? (opcional)", "hint": "Un color, un isotipo, etc.", "placeholder": "Escribe aquí..." },
-          "q5": { "label": "¿Qué NO quieren ver jamás? (opcional)", "hint": "Estilos o ideas que odian.", "placeholder": "Escribe aquí..." }
+          "web_type": { "label": "¿Qué tipo de sitio necesitas?", "hint": "Propósito principal del sitio.", "placeholder": "" },
+          "web_pages": { "label": "¿Qué páginas/secciones debe incluir?", "hint": "Selecciona todas las que apliquen.", "placeholder": "" },
+          "web_references": { "label": "¿Sitios web que admiras o te inspiran?", "hint": "URLs o nombres.", "placeholder": "Escribe aquí..." },
+          "web_has_content": { "label": "¿Ya tienes textos, imágenes y copywriting listos?", "hint": "Contenido para el sitio.", "placeholder": "" },
+          "web_features": { "label": "¿Qué funcionalidades necesita el sitio?", "hint": "Características técnicas.", "placeholder": "" },
+          "web_integrations": { "label": "¿Integraciones requeridas?", "hint": "Herramientas de terceros.", "placeholder": "" },
+          "web_deadline": { "label": "¿Tienes una fecha límite para el lanzamiento?", "hint": "Fecha o periodo estimado.", "placeholder": "Escribe aquí..." },
+          "web_goal": { "label": "¿Cuál es el objetivo principal del sitio?", "hint": "Conversión, información, etc.", "placeholder": "Escribe aquí..." }
         }
       },
-      "s4": {
-        "label": "04 — Voz",
-        "title": "Tono y Mensaje",
-        "desc": "Cómo habla y se comunica la marca.",
+      "seo": {
+        "eyebrow": "— SEO",
+        "title": "Visibilidad orgánica.",
+        "desc": "Definamos la estrategia para que {clientName} aparezca donde importa.",
         "questions": {
-          "q1": { "label": "Elige hasta 3 atributos de voz.", "hint": "La personalidad verbal.", "placeholder": "" },
-          "q2": { "label": "Si tuvieran un eslogan de una línea, ¿cuál sería?", "hint": "La frase que resume todo.", "placeholder": "Escribe aquí..." },
-          "q3": { "label": "¿Qué tono quieren evitar a toda costa?", "hint": "Ej: Formal, aburrido, infantil.", "placeholder": "Escribe aquí..." }
+          "seo_current_site": { "label": "¿Tienes sitio web activo?", "hint": "URL actual si existe.", "placeholder": "Escribe aquí..." },
+          "seo_target_keywords": { "label": "¿Qué términos o frases usaría tu cliente ideal para encontrarte en Google?", "hint": "Términos de búsqueda.", "placeholder": "Escribe aquí..." },
+          "seo_competitors": { "label": "¿Cuáles son tus 2-3 principales competidores?", "hint": "URLs o nombres.", "placeholder": "Escribe aquí..." },
+          "seo_geo": { "label": "¿A qué mercado geográfico quieres llegar?", "hint": "Alcance del SEO.", "placeholder": "" },
+          "seo_content_capacity": { "label": "¿Puedes generar contenido regularmente?", "hint": "Artículos, guías, etc.", "placeholder": "" },
+          "seo_current_traffic": { "label": "¿Sabes cuánto tráfico orgánico recibes actualmente?", "hint": "Estimado mensual opcional.", "placeholder": "" },
+          "seo_goal": { "label": "¿Cuál es el objetivo principal del SEO?", "hint": "Tráfico, leads, autoridad.", "placeholder": "Escribe aquí..." }
         }
       },
-      "s5": {
-        "label": "05 — Visión",
-        "title": "El Futuro",
-        "desc": "Hacia dónde se dirigen.",
+      "ai-automations": {
+        "eyebrow": "— AI Automations",
+        "title": "Automatiza lo que te frena.",
+        "desc": "Identifiquemos qué procesos de {clientName} pueden operar solos.",
         "questions": {
-          "q1": { "label": "¿Cómo ven la marca en 5 años?", "hint": "Metas a largo plazo.", "placeholder": "Escribe aquí..." }
+          "ai_current_tools": { "label": "¿Qué herramientas usa actualmente el equipo?", "hint": "CRM, email, ops, etc.", "placeholder": "Escribe aquí..." },
+          "ai_pain_points": { "label": "¿Qué tareas repetitivas consumen más tiempo de tu equipo hoy?", "hint": "Puntos de fricción.", "placeholder": "Escribe aquí..." },
+          "ai_processes": { "label": "¿Qué procesos te interesa automatizar?", "hint": "Selecciona las áreas clave.", "placeholder": "" },
+          "ai_data_sources": { "label": "¿Dónde vive la información de tu negocio hoy?", "hint": "Fuentes de datos.", "placeholder": "" },
+          "ai_team_size": { "label": "¿Cuántas personas hay en el equipo que usaría las automatizaciones?", "hint": "Tamaño del equipo.", "placeholder": "" },
+          "ai_tech_level": { "label": "¿Cómo describirías el nivel técnico del equipo?", "hint": "Habilidades técnicas.", "placeholder": "" },
+          "ai_budget_range": { "label": "¿Cuál es el presupuesto mensual estimado?", "hint": "Para herramientas y automatización.", "placeholder": "" },
+          "ai_timeline": { "label": "¿En cuánto tiempo necesitas ver resultados?", "hint": "Urgencia del proyecto.", "placeholder": "" }
+        }
+      },
+      "crm": {
+        "eyebrow": "— Noctra CRM / Forge",
+        "title": "Tu operación comercial.",
+        "desc": "Entendamos cómo gestiona {clientName} sus clientes y ventas hoy.",
+        "questions": {
+          "crm_current_crm": { "label": "¿Qué usan actualmente para gestionar clientes y ventas?", "hint": "Herramienta actual.", "placeholder": "" },
+          "crm_pain_points": { "label": "¿Qué problema tiene tu CRM o proceso actual?", "hint": "Fallas actuales.", "placeholder": "Escribe aquí..." },
+          "crm_team_size": { "label": "¿Cuántas personas usarían el CRM?", "hint": "Usuarios del sistema.", "placeholder": "" },
+          "crm_pipeline": { "label": "¿Cómo es tu proceso de ventas hoy?", "hint": "Describe las etapas.", "placeholder": "Escribe aquí..." },
+          "crm_avg_deals": { "label": "¿Cuántos deals/leads manejan por mes aproximadamente?", "hint": "Volumen de ventas.", "placeholder": "" },
+          "crm_integrations": { "label": "¿Con qué herramientas necesita integrarse el CRM?", "hint": "Ecosistema digital.", "placeholder": "" },
+          "crm_ai_features": { "label": "¿Qué funciones de IA te interesan en el CRM?", "hint": "Funciones inteligentes.", "placeholder": "" },
+          "crm_main_goal": { "label": "¿Cuál es el objetivo #1 de implementar Forge?", "hint": "Meta principal.", "placeholder": "Escribe aquí..." }
         }
       }
     },
     "chips": {
-      "refs": ["Linear", "Vercel", "Stripe", "Palantir", "Apple", "Figma", "SpaceX", "Notion", "AWS", "IBM"],
-      "style": ["Minimalismo extremo", "Técnico y preciso", "Bold y editorial", "Corporativo premium", "Futurista y oscuro", "Humano y cálido"],
-      "voice": ["Directo y sin rodeos", "Técnico pero accesible", "Empático y humano", "Retador y provocador", "Autoridad y confianza", "Educativo", "Inspiracional"],
-      "perception": ["Confiable y sólida", "Innovadora y cutting-edge", "Accesible y humana", "Poderosa y de alto impacto"]
+      "branding": {
+        "refs": ["Linear", "Vercel", "Stripe", "Palantir", "Apple", "Figma", "SpaceX", "Notion", "AWS", "IBM"],
+        "style": ["Minimalismo extremo", "Técnico y preciso", "Bold y editorial", "Corporativo premium", "Futurista y oscuro", "Humano y cálido"],
+        "voice": ["Directo y sin rodeos", "Técnico pero accesible", "Empático y humano", "Retador y provocador", "Autoridad y confianza", "Educativo", "Inspiracional"],
+        "perception": ["Confiable y sólida", "Innovadora y cutting-edge", "Accesible y humana", "Poderosa y de alto impacto"]
+      },
+      "web": {
+        "type": ["Landing page", "Sitio corporativo", "Blog", "E-commerce", "Portafolio", "Web app"],
+        "pages": ["Home", "Sobre nosotros", "Servicios", "Portafolio/Casos", "Blog", "Contacto", "Precios", "FAQ", "Política de privacidad"],
+        "features": ["Formulario de contacto", "Chat en vivo", "Booking/Agenda", "Pagos en línea", "Multilenguaje", "Dashboard/Login", "Blog con CMS", "Newsletter", "Analytics avanzado"],
+        "integrations": ["Google Analytics", "HubSpot", "Mailchimp", "Stripe", "Calendly", "WhatsApp", "Supabase", "Zapier", "Meta Pixel"]
+      },
+      "seo": {
+        "geo": ["Solo México", "LATAM", "España", "USA (español)", "Global", "Otro"],
+        "content": ["Sí, semanalmente", "Sí, mensualmente", "No tenemos capacidad interna", "Necesitamos que Noctra lo gestione"],
+        "traffic": ["No lo sé", "Menos de 500/mes", "500–5,000/mes", "5,000–20,000/mes", "Más de 20,000/mes"]
+      },
+      "ai": {
+        "processes": ["Lead nurturing", "Atención al cliente / chatbot", "Generación de reportes", "Onboarding de clientes", "Facturación / pagos", "Seguimiento de ventas", "Gestión de contenido", "Recruiting", "Soporte interno"],
+        "data": ["Google Sheets", "Notion", "Airtable", "HubSpot", "Salesforce", "Email (Gmail/Outlook)", "WhatsApp", "Base de datos propia", "Archivos PDF/Excel"],
+        "team": ["Solo yo", "2–5 personas", "6–20 personas", "21–50 personas", "Más de 50"],
+        "tech": ["Básico (no técnico)", "Intermedio (usamos herramientas SaaS)", "Avanzado (tenemos devs)", "Muy avanzado (equipo de ingeniería)"],
+        "budget": ["Menos de $500 USD/mes", "$500–$2,000 USD/mes", "$2,000–$5,000 USD/mes", "Más de $5,000 USD/mes", "Por definir"],
+        "timeline": ["Lo antes posible (1–2 semanas)", "1–3 meses", "3–6 meses", "Estamos explorando, sin urgencia"]
+      },
+      "crm": {
+        "current": ["Excel / Google Sheets", "HubSpot", "Salesforce", "Pipedrive", "Notion", "No tenemos CRM", "Otro"],
+        "team": ["Solo yo", "2–5 personas", "6–15 personas", "16–50 personas", "Más de 50"],
+        "deals": ["Menos de 10/mes", "10–50/mes", "50–200/mes", "Más de 200/mes"],
+        "integrations": ["Gmail / Google Workspace", "Outlook / Microsoft 365", "WhatsApp", "Slack", "Stripe / pagos", "Calendly / agenda", "Zapier / Make", "API propia", "Facturación (SAT/CFDI)"],
+        "ai": ["Scoring automático de leads", "Redacción de emails con IA", "Resumen de conversaciones", "Predicción de cierre", "Chatbot de ventas", "Reportes automáticos", "Seguimiento inteligente"]
+      }
     },
     "colors": [
       { "hex": "#00E5B8", "name": "Teal" },
@@ -139,6 +244,56 @@
       }
     },
     "submit": "Enviar Discovery"
+  },
+  "auth": {
+    "forgotPassword": {
+      "eyebrow": "Recuperar acceso",
+      "title": "¿Olvidaste tu contraseña?",
+      "description": "Ingresa tu correo y te enviaremos un link para restablecer tu contraseña.",
+      "emailLabel": "Correo electrónico",
+      "submitBtn": "Enviar instrucciones →",
+      "backToLogin": "← Volver al login",
+      "sent": {
+        "title": "Revisa tu correo.",
+        "description": "Si {email} tiene una cuenta activa, recibirás el link en los próximos minutos. Revisa tu carpeta de spam.",
+        "resendBtn": "Reenviar instrucciones",
+        "resendCountdown": "Reenviar en {seconds}s"
+      }
+    },
+    "resetPassword": {
+      "eyebrow": "Restablecer contraseña",
+      "title": "Nueva contraseña.",
+      "description": "Elige una contraseña segura. No podrás reutilizar la contraseña anterior.",
+      "newPasswordLabel": "Nueva contraseña",
+      "confirmPasswordLabel": "Confirmar contraseña",
+      "submitBtn": "Actualizar contraseña →",
+      "updating": "Actualizando...",
+      "mismatch": "Las contraseñas no coinciden",
+      "expired": {
+        "title": "Link expirado.",
+        "description": "Este link ya no es válido. Los links expiran después de 1 hora.",
+        "requestNew": "Solicitar nuevo link →"
+      },
+      "requirements": {
+        "length": "Mínimo 12 caracteres",
+        "uppercase": "Una letra mayúscula",
+        "lowercase": "Una letra minúscula",
+        "number": "Un número",
+        "special": "Un carácter especial (!@#$...)",
+        "noSpaces": "Sin espacios"
+      },
+      "strength": {
+        "weak": "Débil",
+        "fair": "Regular",
+        "good": "Buena",
+        "strong": "Fuerte",
+        "veryStrong": "Muy fuerte"
+      }
+    },
+    "login": {
+      "forgotPasswordLink": "¿Olvidaste tu contraseña?",
+      "resetSuccess": "Contraseña actualizada correctamente."
+    }
   },
   "pdf": {
     "cover": {

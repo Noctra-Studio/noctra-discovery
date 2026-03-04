@@ -10,6 +10,7 @@ const formSchema = z.object({
   directedTo: z.string().min(1, "El destinatario es requerido"),
   language: z.enum(["es", "en"]),
   expiresAt: z.string().optional(),
+  services: z.array(z.string()).min(1, "Selecciona al menos un servicio"),
 });
 
 export async function checkSlugAvailability(slug: string) {
@@ -38,6 +39,7 @@ export async function createDiscoveryFormAction(formData: FormData) {
       directedTo: formData.get("directedTo") as string,
       language: formData.get("language") as string,
       expiresAt: formData.get("expiresAt") as string | undefined,
+      services: JSON.parse(formData.get("services") as string || "[]"),
     };
 
     const validatedData = formSchema.parse(rawData);
@@ -57,11 +59,11 @@ export async function createDiscoveryFormAction(formData: FormData) {
       }
 
       const ext = logoFile.name.split('.').pop();
-      const fileName = `${validatedData.slug}-${Date.now()}.${ext}`;
+      const filePath = `logos/${validatedData.slug}-${Date.now()}.${ext}`;
 
       const { data: uploadData, error: uploadError } = await supabase.storage
-        .from("logos")
-        .upload(fileName, logoFile, {
+        .from("discovery")
+        .upload(filePath, logoFile, {
           cacheControl: "3600",
           upsert: false,
         });
@@ -72,8 +74,8 @@ export async function createDiscoveryFormAction(formData: FormData) {
 
       // Get public URL
       const { data: publicUrlData } = supabase.storage
-        .from("logos")
-        .getPublicUrl(fileName);
+        .from("discovery")
+        .getPublicUrl(filePath);
         
       logoUrl = publicUrlData.publicUrl;
     }
@@ -90,6 +92,7 @@ export async function createDiscoveryFormAction(formData: FormData) {
         language: validatedData.language,
         status: "pending",
         expires_at: validatedData.expiresAt ? new Date(validatedData.expiresAt).toISOString() : null,
+        services: validatedData.services as any,
       })
       .select()
       .single();

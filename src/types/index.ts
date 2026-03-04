@@ -6,6 +6,16 @@ export type Json =
   | { [key: string]: Json | undefined }
   | Json[]
 
+export type ServiceId = 'branding' | 'web' | 'seo' | 'ai-automations' | 'crm'
+
+export const SERVICE_LABELS: Record<ServiceId, string> = {
+  branding: 'Branding & Identidad Visual',
+  web: 'Diseño Web / Landing Pages',
+  seo: 'SEO',
+  'ai-automations': 'AI Automations',
+  crm: 'Noctra CRM / Forge',
+}
+
 export interface Database {
   public: {
     Tables: {
@@ -54,6 +64,7 @@ export interface Database {
           form_url: string | null
           created_at: string
           expires_at: string | null
+          services: ServiceId[]
         }
         Insert: {
           id?: string
@@ -67,6 +78,7 @@ export interface Database {
           form_url?: never
           created_at?: string
           expires_at?: string | null
+          services?: ServiceId[]
         }
         Update: {
           id?: string
@@ -80,6 +92,7 @@ export interface Database {
           form_url?: never
           created_at?: string
           expires_at?: string | null
+          services?: ServiceId[]
         }
         Relationships: [
           {
@@ -116,6 +129,31 @@ export interface Database {
           q_never: string | null
           pdf_url: string | null
           email_sent_at: string | null
+          // Web
+          web_pages: Json | null
+          web_references: string[] | null
+          web_features: Json | null
+          web_has_content: boolean | null
+          web_integrations: string[] | null
+          web_deadline: string | null
+          // SEO
+          seo_current_site: string | null
+          seo_target_keywords: string | null
+          seo_competitors: string | null
+          seo_content_capacity: string | null
+          seo_goal: string | null
+          // AI Automations
+          ai_current_tools: string | null
+          ai_pain_points: string | null
+          ai_processes: string[] | null
+          ai_team_size: string | null
+          ai_budget_range: string | null
+          // CRM
+          crm_current_crm: string | null
+          crm_team_size: string | null
+          crm_pipeline: string | null
+          crm_integrations: string[] | null
+          crm_main_goal: string | null
         }
         Insert: {
           id?: string

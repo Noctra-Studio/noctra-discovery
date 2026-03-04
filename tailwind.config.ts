@@ -12,7 +12,12 @@ const config: Config = {
       colors: {
         black: "#080808",
         white: "#F5F5F0",
-        accent: "var(--accent, #3b82f6)",
+        gray: {
+          1: "#141414",
+          2: "#222222",
+          3: "#555555",
+        },
+        accent: "#00E5A0",
       },
       fontFamily: {
         display: ["var(--font-bebas-neue)", "sans-serif"],

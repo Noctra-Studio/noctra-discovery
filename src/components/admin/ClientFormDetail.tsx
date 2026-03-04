@@ -1,0 +1,273 @@
+"use client";
+
+import { useState } from "react";
+import {
+  ArrowLeft,
+  Copy,
+  Check,
+  ExternalLink,
+  Download,
+  Calendar,
+  User,
+  Clock,
+  Sparkles,
+  Link as LinkIcon,
+} from "lucide-react";
+import Link from "next/link";
+import { format } from "date-fns";
+import { es, enUS } from "date-fns/locale";
+import { QRCodeSVG } from "qrcode.react";
+
+export default function ClientFormDetail({
+  form,
+  submission,
+  locale,
+}: {
+  form: any;
+  submission: any;
+  locale: string;
+}) {
+  const [copied, setCopied] = useState(false);
+  const dateLocale = locale === "es" ? es : enUS;
+
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(form.form_url);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch (err) {}
+  };
+
+  const isCompleted = form.status === "completed";
+
+  return (
+    <div className="max-w-5xl mx-auto p-4 lg:p-10 space-y-10">
+      {/* Header */}
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+        <div className="space-y-2">
+          <Link
+            href={`/${locale}/admin`}
+            className="flex items-center gap-2 text-[#555] hover:text-white transition-colors font-mono text-[10px] uppercase tracking-widest mb-4">
+            <ArrowLeft size={14} /> Volver al dashboard
+          </Link>
+          <div className="flex items-center gap-4">
+            <h1 className="text-4xl font-display uppercase tracking-tight">
+              {form.client_name}
+            </h1>
+            <span
+              className={`inline-flex items-center px-2.5 py-1 text-[9px] font-mono font-bold uppercase tracking-[0.15em] ${
+                isCompleted
+                  ? "bg-[#00E5A0]/10 text-[#00E5A0] border border-[#00E5A0]/20"
+                  : "bg-[#555]/10 text-[#555] border border-[#222]"
+              }`}>
+              {isCompleted ? "Completado" : "Pendiente"}
+            </span>
+          </div>
+        </div>
+
+        {isCompleted && (
+          <button className="bg-white text-black px-8 py-4 font-semibold tracking-[0.08em] uppercase text-sm hover:bg-[#00E5A0] transition-colors flex items-center gap-3">
+            <Download size={18} /> Descargar PDF
+          </button>
+        )}
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        {/* Main Content Area */}
+        <div className="lg:col-span-2 space-y-8">
+          {!isCompleted ? (
+            /* PENDING STATE */
+            <div className="bg-[#141414] border border-[#222] p-8 lg:p-12 space-y-10">
+              <div className="space-y-4">
+                <h2 className="font-display text-2xl uppercase tracking-tight">
+                  Formulario listo para enviar
+                </h2>
+                <p className="font-body text-[#555] text-sm leading-relaxed max-w-md">
+                  Comparte el link o el código QR con el cliente para que
+                  comience su discovery.
+                </p>
+              </div>
+
+              <div className="flex flex-col sm:flex-row gap-8 items-center bg-[#080808] border border-[#222] p-8">
+                <div className="bg-white p-4">
+                  <QRCodeSVG value={form.form_url} size={160} level="H" />
+                </div>
+                <div className="flex-1 space-y-6 w-full text-center sm:text-left">
+                  <div className="space-y-2">
+                    <span className="font-mono text-[9px] text-[#333] uppercase tracking-[0.3em]">
+                      Link de acceso
+                    </span>
+                    <div className="flex items-center gap-3 bg-[#111] border border-[#222] p-3 group">
+                      <span className="font-mono text-xs text-[#888] truncate flex-1">
+                        {form.form_url}
+                      </span>
+                      <button
+                        onClick={handleCopy}
+                        className="text-[#555] hover:text-[#00E5A0] transition-colors">
+                        {copied ? <Check size={16} /> : <Copy size={16} />}
+                      </button>
+                    </div>
+                  </div>
+                  <a
+                    href={form.form_url}
+                    target="_blank"
+                    className="inline-flex items-center gap-2 text-white font-mono text-[10px] uppercase tracking-widest hover:text-[#00E5A0] transition-colors">
+                    Probar link <ExternalLink size={12} />
+                  </a>
+                </div>
+              </div>
+            </div>
+          ) : (
+            /* COMPLETED STATE - Submissions */
+            <div className="space-y-6">
+              <h2 className="font-display text-2xl uppercase tracking-tight">
+                Respuestas del cliente
+              </h2>
+              <div className="space-y-4">
+                {submission?.responses &&
+                  Object.entries(submission.responses).map(
+                    ([section, answers]: [string, any], idx) => (
+                      <div
+                        key={idx}
+                        className="bg-[#141414] border border-[#222] overflow-hidden">
+                        <div className="bg-[#080808] px-6 py-4 border-b border-[#222]">
+                          <h3 className="font-mono text-[10px] text-[#555] uppercase tracking-[0.3em]">
+                            {section}
+                          </h3>
+                        </div>
+                        <div className="p-6 space-y-8">
+                          {Object.entries(answers).map(
+                            ([q, a]: [string, any], qIdx) => (
+                              <div key={qIdx} className="space-y-3">
+                                <p className="font-body text-[#555] text-xs uppercase tracking-wider">
+                                  {q}
+                                </p>
+                                <div className="bg-[#0A0A0A] border border-[#222] p-4 font-body text-sm text-[#F5F5F0] leading-relaxed">
+                                  {typeof a === "string"
+                                    ? a
+                                    : JSON.stringify(a)}
+                                </div>
+                              </div>
+                            ),
+                          )}
+                        </div>
+                      </div>
+                    ),
+                  )}
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* Sidebar Info */}
+        <div className="space-y-6">
+          <div className="bg-[#141414] border border-[#222] p-6 space-y-8">
+            <h3 className="font-mono text-[10px] text-[#333] uppercase tracking-[0.3em]">
+              Detalles del proyecto
+            </h3>
+
+            <div className="space-y-6">
+              <div className="flex gap-4">
+                <div className="w-10 h-10 border border-[#222] bg-[#080808] flex items-center justify-center text-[#555]">
+                  <User size={18} />
+                </div>
+                <div>
+                  <span className="block font-mono text-[9px] text-[#333] uppercase tracking-widest mb-1">
+                    Dirigido a
+                  </span>
+                  <p className="font-body text-sm text-white">
+                    {form.directed_to}
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex gap-4">
+                <div className="w-10 h-10 border border-[#222] bg-[#080808] flex items-center justify-center text-[#555]">
+                  <LinkIcon size={18} />
+                </div>
+                <div>
+                  <span className="block font-mono text-[9px] text-[#333] uppercase tracking-widest mb-1">
+                    Slug único
+                  </span>
+                  <p className="font-mono text-xs text-[#888]">
+                    /f/{form.slug}
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex gap-4">
+                <div className="w-10 h-10 border border-[#222] bg-[#080808] flex items-center justify-center text-[#555]">
+                  <Calendar size={18} />
+                </div>
+                <div>
+                  <span className="block font-mono text-[9px] text-[#333] uppercase tracking-widest mb-1">
+                    Expiración
+                  </span>
+                  <p className="font-body text-sm text-white">
+                    {form.expires_at
+                      ? format(new Date(form.expires_at), "dd MMM, yyyy", {
+                          locale: dateLocale,
+                        })
+                      : "Sin fecha de expiración"}
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex gap-4">
+                <div className="w-10 h-10 border border-[#222] bg-[#080808] flex items-center justify-center text-[#555]">
+                  <Sparkles size={18} />
+                </div>
+                <div>
+                  <span className="block font-mono text-[9px] text-[#333] uppercase tracking-widest mb-1">
+                    Creado
+                  </span>
+                  <p className="font-body text-sm text-white">
+                    {format(new Date(form.created_at), "dd MMM, yyyy", {
+                      locale: dateLocale,
+                    })}
+                  </p>
+                </div>
+              </div>
+
+              {isCompleted && submission?.submitted_at && (
+                <div className="flex gap-4">
+                  <div className="w-10 h-10 border border-[#222] bg-[#080808] flex items-center justify-center text-[#00E5A0]">
+                    <Clock size={18} />
+                  </div>
+                  <div>
+                    <span className="block font-mono text-[9px] text-[#00E5A0] uppercase tracking-widest mb-1">
+                      Completado
+                    </span>
+                    <p className="font-body text-sm text-[#00E5A0]">
+                      {format(
+                        new Date(submission.submitted_at),
+                        "dd MMM, yyyy · HH:mm",
+                        { locale: dateLocale },
+                      )}
+                    </p>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+
+          <div className="p-6 border border-[#222] bg-[#141414] text-center space-y-4">
+            <p className="font-mono text-[9px] text-[#333] uppercase tracking-widest">
+              Estado del link
+            </p>
+            <div className="flex justify-center gap-2">
+              <div
+                className={`w-2 h-2 ${isCompleted ? "bg-[#555]" : "bg-[#00E5A0] pulse"}`}
+              />
+              <span className="font-mono text-[10px] text-white">
+                {isCompleted
+                  ? "DESACTIVADO (COMPLETADO)"
+                  : "ACTIVO · ESPERANDO RESPUESTAS"}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}

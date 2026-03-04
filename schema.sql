@@ -20,6 +20,7 @@ CREATE TABLE discovery_forms (
   form_url TEXT GENERATED ALWAYS AS (
     'https://discovery.noctra.studio/f/' || slug
   ) STORED,
+  services TEXT[] NOT NULL DEFAULT '{"branding"}',
   created_at TIMESTAMPTZ DEFAULT NOW(),
   expires_at TIMESTAMPTZ
 );
@@ -114,20 +115,20 @@ CREATE TRIGGER on_auth_user_created
   AFTER INSERT ON auth.users
   FOR EACH ROW EXECUTE PROCEDURE public.handle_new_user();
 
--- STORAGE BUCKET: discovery-assets
-INSERT INTO storage.buckets (id, name, public) VALUES ('discovery-assets', 'discovery-assets', true);
+-- STORAGE BUCKET: discovery
+INSERT INTO storage.buckets (id, name, public) VALUES ('discovery', 'discovery', true);
 
 -- Storage Policies
 
 -- Logos: public read, authenticated write
 CREATE POLICY "Public read for logos" ON storage.objects
-  FOR SELECT USING (bucket_id = 'discovery-assets' AND (storage.foldername(name))[1] = 'logos');
+  FOR SELECT USING (bucket_id = 'discovery' AND (storage.foldername(name))[1] = 'logos');
 
 CREATE POLICY "Authenticated users can upload logos" ON storage.objects
-  FOR INSERT WITH CHECK (bucket_id = 'discovery-assets' AND (storage.foldername(name))[1] = 'logos' AND auth.role() = 'authenticated');
+  FOR INSERT WITH CHECK (bucket_id = 'discovery' AND (storage.foldername(name))[1] = 'logos' AND auth.role() = 'authenticated');
 
--- PDFs: private read (only auth), write from service role (PostgREST won't block service role, but we secure the public endpoints)
+-- PDFs: private read (only auth), write from service role
 CREATE POLICY "Authenticated users can read pdfs" ON storage.objects
-  FOR SELECT USING (bucket_id = 'discovery-assets' AND (storage.foldername(name))[1] = 'pdfs' AND auth.role() = 'authenticated');
+  FOR SELECT USING (bucket_id = 'discovery' AND (storage.foldername(name))[1] = 'pdfs' AND auth.role() = 'authenticated');
 
 -- Note: Service role automatically bypasses RLS for insertion/update of PDFs.

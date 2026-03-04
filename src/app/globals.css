@@ -4,13 +4,19 @@
 
 @layer base {
   :root {
-    --background: #f5f5f0;
-    --foreground: #080808;
-    --accent: #3b82f6;
+    --background: 8 8 8;
+    --foreground: 245 245 240;
+    --accent: #00e5a0;
+  }
+
+  body {
+    @apply bg-[#080808] text-[#F5F5F0] antialiased;
+    background-color: #080808;
+    color: #f5f5f0;
   }
 
   .dark {
-    --background: #080808;
-    --foreground: #f5f5f0;
+    --background: 8 8 8;
+    --foreground: 245 245 240;
   }
 }

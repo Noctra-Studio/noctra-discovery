@@ -79,7 +79,7 @@ export function AdminLayoutShell({
                 <span>{link.label}</span>
               </div>
               {link.label === "Formularios" && pendingCount > 0 && (
-                <span className="bg-accent text-background text-xs font-mono px-2 py-0.5 rounded-full">
+                <span className="bg-[#00E5A0]/10 text-[#00E5A0] border border-[#00E5A0]/20 font-mono text-[8px] px-1.5 py-0.5 ml-auto">
                   {pendingCount}
                 </span>
               )}
