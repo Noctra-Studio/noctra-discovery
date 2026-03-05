@@ -1,5 +1,6 @@
 import { createClient } from "@supabase/supabase-js";
 import puppeteer from "puppeteer";
+import puppeteerCore from "puppeteer-core";
 import chromium from "@sparticuz/chromium";
 import { Resend } from "resend";
 import { buildPDFHtml } from "./pdf-template";
@@ -145,21 +146,36 @@ export async function generateSubmissionPDF(submissionId: string) {
   const slug = form.slug;
 
   // 2. LAUNCH PUPPETEER
-  const isLocal = process.env.NODE_ENV === "development";
+  // More robust local detection (Mac or development mode)
+  const isLocal = process.env.NODE_ENV === "development" || process.platform === "darwin";
   let browser;
   
   if (isLocal) {
-     browser = await puppeteer.launch({
-        headless: true,
-        args: ["--no-sandbox", "--disable-setuid-sandbox"],
+    console.log('[submission-service] Using local Puppeteer');
+    browser = await puppeteer.launch({
+      headless: true,
+      args: ["--no-sandbox", "--disable-setuid-sandbox"],
     });
   } else {
-    browser = await puppeteer.launch({
+    console.log('[submission-service] Using Chromium (Production/Vercel)');
+    // Configuration for Vercel/Serverless
+    try {
+      // Optional: Set graphics mode to false to reduce dependencies (might help with brotli error)
+      // Some versions of sparticuz/chromium have issues with brotli if not configured
+      chromium.setGraphicsMode = false;
+      
+      const executablePath = await chromium.executablePath();
+      
+      browser = await puppeteerCore.launch({
         args: chromium.args,
         defaultViewport: { width: 1200, height: 900 },
-        executablePath: await chromium.executablePath(),
-        headless: true,
-    });
+        executablePath: executablePath,
+        headless: true, // Use boolean directly if property is missing from types
+      });
+    } catch (launchErr: any) {
+      console.error('[submission-service] Chromium Launch Error:', launchErr);
+      throw new Error(`Error al iniciar el navegador: ${launchErr.message}`);
+    }
   }
   
   try {
