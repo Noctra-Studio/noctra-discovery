@@ -546,10 +546,10 @@ export default function ClientDiscoveryForm({
           </div>
 
           <div className="relative z-10 text-center max-w-4xl px-6">
-            <h1 className="text-[52px] md:text-[86px] font-black mb-8 leading-[0.95] tracking-tight text-white uppercase">
+            <h1 className="text-[52px] md:text-[86px] font-black mb-8 leading-[1.1] text-white uppercase">
               {directedTo ? (
                 <>
-                  <span className="block text-[#555] text-[32px] md:text-[52px]">
+                  <span className="block text-[#555] text-[32px] md:text-[52px] tracking-normal mb-2">
                     {dict.intro.title_hola.replace(
                       "{directedTo}",
                       directedTo.split(" ")[0],
