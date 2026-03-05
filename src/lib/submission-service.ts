@@ -76,61 +76,11 @@ export async function processSubmission(slug: string, data: any, language: strin
   console.log('[submission-service] Saved to DB and marked form as completed');
 
   // 3. GENERATE PDF
-  let pdfUrl = null;
-  let pdfBuffer: Buffer | null = null;
-  
+  let pdfResult = { url: null as string | null, buffer: null as Buffer | null };
   try {
-    const isLocal = process.env.NODE_ENV === "development";
-    let browser;
-    
-    if (isLocal) {
-       browser = await puppeteer.launch({
-          headless: true,
-          args: ["--no-sandbox", "--disable-setuid-sandbox"],
-      });
-    } else {
-      browser = await puppeteer.launch({
-          args: chromium.args,
-          defaultViewport: { width: 1200, height: 900 },
-          executablePath: await chromium.executablePath(),
-          headless: true,
-      });
-    }
-    
-    const page = await browser.newPage();
-    await page.setContent(buildPDFHtml(data, language, formMeta), { waitUntil: 'networkidle0' });
-    await page.evaluateHandle('document.fonts.ready');
-    const pdfBytes = await page.pdf({ 
-      format: 'A4', 
-      printBackground: true, 
-      margin: { top: 0, right: 0, bottom: 0, left: 0 } 
-    });
-    await browser.close();
-
-    pdfBuffer = Buffer.from(pdfBytes);
-    console.log('[submission-service] PDF generated');
-
-    // 4. UPLOAD TO STORAGE
-    const fileName = `pdfs/${slug}-${Date.now()}.pdf`;
-    const { error: uploadError } = await supabaseAdmin.storage
-      .from("discovery")
-      .upload(fileName, pdfBuffer, {
-        contentType: "application/pdf"
-      });
-
-    if (!uploadError) {
-      const { data: publicUrlData } = supabaseAdmin.storage
-          .from("discovery")
-          .getPublicUrl(fileName);
-      pdfUrl = publicUrlData.publicUrl;
-
-      await supabaseAdmin
-          .from("discovery_submissions")
-          .update({ pdf_url: pdfUrl })
-          .eq("id", subData.id);
-    }
+    pdfResult = await generateSubmissionPDF(subData.id);
   } catch (pdfErr) {
-    console.error('[submission-service] PDF generation failed:', pdfErr);
+    console.error('[submission-service] Initial PDF generation failed:', pdfErr);
   }
 
   // 5. SEND EMAIL
@@ -144,14 +94,14 @@ export async function processSubmission(slug: string, data: any, language: strin
       from: process.env.FROM_EMAIL || "Noctra Studio Discovery <discovery@noctra.studio>",
       to: process.env.TO_EMAIL || "hello@noctra.studio",
       subject: `Discovery completado — ${formMeta.client_name}`,
-      html: buildEmailHTML(data, formMeta, !!pdfBuffer),
+      html: buildEmailHTML(data, formMeta, !!pdfResult.buffer),
     };
 
-    if (pdfBuffer) {
+    if (pdfResult.buffer) {
       emailPayload.attachments = [
         {
           filename: `Discovery_${formMeta.client_name.replace(/\s+/g, '_')}.pdf`,
-          content: pdfBuffer,
+          content: pdfResult.buffer,
         }
       ];
     }
@@ -168,55 +118,169 @@ export async function processSubmission(slug: string, data: any, language: strin
 
   return {
     success: true,
-    pdfUrl,
+    pdfUrl: pdfResult.url,
     emailSent,
     emailError
   };
+}
+
+export async function generateSubmissionPDF(submissionId: string) {
+  console.log(`[submission-service] Manually generating PDF for submission: ${submissionId}`);
+
+  // 1. Fetch submission data
+  const { data: sub, error: subError } = await supabaseAdmin
+    .from("discovery_submissions")
+    .select(`
+      *,
+      form:discovery_forms(*)
+    `)
+    .eq("id", submissionId)
+    .single();
+
+  if (subError || !sub) {
+    throw new Error("Submission not found");
+  }
+
+  const { responses, language, form, id: slugBase } = sub;
+  const slug = form.slug;
+
+  // 2. LAUNCH PUPPETEER
+  const isLocal = process.env.NODE_ENV === "development";
+  let browser;
+  
+  if (isLocal) {
+     browser = await puppeteer.launch({
+        headless: true,
+        args: ["--no-sandbox", "--disable-setuid-sandbox"],
+    });
+  } else {
+    browser = await puppeteer.launch({
+        args: chromium.args,
+        defaultViewport: { width: 1200, height: 900 },
+        executablePath: await chromium.executablePath(),
+        headless: true,
+    });
+  }
+  
+  try {
+    const page = await browser.newPage();
+    await page.setContent(buildPDFHtml(responses, language, form), { waitUntil: 'networkidle0' });
+    await page.evaluateHandle('document.fonts.ready');
+    
+    const pdfBytes = await page.pdf({ 
+      format: 'A4', 
+      printBackground: true, 
+      margin: { top: 0, right: 0, bottom: 0, left: 0 } 
+    });
+    
+    await browser.close();
+    const pdfBuffer = Buffer.from(pdfBytes);
+
+    // 3. UPLOAD TO STORAGE
+    const fileName = `pdfs/${slug}-${Date.now()}.pdf`;
+    const { error: uploadError } = await supabaseAdmin.storage
+      .from("discovery")
+      .upload(fileName, pdfBuffer, {
+        contentType: "application/pdf",
+        upsert: true
+      });
+
+    if (uploadError) throw uploadError;
+
+    const { data: publicUrlData } = supabaseAdmin.storage
+        .from("discovery")
+        .getPublicUrl(fileName);
+    
+    const pdfUrl = publicUrlData.publicUrl;
+
+    // 4. UPDATE DB
+    await supabaseAdmin
+        .from("discovery_submissions")
+        .update({ pdf_url: pdfUrl })
+        .eq("id", submissionId);
+
+    return { url: pdfUrl, buffer: pdfBuffer };
+  } catch (err) {
+    if (browser) await browser.close();
+    throw err;
+  }
 }
 
 function buildEmailHTML(data: any, form: any, hasPdf: boolean): string {
   const accentColor = "#00E5A0"; // Noctra Green
   
   return `
-    <!DOCTYPE html><html><head><meta charset="UTF-8"></head>
-    <body style="margin:0;padding:0;background-color:#080808;">
-      <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
-                  max-width:600px;margin:0 auto;padding:60px 40px;background-color:#080808;color:#ffffff">
-        
-        <div style="margin-bottom:48px">
-          <h1 style="font-size:32px;font-weight:900;margin:0;letter-spacing:-0.04em;text-transform:uppercase;color:#ffffff">
-            ${form.client_name}
-          </h1>
-          <div style="width:40px;height:2px;background:${accentColor};margin-top:16px"></div>
-        </div>
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Discovery completado</title>
+    </head>
+    <body style="margin:0;padding:0;background-color:#000000;color:#ffffff;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased;">
+      <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color:#000000;min-height:100vh;">
+        <tr>
+          <td align="center" style="padding: 60px 20px;">
+            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width:600px;text-align:left;">
+              <!-- Header/Logo Area -->
+              <tr>
+                <td style="padding-bottom: 48px;">
+                  <h1 style="font-size:42px;font-weight:900;margin:0;letter-spacing:-0.05em;text-transform:uppercase;color:#ffffff;line-height:1;">
+                    ${form.client_name}
+                  </h1>
+                  <table border="0" cellpadding="0" cellspacing="0" width="40" style="margin-top:20px;">
+                    <tr><td height="2" style="background-color:${accentColor};line-height:2px;font-size:2px;">&nbsp;</td></tr>
+                  </table>
+                </td>
+              </tr>
 
-        <div style="margin-bottom:48px">
-          <p style="font-size:18px;line-height:1.6;color:#ececeb;margin:0">
-            Ha concluido el formulario de discovery.
-          </p>
-        </div>
+              <!-- Message -->
+              <tr>
+                <td style="padding-bottom: 48px;">
+                  <p style="font-size:20px;line-height:1.5;color:#ffffff;margin:0;font-weight:300;">
+                    Ha concluido el formulario de discovery.
+                  </p>
+                </td>
+              </tr>
 
-        <div style="margin-bottom:60px">
-          <a href="${process.env.NEXT_PUBLIC_APP_URL}/es/admin/forms/${form.id}"
-             style="display:inline-block;background-color:#ffffff;color:#000000;padding:16px 32px;
-                    border-radius:100px;text-decoration:none;font-weight:700;font-size:12px;
-                    text-transform:uppercase;letter-spacing:0.1em;border:1px solid #ffffff">
-            Ver respuestas completas en Noctra Discovery →
-          </a>
-        </div>
+              <!-- CTA Button -->
+              <tr>
+                <td style="padding-bottom: 64px;">
+                  <table border="0" cellpadding="0" cellspacing="0">
+                    <tr>
+                      <td align="center" bgcolor="#ffffff" style="border-radius:100px;">
+                        <a href="${process.env.NEXT_PUBLIC_APP_URL}/es/admin/forms/${form.id}"
+                           style="display:inline-block;padding:18px 36px;font-family:sans-serif;font-size:12px;font-weight:700;line-height:1;text-align:center;text-decoration:none;text-transform:uppercase;letter-spacing:0.12em;color:#000000;background-color:#ffffff;border-radius:100px;border:1px solid #ffffff;">
+                          Ver respuestas completas en Noctra Discovery →
+                        </a>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
 
-        <div style="padding-top:32px;border-top:1px solid #222">
-          <p style="font-size:11px;color:#555;margin:0;letter-spacing:0.05em;text-transform:uppercase">
-            ${hasPdf ? 'El reporte técnico detallado está adjunto en este correo.' : 'El reporte técnico se está generando y estará disponible en el panel.'}
-          </p>
-        </div>
+              <!-- Divider -->
+              <tr>
+                <td style="padding-top:32px;border-top:1px solid #222;">
+                  <p style="font-size:11px;color:#666;margin:0;letter-spacing:0.08em;text-transform:uppercase;line-height:1.6;">
+                    ${hasPdf ? 'El reporte técnico detallado está adjunto en este correo.' : 'El reporte técnico se está generando y estará disponible en el panel.'}
+                  </p>
+                </td>
+              </tr>
 
-        <div style="margin-top:40px">
-          <p style="font-size:10px;color:#333;margin:0;letter-spacing:0.2em;text-transform:uppercase">
-            Noctra Studio
-          </p>
-        </div>
-      </div>
-    </body></html>
+              <!-- Brand Footer -->
+              <tr>
+                <td style="padding-top:48px;">
+                  <p style="font-size:10px;color:#444;margin:0;letter-spacing:0.25em;text-transform:uppercase;font-weight:600;">
+                    Noctra Studio
+                  </p>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </body>
+    </html>
   `;
 }
