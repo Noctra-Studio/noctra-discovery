@@ -30,13 +30,13 @@ export function AdminLayoutShell({
     {
       href: `/${locale}/admin`,
       icon: LayoutDashboard,
-      label: "Dashboard",
+      label: t("navPanel"),
       exact: true,
     },
     {
       href: `/${locale}/admin/forms`,
       icon: FileText,
-      label: "Formularios",
+      label: t("navForms"),
     },
   ];
 
@@ -44,7 +44,7 @@ export function AdminLayoutShell({
     <div className="flex flex-col h-full">
       {/* Branding */}
       <div className="p-6">
-        <span className="font-mono text-[#555] text-xs uppercase tracking-[0.3em] block mb-4">
+        <span className="font-medium text-[#555] text-[10px] uppercase tracking-[0.18em] block mb-4">
           Admin Panel
         </span>
         <div className="w-36 block">
@@ -69,17 +69,17 @@ export function AdminLayoutShell({
               key={link.href}
               href={link.href}
               onClick={closeMenu}
-              className={`flex items-center justify-between px-4 py-3 rounded-lg font-body transition-colors ${
+              className={`flex items-center justify-between px-4 py-3 font-medium text-[10px] uppercase tracking-[0.18em] transition-colors border ${
                 isActive
-                  ? "bg-[#1A1A1A] text-white"
-                  : "text-gray-400 hover:bg-[#111] hover:text-white"
+                  ? "bg-[#1A1A1A] text-white border-[#333]"
+                  : "text-[#555] hover:bg-[#111] hover:text-[#F5F5F0] border-transparent"
               }`}>
               <div className="flex items-center gap-3">
                 <Icon size={20} />
                 <span>{link.label}</span>
               </div>
-              {link.label === "Formularios" && pendingCount > 0 && (
-                <span className="bg-[#00E5A0]/10 text-[#00E5A0] border border-[#00E5A0]/20 font-mono text-[8px] px-1.5 py-0.5 ml-auto">
+              {link.label === t("navForms") && pendingCount > 0 && (
+                <span className="bg-[#00E5A0]/10 text-[#00E5A0] border border-[#00E5A0]/20 font-medium text-[8px] px-1.5 py-0.5 ml-auto">
                   {pendingCount}
                 </span>
               )}
@@ -92,15 +92,13 @@ export function AdminLayoutShell({
       <div className="p-4 border-t border-[#222]">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3 overflow-hidden">
-            <div className="w-8 h-8 rounded-full bg-[#222] flex items-center justify-center flex-shrink-0">
-              <span className="text-xs uppercase text-gray-400 font-mono">
+            <div className="w-8 h-8 bg-[#222] border border-[#333] flex items-center justify-center flex-shrink-0">
+              <span className="text-[10px] uppercase text-[#555] font-medium">
                 {userEmail.substring(0, 2)}
               </span>
             </div>
             <div className="truncate">
-              <p className="text-sm font-body text-gray-300 truncate">
-                {userEmail}
-              </p>
+              <p className="text-sm text-[#F5F5F0] truncate">{userEmail}</p>
             </div>
           </div>
           <button
@@ -126,7 +124,7 @@ export function AdminLayoutShell({
         </div>
         <button
           onClick={() => setIsMobileMenuOpen(true)}
-          className="p-2 text-gray-400 hover:text-white">
+          className="p-2 text-[#555] hover:text-white">
           <Menu size={24} />
         </button>
       </div>
@@ -145,7 +143,7 @@ export function AdminLayoutShell({
         <div className="absolute top-4 right-4 lg:hidden">
           <button
             onClick={closeMenu}
-            className="p-2 text-gray-400 hover:text-white">
+            className="p-2 text-[#555] hover:text-white">
             <X size={20} />
           </button>
         </div>

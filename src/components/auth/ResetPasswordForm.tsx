@@ -105,13 +105,13 @@ export default function ResetPasswordForm() {
   return (
     <div className="space-y-8 animate-in fade-in duration-500">
       <div className="text-center space-y-4 mb-4">
-        <p className="font-mono text-[10px] tracking-[0.3em] text-[#00E5A0] uppercase">
+        <p className="font-medium text-[10px] tracking-[0.18em] text-[#00E5A0] uppercase">
           {t("eyebrow")}
         </p>
-        <h1 className="font-bebas text-5xl md:text-6xl text-white tracking-wide">
+        <h1 className="font-black text-5xl md:text-6xl text-white tracking-tight uppercase">
           {t("title")}
         </h1>
-        <p className="font-body text-[13px] text-[#888] font-light leading-relaxed max-w-[280px] mx-auto">
+        <p className="text-[13px] text-[#888] font-light leading-relaxed max-w-[280px] mx-auto">
           {t("description")}
         </p>
       </div>
@@ -121,7 +121,7 @@ export default function ResetPasswordForm() {
         <div className="space-y-2">
           <label
             htmlFor="new-pwd"
-            className="block text-xs font-mono uppercase tracking-widest text-[#888]">
+            className="block text-[10px] font-medium uppercase tracking-[0.18em] text-[#333]">
             {t("newPasswordLabel")}
           </label>
           <div className="relative">
@@ -134,7 +134,7 @@ export default function ResetPasswordForm() {
               spellCheck="false"
               autoCorrect="off"
               required
-              className="w-full bg-[#141414] border border-[#222] pl-4 pr-10 py-3 text-white font-body text-sm placeholder:text-[#555] focus:border-white focus:outline-none transition-colors"
+              className="w-full bg-[#141414] border border-[#222] rounded-xl pl-4 pr-10 py-3 text-white text-base md:text-sm placeholder:text-[#555] focus:border-white focus:outline-none transition-colors"
             />
             <EyeIcon
               show={showPassword}
@@ -155,7 +155,7 @@ export default function ResetPasswordForm() {
         <div className="space-y-2">
           <label
             htmlFor="confirm-pwd"
-            className="block text-xs font-mono uppercase tracking-widest text-[#888]">
+            className="block text-[10px] font-medium uppercase tracking-[0.18em] text-[#333]">
             {t("confirmPasswordLabel")}
           </label>
           <div className="relative">
@@ -170,7 +170,7 @@ export default function ResetPasswordForm() {
               autoCorrect="off"
               required
               // Border logic dynamically responding to mismatch
-              className={`w-full bg-[#141414] border pl-4 pr-10 py-3 text-white font-body text-sm placeholder:text-[#555] focus:outline-none transition-colors ${
+              className={`w-full bg-[#141414] border rounded-xl pl-4 pr-10 py-3 text-white text-base md:text-sm placeholder:text-[#555] focus:outline-none transition-colors ${
                 showMismatchError
                   ? "border-red-500 focus:border-red-500"
                   : confirmPassword.length > 0 && passwordsMatch
@@ -192,7 +192,7 @@ export default function ResetPasswordForm() {
           </div>
 
           {showMismatchError && (
-            <p className="text-red-500 font-mono text-[10px] tracking-wider uppercase mt-1">
+            <p className="text-red-500 font-medium text-[10px] tracking-[0.12em] uppercase mt-1">
               {t("mismatch")}
             </p>
           )}
@@ -202,7 +202,7 @@ export default function ResetPasswordForm() {
           <button
             type="submit"
             disabled={!canSubmit || isSubmitting}
-            className="w-full relative flex items-center justify-center bg-white text-black font-body font-medium py-3 text-sm uppercase tracking-wider hover:bg-[#00E5A0] transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+            className="w-full relative min-h-[48px] flex items-center justify-center bg-white text-black font-medium py-3 text-base md:text-sm uppercase tracking-[0.08em] hover:bg-[#00E5A0] transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
             {isSubmitting ? (
               <div className="flex items-center gap-2">
                 <svg

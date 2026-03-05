@@ -169,8 +169,8 @@ export default function ClientFormNew({ locale }: { locale: string }) {
   const SuccessModal = () => {
     if (!successData) return null;
     return (
-      <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-300">
-        <div className="bg-[#141414] border border-[#222] p-8 max-w-md w-full relative rounded-xl animate-in zoom-in-95 duration-300">
+      <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-none animate-in fade-in duration-300">
+        <div className="bg-[#141414] border border-[#222] rounded-2xl p-8 max-w-md w-full relative animate-in zoom-in-95 duration-300">
           <button
             onClick={() => setSuccessData(null)}
             className="absolute top-4 right-4 text-[#555] hover:text-white transition-colors">
@@ -178,16 +178,16 @@ export default function ClientFormNew({ locale }: { locale: string }) {
           </button>
 
           <div className="mb-6">
-            <h2 className="text-28px text-white mb-2 uppercase font-black tracking-tight">
+            <h2 className="text-[28px] text-white mb-2 uppercase font-black tracking-tight">
               ✓ Formulario creado
             </h2>
-            <p className="font-body text-[13px] text-[#555] font-normal">
+            <p className="text-[13px] text-[#555] font-light">
               Comparte este link con {clientName}
             </p>
           </div>
 
-          <div className="bg-[#080808] border border-[#222] px-4 py-3 mb-6 group relative rounded-xl">
-            <span className="font-mono text-[12px] text-[#F5F5F0] break-all block pr-8">
+          <div className="bg-[#080808] border border-[#222] rounded-lg px-4 py-3 mb-6 group relative">
+            <span className="font-medium text-[12px] text-[#F5F5F0] break-all block pr-8">
               discovery.noctra.studio/f/{slug}
             </span>
             <button
@@ -208,21 +208,21 @@ export default function ClientFormNew({ locale }: { locale: string }) {
                 setCopied(true);
                 setTimeout(() => setCopied(false), 2000);
               }}
-              className="w-full py-3 bg-white text-black font-semibold rounded-full tracking-[0.08em] uppercase text-sm hover:bg-[#00E5A0] transition-colors">
+              className="w-full min-h-[48px] py-3.5 md:py-3 bg-white text-black rounded-full font-medium tracking-[0.08em] uppercase text-base md:text-sm hover:bg-[#00E5A0] transition-colors">
               {copied ? "✓ Copiado" : "Copiar link"}
             </button>
             <a
               href={successData.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full py-3 border border-[#222] text-white font-semibold rounded-full tracking-[0.08em] uppercase text-sm hover:bg-[#222] transition-colors flex items-center justify-center gap-2">
+              className="w-full min-h-[48px] py-3.5 md:py-3 border border-[#222] rounded-full text-white font-medium tracking-[0.08em] uppercase text-base md:text-sm hover:bg-[#222] transition-colors flex items-center justify-center gap-2">
               Abrir en nueva pestaña <ExternalLink size={14} />
             </a>
           </div>
 
           <button
             onClick={() => router.push(`/${locale}/admin`)}
-            className="w-full mt-6 text-center font-mono text-[11px] text-[#555] hover:text-white transition-colors uppercase tracking-widest">
+            className="w-full mt-6 text-center font-medium text-[11px] text-[#555] hover:text-white transition-colors uppercase tracking-[0.18em]">
             Ir al dashboard →
           </button>
         </div>
@@ -231,14 +231,14 @@ export default function ClientFormNew({ locale }: { locale: string }) {
   };
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 max-w-7xl mx-auto p-4 lg:p-10 relative">
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 max-w-7xl mx-auto px-5 py-8 md:px-10 relative">
       <SuccessModal />
 
       <div className="space-y-8">
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* 1. Client Name */}
           <div>
-            <label className="block text-[11px] text-[#555] mb-2 font-mono uppercase tracking-[0.2em]">
+            <label className="block text-[11px] text-[#555] mb-2 font-medium tracking-[0.18em] uppercase">
               {t("clientName")} *
             </label>
             <input
@@ -246,20 +246,20 @@ export default function ClientFormNew({ locale }: { locale: string }) {
               type="text"
               value={clientName}
               onChange={(e) => setClientName(e.target.value)}
-              className="w-full px-4 py-3 bg-[#141414] border border-[#222] text-white font-body rounded-xl focus:outline-none focus:border-white transition-colors"
+              className="w-full px-4 py-3 bg-[#141414] border border-[#222] rounded-xl text-white focus:outline-none focus:border-white transition-colors text-base md:text-sm"
             />
           </div>
 
           {/* 2. Logo Upload */}
           <div>
-            <label className="block text-[11px] text-[#555] mb-2 font-mono uppercase tracking-[0.2em]">
+            <label className="block text-[11px] text-[#555] mb-2 font-medium tracking-[0.18em] uppercase">
               Logo (Opcional)
             </label>
             <div
               onDragOver={(e) => e.preventDefault()}
               onDrop={handleDrop}
               onClick={() => fileInputRef.current?.click()}
-              className="border border-[#222] bg-[#141414] p-8 flex flex-col items-center justify-center cursor-pointer rounded-xl hover:border-[#444] transition-colors relative min-h-[160px]">
+              className="border border-[#222] rounded-2xl bg-[#141414] p-8 flex flex-col items-center justify-center cursor-pointer hover:border-[#444] transition-colors relative min-h-[160px]">
               <input
                 type="file"
                 ref={fileInputRef}
@@ -288,23 +288,23 @@ export default function ClientFormNew({ locale }: { locale: string }) {
               ) : (
                 <div className="text-center">
                   <UploadCloud size={32} className="mb-4 text-[#333] mx-auto" />
-                  <p className="font-sans text-[13px] text-[#555] mb-1">
+                  <p className="text-[13px] text-[#555] mb-1">
                     Arrastra el logo aquí
                   </p>
-                  <p className="font-mono text-[10px] text-[#333] uppercase tracking-wider">
+                  <p className="font-medium text-[10px] text-[#333] uppercase tracking-[0.12em]">
                     o haz clic para seleccionar
                   </p>
                 </div>
               )}
             </div>
-            <p className="mt-2 font-body text-[11px] text-[#555] leading-relaxed">
+            <p className="mt-2 text-[11px] text-[#555] font-light leading-relaxed">
               PNG, SVG, JPG · Máx 2MB · Fondo transparente recomendado
             </p>
           </div>
 
           {/* 3. Directed To */}
           <div>
-            <label className="block text-[11px] text-[#555] mb-2 font-mono uppercase tracking-[0.2em]">
+            <label className="block text-[11px] text-[#555] mb-2 font-medium tracking-[0.18em] uppercase">
               {t("directedTo")} *
             </label>
             <input
@@ -312,9 +312,9 @@ export default function ClientFormNew({ locale }: { locale: string }) {
               type="text"
               value={directedTo}
               onChange={(e) => setDirectedTo(e.target.value)}
-              className="w-full px-4 py-3 bg-[#141414] border border-[#222] text-white font-body rounded-xl focus:outline-none focus:border-white transition-colors"
+              className="w-full px-4 py-3 bg-[#141414] border border-[#222] rounded-xl text-white focus:outline-none focus:border-white transition-colors"
             />
-            <p className="mt-2 font-body text-[11px] text-[#555]">
+            <p className="mt-2 text-[11px] text-[#555] font-light">
               Nombre de quien llenará el formulario. Aparece en el saludo.
             </p>
           </div>
@@ -322,20 +322,20 @@ export default function ClientFormNew({ locale }: { locale: string }) {
           {/* 4. Language & Expires */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <label className="block text-[11px] text-[#555] mb-2 font-mono uppercase tracking-[0.2em]">
+              <label className="block text-[11px] text-[#555] mb-2 font-medium tracking-[0.18em] uppercase">
                 {t("language")}
               </label>
-              <div className="flex bg-[#080808] border border-[#222] p-1 rounded-full relative">
+              <div className="flex bg-[#080808] border border-[#222] rounded-full p-1 relative">
                 <button
                   type="button"
                   onClick={() => setLanguage("es")}
-                  className={`flex-1 py-2 text-[11px] font-mono tracking-wider rounded-full transition-all duration-300 relative z-10 ${language === "es" ? "text-[#00E5A0]" : "text-[#555] hover:text-white"}`}>
+                  className={`flex-1 min-h-[44px] py-2 rounded-full text-base md:text-[11px] font-medium tracking-[0.12em] transition-all duration-300 relative z-10 ${language === "es" ? "text-[#00E5A0]" : "text-[#555] hover:text-white"}`}>
                   ESPAÑOL
                 </button>
                 <button
                   type="button"
                   onClick={() => setLanguage("en")}
-                  className={`flex-1 py-2 text-[11px] font-mono tracking-wider rounded-full transition-all duration-300 relative z-10 ${language === "en" ? "text-[#00E5A0]" : "text-[#555] hover:text-white"}`}>
+                  className={`flex-1 min-h-[44px] py-2 rounded-full text-base md:text-[11px] font-medium tracking-[0.12em] transition-all duration-300 relative z-10 ${language === "en" ? "text-[#00E5A0]" : "text-[#555] hover:text-white"}`}>
                   ENGLISH
                 </button>
                 <div
@@ -344,17 +344,17 @@ export default function ClientFormNew({ locale }: { locale: string }) {
               </div>
             </div>
             <div>
-              <label className="block text-[11px] text-[#555] mb-2 font-mono uppercase tracking-[0.2em]">
+              <label className="block text-[11px] text-[#555] mb-2 font-medium tracking-[0.18em] uppercase">
                 Vence
               </label>
               <input
                 type="date"
                 value={expiresAt}
                 onChange={(e) => setExpiresAt(e.target.value)}
-                className="w-full px-4 py-2 border border-[#222] bg-[#141414] text-white rounded-xl focus:outline-none focus:border-white transition-colors"
+                className="w-full px-4 py-2 border border-[#222] bg-[#141414] rounded-xl text-white focus:outline-none focus:border-white transition-colors"
                 style={{ colorScheme: "dark" }}
               />
-              <p className="mt-2 font-body text-[11px] text-[#555]">
+              <p className="mt-2 text-[11px] text-[#555] font-light">
                 Dejar vacío para que el link no expire.
               </p>
             </div>
@@ -363,10 +363,10 @@ export default function ClientFormNew({ locale }: { locale: string }) {
           {/* 5. Services Selection */}
           <div className="space-y-4">
             <div className="flex flex-col gap-1">
-              <label className="block text-[11px] text-[#555] font-mono uppercase tracking-[0.2em]">
+              <label className="block text-[11px] text-[#555] font-medium tracking-[0.18em] uppercase">
                 SERVICIOS DEL PROYECTO *
               </label>
-              <p className="font-body text-[11px] text-[#333]">
+              <p className="text-[11px] text-[#333] font-light">
                 Selecciona los servicios contratados. El form incluirá las
                 preguntas correspondientes.
               </p>
@@ -394,13 +394,13 @@ export default function ClientFormNew({ locale }: { locale: string }) {
                         setSelectedServices((prev) => [...prev, id]);
                       }
                     }}
-                    className={`relative p-5 border cursor-pointer transition-all rounded-xl ${
+                    className={`relative p-5 border rounded-2xl cursor-pointer transition-all ${
                       isSelected
                         ? "bg-[#00E5A0]/5 border-[#00E5A0]"
                         : "bg-[#141414] border-[#222] hover:border-[#444]"
                     }`}>
                     {isSelected && (
-                      <span className="absolute top-4 right-4 font-mono text-[10px] text-[#00E5A0]">
+                      <span className="absolute top-4 right-4 font-medium text-[10px] text-[#00E5A0]">
                         ✓
                       </span>
                     )}
@@ -408,10 +408,10 @@ export default function ClientFormNew({ locale }: { locale: string }) {
                       className={`mb-3 transition-colors ${isSelected ? "text-[#00E5A0]" : "text-white"}`}>
                       <config.icon size={24} strokeWidth={1.5} />
                     </div>
-                    <div className="font-sans text-[13px] font-black text-white mb-1 uppercase tracking-tight">
+                    <div className="text-[13px] font-black text-white mb-1 uppercase tracking-tight">
                       {SERVICE_LABELS[id]}
                     </div>
-                    <div className="font-mono text-[9px] text-[#555] leading-relaxed tracking-wider uppercase">
+                    <div className="font-medium text-[9px] text-[#555] leading-relaxed tracking-[0.12em] uppercase">
                       {config.desc}
                     </div>
                   </div>
@@ -422,7 +422,7 @@ export default function ClientFormNew({ locale }: { locale: string }) {
 
           {/* Slug / Link URL */}
           <div>
-            <label className="text-[11px] text-[#555] mb-2 font-mono uppercase tracking-[0.2em] flex justify-between">
+            <label className="text-[11px] text-[#555] mb-2 font-medium tracking-[0.18em] uppercase flex justify-between">
               URL DEL FORMULARIO *
               {isCheckingSlug && <Loader2 size={12} className="animate-spin" />}
             </label>
@@ -435,7 +435,7 @@ export default function ClientFormNew({ locale }: { locale: string }) {
                   setSlug(e.target.value);
                   setSlugEdited(true);
                 }}
-                className={`w-full px-4 py-3 bg-[#141414] border text-white font-mono text-sm rounded-xl focus:outline-none transition-colors ${slugAvailable === false ? "border-red-500" : slugAvailable === true ? "border-[#00E5A0]" : "border-[#222]"}`}
+                className={`w-full px-4 py-3 bg-[#141414] border rounded-xl text-white font-medium text-base md:text-sm focus:outline-none transition-colors ${slugAvailable === false ? "border-red-500" : slugAvailable === true ? "border-[#00E5A0]" : "border-[#222]"}`}
               />
               <button
                 type="button"
@@ -451,7 +451,7 @@ export default function ClientFormNew({ locale }: { locale: string }) {
               </button>
             </div>
             <div className="mt-2 flex items-center justify-between">
-              <p className="font-mono text-[11px] text-[#555] tracking-tight">
+              <p className="font-medium text-[11px] text-[#555] tracking-tight">
                 discovery.noctra.studio/f/
                 <span className="text-[#888]">{slug || "..."}</span>
               </p>
@@ -459,7 +459,7 @@ export default function ClientFormNew({ locale }: { locale: string }) {
           </div>
 
           {error && (
-            <div className="text-red-500 text-[13px] font-body flex items-center gap-2">
+            <div className="text-red-500 text-[13px] flex items-center gap-2 font-light">
               <AlertCircle size={14} /> {error}
             </div>
           )}
@@ -467,7 +467,7 @@ export default function ClientFormNew({ locale }: { locale: string }) {
           <button
             type="submit"
             disabled={isSubmitting || slugAvailable === false}
-            className="w-full py-4 bg-white text-black font-semibold rounded-full tracking-[0.08em] uppercase text-sm hover:bg-[#00E5A0] transition-colors disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center gap-3">
+            className="w-full min-h-[48px] py-4 md:py-3 bg-white text-black font-medium tracking-[0.08em] uppercase text-base md:text-sm hover:bg-[#00E5A0] transition-colors disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center gap-3">
             {isSubmitting ? (
               <>
                 <Loader2 size={16} className="animate-spin" />
@@ -481,7 +481,7 @@ export default function ClientFormNew({ locale }: { locale: string }) {
       </div>
 
       <div className="hidden lg:block lg:pl-10 lg:border-l border-[#222]">
-        <h3 className="text-[9px] uppercase font-mono tracking-[0.3em] text-[#555] mb-8 flex justify-between">
+        <h3 className="text-[9px] uppercase font-medium tracking-[0.18em] text-[#555] mb-8 flex justify-between">
           <span>
             PREVIEW EN VIVO · {language === "es" ? "ESPAÑOL" : "ENGLISH"}
           </span>
@@ -495,7 +495,7 @@ export default function ClientFormNew({ locale }: { locale: string }) {
           </span>
         </h3>
 
-        <div className="sticky top-10 transform scale-[0.65] origin-top border border-[#222] rounded-xl overflow-hidden">
+        <div className="sticky top-10 transform scale-[0.65] origin-top border border-[#222] overflow-hidden">
           <div className="bg-[#080808] p-10 min-h-[600px] flex flex-col relative">
             {/* Mock Header */}
             <div className="h-10 border-b border-[#222] -mx-10 -mt-10 mb-10 bg-[#080808] flex items-center px-6">
@@ -514,7 +514,7 @@ export default function ClientFormNew({ locale }: { locale: string }) {
                 </div>
               )}
 
-              <div className="font-mono text-[8px] tracking-[0.4em] text-[#333] uppercase mb-4">
+              <div className="font-medium text-[8px] tracking-[0.18em] text-[#333] uppercase mb-4">
                 {selectedServices.length > 1
                   ? "DISCOVERY MULTI-SERVICIO"
                   : `${SERVICE_LABELS[selectedServices[0]]} DISCOVERY`}
@@ -531,11 +531,11 @@ export default function ClientFormNew({ locale }: { locale: string }) {
               </h2>
 
               <div className="space-y-2 mb-8 text-left w-full max-w-[240px] mx-auto">
-                <p className="font-mono text-[7px] text-[#333] uppercase tracking-widest border-b border-[#222] pb-1">
+                <p className="font-medium text-[7px] text-[#333] uppercase tracking-[0.12em] border-b border-[#222] pb-1">
                   {language === "es" ? "Secciones del form:" : "Form sections:"}
                 </p>
                 <div className="space-y-1">
-                  <div className="flex items-center gap-2 text-[8px] font-mono text-white">
+                  <div className="flex items-center gap-2 text-[8px] font-medium text-white">
                     <span className="text-[#00E5A0]">✓</span>{" "}
                     {language === "es"
                       ? "EMPRESA & CONTEXTO"
@@ -562,7 +562,7 @@ export default function ClientFormNew({ locale }: { locale: string }) {
                     return (
                       <div
                         key={id}
-                        className="flex items-center gap-2 text-[8px] font-mono text-white">
+                        className="flex items-center gap-2 text-[8px] font-medium text-white">
                         <span className="text-[#00E5A0]">
                           <Icon size={10} strokeWidth={2} />
                         </span>{" "}
@@ -573,12 +573,12 @@ export default function ClientFormNew({ locale }: { locale: string }) {
                 </div>
               </div>
 
-              <button className="bg-white text-black text-[10px] px-6 py-3 font-semibold rounded-full uppercase tracking-widest mt-4">
+              <button className="bg-white text-black text-[10px] px-6 py-3 font-medium uppercase tracking-[0.18em] mt-4">
                 {language === "es" ? "Comenzar →" : "Start →"}
               </button>
             </div>
 
-            <div className="mt-auto text-center font-mono text-[8px] text-[#222] tracking-widest uppercase">
+            <div className="mt-auto text-center font-medium text-[8px] text-[#222] tracking-[0.18em] uppercase">
               Powered by Noctra Studio
             </div>
           </div>

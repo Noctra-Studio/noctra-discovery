@@ -1,6 +1,8 @@
 import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
 import LoginForm from "@/components/admin/LoginForm";
+import { NextIntlClientProvider } from "next-intl";
+import esMessages from "@/messages/es.json";
 
 export default async function LoginPage({
   params,
@@ -40,13 +42,15 @@ export default async function LoginPage({
             className="w-full h-auto object-contain"
           />
         </div>
-        <span className="font-mono text-[#555] text-xs uppercase tracking-[0.3em] mb-10 text-center">
+        <span className="font-medium text-[#111] text-[10px] tracking-[0.3em] uppercase mb-10 text-center">
           Panel Administrativo
         </span>
 
         {/* Login Card */}
         <div className="w-full border border-[#222] p-8 bg-[#080808]">
-          <LoginForm />
+          <NextIntlClientProvider locale="es" messages={esMessages}>
+            <LoginForm />
+          </NextIntlClientProvider>
         </div>
       </div>
     </div>

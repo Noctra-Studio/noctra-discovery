@@ -20,7 +20,7 @@ export function ProgressBar({
   return (
     <div className={cn("w-full flex flex-col gap-2", className)} {...props}>
       {label && (
-        <div className="flex justify-between text-xs font-mono uppercase tracking-wider text-gray-400">
+        <div className="flex justify-between font-medium text-[10px] tracking-[0.18em] uppercase text-gray-400">
           <span>{label}</span>
           <span>{Math.round(clampedValue)}%</span>
         </div>

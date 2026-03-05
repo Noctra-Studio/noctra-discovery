@@ -9,7 +9,7 @@ function Badge({ className, variant = "info", ...props }: BadgeProps) {
   return (
     <div
       className={cn(
-        "inline-flex items-center border px-2.5 py-0.5 text-xs font-semibold uppercase font-mono transition-colors focus:outline-none focus:ring-2 focus:ring-accent",
+        "inline-flex items-center border px-2.5 py-0.5 font-medium text-[10px] tracking-[0.18em] uppercase transition-colors focus:outline-none focus:ring-2 focus:ring-accent",
         {
           "bg-green-950 text-green-400 border-green-800": variant === "success",
           "bg-gray-800 text-gray-400 border-gray-700": variant === "pending",

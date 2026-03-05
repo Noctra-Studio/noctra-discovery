@@ -84,7 +84,7 @@ export function DragRankList({
               "flex min-h-[52px] items-center gap-4 border border-gray-2 bg-gray-1 px-4 py-3 text-white transition-all cursor-grab active:cursor-grabbing",
               isDragged && "opacity-40 scale-[0.98] border-accent",
             )}>
-            <div className="flex-shrink-0 font-mono text-xl font-bold text-accent">
+            <div className="flex-shrink-0 font-black text-xl text-accent">
               {(idx + 1).toString().padStart(2, "0")}
             </div>
             <div className="flex-grow font-medium">{item}</div>

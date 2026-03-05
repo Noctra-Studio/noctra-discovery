@@ -63,7 +63,9 @@ export function ColorPicker({
               <span className="font-medium text-sm text-white">
                 {color.name}
               </span>
-              <span className="font-mono text-xs text-gray-3">{color.hex}</span>
+              <span className="font-medium text-[9px] tracking-[0.12em] uppercase text-gray-3">
+                {color.hex}
+              </span>
             </div>
           </button>
         );

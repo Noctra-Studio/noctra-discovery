@@ -1,6 +1,8 @@
 import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
 import { AdminLayoutShell } from "@/components/admin/AdminLayoutShell";
+import { NextIntlClientProvider } from "next-intl";
+import esMessages from "@/messages/es.json";
 
 export default async function AdminLayout({
   children,
@@ -29,12 +31,14 @@ export default async function AdminLayout({
 
   return (
     <div className="min-h-screen bg-background text-foreground flex">
-      <AdminLayoutShell
-        userEmail={user.email || ""}
-        pendingCount={pendingCount || 0}
-        locale={locale}>
-        {children}
-      </AdminLayoutShell>
+      <NextIntlClientProvider locale="es" messages={esMessages}>
+        <AdminLayoutShell
+          userEmail={user.email || ""}
+          pendingCount={pendingCount || 0}
+          locale={locale}>
+          {children}
+        </AdminLayoutShell>
+      </NextIntlClientProvider>
     </div>
   );
 }

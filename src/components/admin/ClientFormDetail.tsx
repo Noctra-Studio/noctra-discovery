@@ -47,18 +47,18 @@ export default function ClientFormDetail({
         <div className="space-y-2">
           <Link
             href={`/${locale}/admin`}
-            className="flex items-center gap-2 text-[#555] hover:text-white transition-colors font-mono text-[10px] uppercase tracking-widest mb-4">
+            className="flex items-center gap-2 text-[#555] hover:text-white transition-colors font-medium text-[10px] uppercase tracking-[0.18em] mb-4">
             <ArrowLeft size={14} /> Volver al dashboard
           </Link>
           <div className="flex items-center gap-4">
-            <h1 className="text-4xl font-display uppercase tracking-tight">
+            <h1 className="text-4xl font-black uppercase tracking-tight">
               {form.client_name}
             </h1>
             <span
-              className={`inline-flex items-center px-2.5 py-1 text-[9px] font-mono font-bold uppercase tracking-[0.15em] ${
+              className={`inline-flex items-center px-2.5 py-1 rounded-full text-[9px] font-medium uppercase tracking-[0.18em] ${
                 isCompleted
                   ? "bg-[#00E5A0]/10 text-[#00E5A0] border border-[#00E5A0]/20"
-                  : "bg-[#555]/10 text-[#555] border border-[#222]"
+                  : "bg-[#141414] text-[#333] border border-[#222]"
               }`}>
               {isCompleted ? "Completado" : "Pendiente"}
             </span>
@@ -66,7 +66,7 @@ export default function ClientFormDetail({
         </div>
 
         {isCompleted && (
-          <button className="bg-white text-black px-8 py-4 font-semibold tracking-[0.08em] uppercase text-sm hover:bg-[#00E5A0] transition-colors flex items-center gap-3">
+          <button className="bg-white text-black px-8 py-4 rounded-full font-medium tracking-[0.08em] uppercase text-sm hover:bg-[#00E5A0] transition-colors flex items-center gap-3">
             <Download size={18} /> Descargar PDF
           </button>
         )}
@@ -77,28 +77,28 @@ export default function ClientFormDetail({
         <div className="lg:col-span-2 space-y-8">
           {!isCompleted ? (
             /* PENDING STATE */
-            <div className="bg-[#141414] border border-[#222] p-8 lg:p-12 space-y-10">
+            <div className="bg-[#141414] border border-[#222] rounded-2xl p-8 lg:p-12 space-y-10">
               <div className="space-y-4">
-                <h2 className="font-display text-2xl uppercase tracking-tight">
+                <h2 className="text-2xl font-black uppercase tracking-tight">
                   Formulario listo para enviar
                 </h2>
-                <p className="font-body text-[#555] text-sm leading-relaxed max-w-md">
+                <p className="text-[#555] text-sm leading-relaxed max-w-md">
                   Comparte el link o el código QR con el cliente para que
                   comience su discovery.
                 </p>
               </div>
 
-              <div className="flex flex-col sm:flex-row gap-8 items-center bg-[#080808] border border-[#222] p-8">
-                <div className="bg-white p-4">
+              <div className="flex flex-col sm:flex-row gap-8 items-center bg-[#080808] border border-[#222] rounded-2xl p-8">
+                <div className="bg-white rounded-xl p-4">
                   <QRCodeSVG value={form.form_url} size={160} level="H" />
                 </div>
                 <div className="flex-1 space-y-6 w-full text-center sm:text-left">
                   <div className="space-y-2">
-                    <span className="font-mono text-[9px] text-[#333] uppercase tracking-[0.3em]">
+                    <span className="font-medium text-[9px] text-[#333] uppercase tracking-[0.18em]">
                       Link de acceso
                     </span>
-                    <div className="flex items-center gap-3 bg-[#111] border border-[#222] p-3 group">
-                      <span className="font-mono text-xs text-[#888] truncate flex-1">
+                    <div className="flex items-center gap-3 bg-[#111] border border-[#222] rounded-lg p-3 group">
+                      <span className="font-medium text-[11px] text-[#555] truncate flex-1">
                         {form.form_url}
                       </span>
                       <button
@@ -111,7 +111,7 @@ export default function ClientFormDetail({
                   <a
                     href={form.form_url}
                     target="_blank"
-                    className="inline-flex items-center gap-2 text-white font-mono text-[10px] uppercase tracking-widest hover:text-[#00E5A0] transition-colors">
+                    className="inline-flex items-center gap-2 text-white font-medium text-[10px] uppercase tracking-[0.18em] hover:text-[#00E5A0] transition-colors bg-[#222] px-4 py-2 rounded-full">
                     Probar link <ExternalLink size={12} />
                   </a>
                 </div>
@@ -120,7 +120,7 @@ export default function ClientFormDetail({
           ) : (
             /* COMPLETED STATE - Submissions */
             <div className="space-y-6">
-              <h2 className="font-display text-2xl uppercase tracking-tight">
+              <h2 className="text-2xl font-black uppercase tracking-tight">
                 Respuestas del cliente
               </h2>
               <div className="space-y-4">
@@ -129,9 +129,9 @@ export default function ClientFormDetail({
                     ([section, answers]: [string, any], idx) => (
                       <div
                         key={idx}
-                        className="bg-[#141414] border border-[#222] overflow-hidden">
+                        className="bg-[#141414] border border-[#222] rounded-2xl overflow-hidden">
                         <div className="bg-[#080808] px-6 py-4 border-b border-[#222]">
-                          <h3 className="font-mono text-[10px] text-[#555] uppercase tracking-[0.3em]">
+                          <h3 className="font-medium text-[10px] text-[#555] uppercase tracking-[0.18em]">
                             {section}
                           </h3>
                         </div>
@@ -139,10 +139,10 @@ export default function ClientFormDetail({
                           {Object.entries(answers).map(
                             ([q, a]: [string, any], qIdx) => (
                               <div key={qIdx} className="space-y-3">
-                                <p className="font-body text-[#555] text-xs uppercase tracking-wider">
+                                <p className="text-[#333] text-[9px] uppercase tracking-[0.12em]">
                                   {q}
                                 </p>
-                                <div className="bg-[#0A0A0A] border border-[#222] p-4 font-body text-sm text-[#F5F5F0] leading-relaxed">
+                                <div className="bg-[#0A0A0A] border border-[#222] rounded-xl p-4 text-sm text-[#F5F5F0] leading-relaxed">
                                   {typeof a === "string"
                                     ? a
                                     : JSON.stringify(a)}
@@ -161,49 +161,47 @@ export default function ClientFormDetail({
 
         {/* Sidebar Info */}
         <div className="space-y-6">
-          <div className="bg-[#141414] border border-[#222] p-6 space-y-8">
-            <h3 className="font-mono text-[10px] text-[#333] uppercase tracking-[0.3em]">
+          <div className="bg-[#141414] border border-[#222] rounded-2xl p-6 space-y-8">
+            <h3 className="font-medium text-[10px] text-[#333] uppercase tracking-[0.18em]">
               Detalles del proyecto
             </h3>
 
             <div className="space-y-6">
               <div className="flex gap-4">
-                <div className="w-10 h-10 border border-[#222] bg-[#080808] flex items-center justify-center text-[#555]">
+                <div className="w-10 h-10 border border-[#222] bg-[#080808] rounded-xl flex items-center justify-center text-[#555]">
                   <User size={18} />
                 </div>
                 <div>
-                  <span className="block font-mono text-[9px] text-[#333] uppercase tracking-widest mb-1">
+                  <span className="block font-medium text-[9px] text-[#333] uppercase tracking-[0.18em] mb-1">
                     Dirigido a
                   </span>
-                  <p className="font-body text-sm text-white">
-                    {form.directed_to}
-                  </p>
+                  <p className="text-sm text-white">{form.directed_to}</p>
                 </div>
               </div>
 
               <div className="flex gap-4">
-                <div className="w-10 h-10 border border-[#222] bg-[#080808] flex items-center justify-center text-[#555]">
+                <div className="w-10 h-10 border border-[#222] bg-[#080808] rounded-xl flex items-center justify-center text-[#555]">
                   <LinkIcon size={18} />
                 </div>
                 <div>
-                  <span className="block font-mono text-[9px] text-[#333] uppercase tracking-widest mb-1">
+                  <span className="block font-medium text-[9px] text-[#333] uppercase tracking-[0.18em] mb-1">
                     Slug único
                   </span>
-                  <p className="font-mono text-xs text-[#888]">
+                  <p className="font-medium text-[11px] text-[#555]">
                     /f/{form.slug}
                   </p>
                 </div>
               </div>
 
               <div className="flex gap-4">
-                <div className="w-10 h-10 border border-[#222] bg-[#080808] flex items-center justify-center text-[#555]">
+                <div className="w-10 h-10 border border-[#222] bg-[#080808] rounded-xl flex items-center justify-center text-[#555]">
                   <Calendar size={18} />
                 </div>
                 <div>
-                  <span className="block font-mono text-[9px] text-[#333] uppercase tracking-widest mb-1">
+                  <span className="block font-medium text-[9px] text-[#333] uppercase tracking-[0.18em] mb-1">
                     Expiración
                   </span>
-                  <p className="font-body text-sm text-white">
+                  <p className="text-sm text-white">
                     {form.expires_at
                       ? format(new Date(form.expires_at), "dd MMM, yyyy", {
                           locale: dateLocale,
@@ -214,14 +212,14 @@ export default function ClientFormDetail({
               </div>
 
               <div className="flex gap-4">
-                <div className="w-10 h-10 border border-[#222] bg-[#080808] flex items-center justify-center text-[#555]">
+                <div className="w-10 h-10 border border-[#222] bg-[#080808] rounded-xl flex items-center justify-center text-[#555]">
                   <Sparkles size={18} />
                 </div>
                 <div>
-                  <span className="block font-mono text-[9px] text-[#333] uppercase tracking-widest mb-1">
+                  <span className="block font-medium text-[9px] text-[#333] uppercase tracking-[0.18em] mb-1">
                     Creado
                   </span>
-                  <p className="font-body text-sm text-white">
+                  <p className="text-sm text-white">
                     {format(new Date(form.created_at), "dd MMM, yyyy", {
                       locale: dateLocale,
                     })}
@@ -231,14 +229,14 @@ export default function ClientFormDetail({
 
               {isCompleted && submission?.submitted_at && (
                 <div className="flex gap-4">
-                  <div className="w-10 h-10 border border-[#222] bg-[#080808] flex items-center justify-center text-[#00E5A0]">
+                  <div className="w-10 h-10 border border-[#222] bg-[#080808] rounded-xl flex items-center justify-center text-[#00E5A0]">
                     <Clock size={18} />
                   </div>
                   <div>
-                    <span className="block font-mono text-[9px] text-[#00E5A0] uppercase tracking-widest mb-1">
+                    <span className="block font-medium text-[9px] text-[#00E5A0] uppercase tracking-[0.18em] mb-1">
                       Completado
                     </span>
-                    <p className="font-body text-sm text-[#00E5A0]">
+                    <p className="text-sm text-[#00E5A0]">
                       {format(
                         new Date(submission.submitted_at),
                         "dd MMM, yyyy · HH:mm",
@@ -251,15 +249,15 @@ export default function ClientFormDetail({
             </div>
           </div>
 
-          <div className="p-6 border border-[#222] bg-[#141414] text-center space-y-4">
-            <p className="font-mono text-[9px] text-[#333] uppercase tracking-widest">
+          <div className="p-6 border border-[#222] bg-[#141414] rounded-2xl text-center space-y-4">
+            <p className="font-medium text-[9px] text-[#333] uppercase tracking-[0.18em]">
               Estado del link
             </p>
             <div className="flex justify-center gap-2">
               <div
                 className={`w-2 h-2 ${isCompleted ? "bg-[#555]" : "bg-[#00E5A0] pulse"}`}
               />
-              <span className="font-mono text-[10px] text-white">
+              <span className="font-medium text-[10px] text-white">
                 {isCompleted
                   ? "DESACTIVADO (COMPLETADO)"
                   : "ACTIVO · ESPERANDO RESPUESTAS"}

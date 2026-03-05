@@ -10,9 +10,9 @@
       "errorMissing": "Completa todos los campos"
     },
     "dashboard": {
-      "title": "Dashboard de Formularios",
+      "title": "FORMULARIOS",
       "subtitle": "Selecciona un formulario o crea uno nuevo.",
-      "createNew": "Crear nuevo formulario",
+      "createNew": "Nuevo formulario",
       "tableClient": "Cliente",
       "tableSlug": "Slug",
       "tableStatus": "Estado",
@@ -20,7 +20,15 @@
       "tableActions": "Acciones",
       "statusPending": "Pendiente",
       "statusSubmitted": "Completado",
-      "logout": "Cerrar sesión"
+      "logout": "Cerrar sesión",
+      "statsTotal": "TOTAL",
+      "statsCompleted": "COMPLETADOS",
+      "statsPending": "PENDIENTES",
+      "statsLast": "Último completado",
+      "tableTitle": "Tus Formularios",
+      "navPanel": "Panel",
+      "navForms": "Formularios",
+      "navSettings": "Configuración"
     },
     "newForm": {
       "title": "Crear Nuevo Formulario",
@@ -92,17 +100,28 @@
       "cta": "Comenzar"
     },
     "progress": "Paso {current} de {total}",
+    "percentageComplete": "{percentage}% COMPLETADO",
     "sections": {
       "common": {
         "eyebrow": "00 — Tu empresa",
         "title": "Cuéntanos quiénes son.",
         "desc": "La base de todo. Sin filtros, sin pitch.",
         "questions": {
-          "q_company_one_liner": { "label": "¿Qué hace {clientName} en una oración?", "hint": "Describe tu producto o servicio de forma simple.", "placeholder": "Escribe aquí..." },
-          "q_company_why": { "label": "¿Por qué existe {clientName}? ¿Cuál fue el origen?", "hint": "Describe tu propósito o misión.", "placeholder": "Escribe aquí..." },
-          "q_company_adjectives": { "label": "Si {clientName} fuera una persona, ¿qué 3 adjetivos la describirían?", "hint": "Ej: Innovadora, Rebelde, Elegante.", "placeholder": "Escribe aquí..." },
-          "q_ideal_client": { "label": "¿Cuál es el cliente ideal?", "hint": "Industria, tamaño, rol, dolor.", "placeholder": "Escribe aquí..." },
-          "q_differentiator": { "label": "¿Cuál es el diferenciador real?", "hint": "No \"calidad y precio\".", "placeholder": "Escribe aquí..." }
+          "q_company_one_liner": { "label": "¿Qué hace {clientName} en una oración?", "hint": "Describe qué haces, para quién y qué cambia en su vida o negocio después de trabajar contigo.", "placeholder": "Describe qué haces, para quién y qué cambia en su vida o negocio después de trabajar contigo." },
+          "q_company_why": { "label": "¿Por qué existe {clientName}? ¿Cuál fue el origen?", "hint": "El origen, la frustración que viste, la oportunidad que nadie estaba aprovechando.", "placeholder": "Escribe aquí..." },
+          "q_business_stage": {
+            "label": "¿En qué momento está {clientName} hoy?",
+            "hint": "Esto nos ayuda a entender el punto de partida real y adaptar la estrategia a tu situación actual.",
+            "options": {
+              "starting":    "Estoy iniciando — llevo menos de 1 año ofreciendo mis servicios",
+              "established": "Ya llevo tiempo — tengo clientes pero quiero crecer o mejorar",
+              "struggling":  "Llevo tiempo pero no he visto los resultados que esperaba",
+              "relaunching": "Estoy relanzando — tuve operaciones antes y estoy volviendo a empezar"
+            }
+          },
+          "q_client_voice": { "label": "¿Qué diría un cliente satisfecho de {clientName} al recomendarte con un amigo?", "hint": "Escríbelo como si fuera él hablando. 'Los contraté porque...' o 'Lo que más me gustó fue...'", "placeholder": "Ej: Los contraté porque son los únicos que realmente entendieron el problema sin que yo tuviera que explicarlo dos veces. Y entregaron exactamente lo que prometieron." },
+          "q_ideal_client": { "label": "¿Quién es exactamente el cliente con el que más disfrutas trabajar?", "hint": "No el que paga más, sino el que hace que tu trabajo valga la pena. Industria, tamaño, rol, qué dolor tiene.", "placeholder": "Ej: Dueños de negocios medianos en manufactura, 50-200 empleados, que ya saben que necesitan cambiar pero no saben por dónde empezar. Decisivos, con presupuesto real." },
+          "q_differentiator": { "label": "¿Por qué un cliente que cotizó con tu competencia terminó eligiéndote a ti?", "hint": "Si no tienes ese caso, ¿qué te dicen los clientes que los hace quedarse o regresar?", "placeholder": "Ej: Nos dicen que somos los únicos que entregamos en tiempo y no desaparecemos después de cerrar el trato. La competencia prometía más pero daba menos." }
         }
       },
       "branding": {
@@ -110,15 +129,15 @@
         "title": "La personalidad de la marca.",
         "desc": "Definamos cómo se ve, suena y siente {clientName}.",
         "questions": {
-          "q_perception_rank": { "label": "¿Cómo quieres que perciban a {clientName}?", "hint": "Ordena de más a menos importante.", "placeholder": "", "addLabel": "Añadir atributo personalizado...", "customPlaceholder": "Escribe tu atributo..." },
-          "q_visual_refs": { "label": "¿Qué marcas admiras visualmente?", "hint": "Elige hasta 3 referencias.", "placeholder": "" },
-          "q_accent_color": { "label": "¿Qué color de acento representa mejor a {clientName}?", "hint": "El color principal de la marca.", "placeholder": "" },
+          "q_perception_rank": { "label": "De estas características, ¿cuál debe ser lo primero que alguien piense al ver tu marca?", "hint": "Ordena de más a menos importante para ti. La #1 guiará cada decisión de diseño.", "placeholder": "", "addLabel": "Añadir atributo personalizado...", "customPlaceholder": "Escribe tu atributo..." },
+          "q_visual_inspiration": { "label": "¿Qué marca (de cualquier industria) tiene la identidad visual que más te gusta, y qué tiene de especial?", "hint": "No necesitas que sea de tu sector. Puede ser una cerveza artesanal, un banco digital o una startup de tecnología.", "placeholder": "Ej: Me gusta Notion porque es limpio, sin pretensiones y cualquier persona entiende para qué sirve con solo verlo. No intenta impresionar — solo funciona." },
+          "q_visual_avoid": { "label": "¿Alguna marca o estilo visual que definitivamente NO quieres que {clientName} se parezca?", "hint": "Saber lo que no quieres es igual de valioso. Selecciona las que evitarías o escribe en el campo de abajo.", "placeholder": "" },
           "q_visual_style": { "label": "¿Estilo visual general?", "hint": "Elige hasta 3 estilos.", "placeholder": "" },
-          "q_keep_elements": { "label": "¿Hay elementos de la marca actual que quieras conservar?", "hint": "Un color, un isotipo, etc.", "placeholder": "Escribe aquí..." },
+          "q_keep_elements": { "label": "¿Hay elementos de la marca actual que quieras conservar?", "hint": "Logo actual, paleta de colores, tipografía, tono de comunicación... lo que sea que identifica a {clientName} y que quieras preservar.", "placeholder": "Escribe aquí..." },
           "q_voice_attrs": { "label": "¿Cómo comunica {clientName}?", "hint": "La personalidad verbal.", "placeholder": "" },
-          "q_tagline": { "label": "¿Cuál sería el tagline ideal?", "hint": "La frase que resume todo.", "placeholder": "Escribe aquí..." },
-          "q_tone_avoid": { "label": "¿Qué tono debe evitar siempre?", "hint": "Ej: Formal, aburrido, infantil.", "placeholder": "Escribe aquí..." },
-          "q_never": { "label": "¿Qué NO quieres que {clientName} sea jamás?", "hint": "Estilos o ideas que odian.", "placeholder": "Escribe aquí..." }
+          "q_concrete_result": { "label": "¿Cuál es el resultado más concreto y medible que le entregas a un cliente?", "hint": "No 'mejoramos tu empresa'. ¿Qué número cambia, qué proceso desaparece, qué problema no vuelve a ocurrir?", "placeholder": "Ej: Nuestros clientes reducen su tiempo de onboarding de 3 semanas a 4 días. O: Pasamos de 0 a 50 leads calificados por mes en los primeros 90 días." },
+          "q_tone_avoid": { "label": "¿Hay alguna marca o tipo de comunicación que sientes que no te representa como cliente?", "hint": "¿Qué te hace cerrar un sitio web o ignorar un mensaje? Eso es exactamente lo que {clientName} debe evitar.", "placeholder": "Ej: Las marcas que hablan como si sus clientes fueran tontos. O las que usan palabras como 'ecosistema', 'sinergia' y 'disruption' sin decir nada real." },
+          "q_never": { "label": "¿Qué NO quieres que {clientName} sea jamás?", "hint": "Sin filtros. ¿Qué tipo de empresa, percepción o reputación sería un fracaso total para {clientName}?", "placeholder": "Escribe aquí..." }
         }
       },
       "web": {
@@ -126,14 +145,15 @@
         "title": "El sitio que {clientName} necesita.",
         "desc": "Estructura, contenido y funcionalidades del proyecto.",
         "questions": {
+          "web_current_site": { "label": "¿Tienes un sitio web activo? Si sí, ¿qué es lo que más te molesta de él?", "hint": "URL si tienes. Y sé honesto — ¿qué hace que no funcione como debería?", "placeholder": "Ej: noctra.studio — el problema es que nadie entiende qué vendemos al llegar. O: No tenemos sitio todavía." },
           "web_type": { "label": "¿Qué tipo de sitio necesitas?", "hint": "Propósito principal del sitio.", "placeholder": "" },
           "web_pages": { "label": "¿Qué páginas/secciones debe incluir?", "hint": "Selecciona todas las que apliquen.", "placeholder": "" },
           "web_references": { "label": "¿Sitios web que admiras o te inspiran?", "hint": "URLs o nombres.", "placeholder": "Escribe aquí..." },
-          "web_has_content": { "label": "¿Ya tienes textos, imágenes y copywriting listos?", "hint": "Contenido para el sitio.", "placeholder": "" },
+          "web_content_owner": { "label": "¿Quién se encargará del contenido del sitio (textos, imágenes, copywriting)?", "hint": "Esto nos ayuda a planear el proyecto de forma realista desde el inicio.", "placeholder": "" },
           "web_features": { "label": "¿Qué funcionalidades necesita el sitio?", "hint": "Características técnicas.", "placeholder": "" },
           "web_integrations": { "label": "¿Integraciones requeridas?", "hint": "Herramientas de terceros.", "placeholder": "" },
           "web_deadline": { "label": "¿Tienes una fecha límite para el lanzamiento?", "hint": "Fecha o periodo estimado.", "placeholder": "Escribe aquí..." },
-          "web_goal": { "label": "¿Cuál es el objetivo principal del sitio?", "hint": "Conversión, información, etc.", "placeholder": "Escribe aquí..." }
+          "web_goal": { "label": "¿Cuál es la única acción que quieres que un visitante tome al llegar a tu sitio?", "hint": "Si solo pudieras pedirle una cosa, ¿qué sería? Ser específico aquí hace toda la diferencia.", "placeholder": "Ej: Que agende una llamada de diagnóstico de 30 minutos. No que compre directo — que dé el primer paso." }
         }
       },
       "seo": {
@@ -142,9 +162,10 @@
         "desc": "Definamos la estrategia para que {clientName} aparezca donde importa.",
         "questions": {
           "seo_current_site": { "label": "¿Tienes sitio web activo?", "hint": "URL actual si existe.", "placeholder": "Escribe aquí..." },
-          "seo_target_keywords": { "label": "¿Qué términos o frases usaría tu cliente ideal para encontrarte en Google?", "hint": "Términos de búsqueda.", "placeholder": "Escribe aquí..." },
+          "seo_target_keywords": { "label": "Cuando tu cliente ideal tiene el problema que tú resuelves, ¿qué escribe en Google?", "hint": "Piensa en el momento exacto del dolor, no en tu servicio. ¿Qué frase escribiría a las 11pm cuando ya no aguanta más el problema?", "placeholder": "Ej: 'cómo automatizar facturación empresa pequeña', 'agencia diseño web precio México', 'por qué mi equipo de ventas no cierra'" },
           "seo_competitors": { "label": "¿Cuáles son tus 2-3 principales competidores?", "hint": "URLs o nombres.", "placeholder": "Escribe aquí..." },
           "seo_geo": { "label": "¿A qué mercado geográfico quieres llegar?", "hint": "Alcance del SEO.", "placeholder": "" },
+          "seo_previous_attempts": { "label": "¿Has intentado hacer SEO antes? ¿Qué pasó?", "hint": "Si tienes experiencia previa (buena o mala), nos ayuda a no repetir lo que no funcionó.", "placeholder": "Ej: Contratamos una agencia 6 meses, pagamos links y no vimos resultados. O: Nunca lo hemos intentado formalmente." },
           "seo_content_capacity": { "label": "¿Puedes generar contenido regularmente?", "hint": "Artículos, guías, etc.", "placeholder": "" },
           "seo_current_traffic": { "label": "¿Sabes cuánto tráfico orgánico recibes actualmente?", "hint": "Estimado mensual opcional.", "placeholder": "" },
           "seo_goal": { "label": "¿Cuál es el objetivo principal del SEO?", "hint": "Tráfico, leads, autoridad.", "placeholder": "Escribe aquí..." }
@@ -156,7 +177,7 @@
         "desc": "Identifiquemos qué procesos de {clientName} pueden operar solos.",
         "questions": {
           "ai_current_tools": { "label": "¿Qué herramientas usa actualmente el equipo?", "hint": "CRM, email, ops, etc.", "placeholder": "Escribe aquí..." },
-          "ai_pain_points": { "label": "¿Qué tareas repetitivas consumen más tiempo de tu equipo hoy?", "hint": "Puntos de fricción.", "placeholder": "Escribe aquí..." },
+          "ai_pain_points": { "label": "¿Qué tarea hace tu equipo que, si desapareciera mañana, nadie la extrañaría — pero hoy no pueden evitar hacerla?", "hint": "El trabajo que todos odian pero que 'hay que hacer'. Eso es exactamente lo que queremos automatizar primero.", "placeholder": "Ej: Copiar datos de emails a una hoja de Excel. O enviar el mismo follow-up manual a cada prospecto 3 días después de una llamada." },
           "ai_processes": { "label": "¿Qué procesos te interesa automatizar?", "hint": "Selecciona las áreas clave.", "placeholder": "" },
           "ai_data_sources": { "label": "¿Dónde vive la información de tu negocio hoy?", "hint": "Fuentes de datos.", "placeholder": "" },
           "ai_team_size": { "label": "¿Cuántas personas hay en el equipo que usaría las automatizaciones?", "hint": "Tamaño del equipo.", "placeholder": "" },
@@ -171,13 +192,14 @@
         "desc": "Entendamos cómo gestiona {clientName} sus clientes y ventas hoy.",
         "questions": {
           "crm_current_crm": { "label": "¿Qué usan actualmente para gestionar clientes y ventas?", "hint": "Herramienta actual.", "placeholder": "" },
+          "crm_previous_attempt": { "label": "¿Has intentado implementar un CRM antes? ¿Por qué no funcionó?", "hint": "Si la respuesta es 'nadie lo usaba', esa es la información más valiosa que puedes darnos.", "placeholder": "Ej: Implementamos HubSpot, era demasiado complejo para el equipo. Lo abandonamos en 3 meses. O: Nunca hemos tenido un CRM formal." },
           "crm_pain_points": { "label": "¿Qué problema tiene tu CRM o proceso actual?", "hint": "Fallas actuales.", "placeholder": "Escribe aquí..." },
           "crm_team_size": { "label": "¿Cuántas personas usarían el CRM?", "hint": "Usuarios del sistema.", "placeholder": "" },
           "crm_pipeline": { "label": "¿Cómo es tu proceso de ventas hoy?", "hint": "Describe las etapas.", "placeholder": "Escribe aquí..." },
           "crm_avg_deals": { "label": "¿Cuántos deals/leads manejan por mes aproximadamente?", "hint": "Volumen de ventas.", "placeholder": "" },
           "crm_integrations": { "label": "¿Con qué herramientas necesita integrarse el CRM?", "hint": "Ecosistema digital.", "placeholder": "" },
           "crm_ai_features": { "label": "¿Qué funciones de IA te interesan en el CRM?", "hint": "Funciones inteligentes.", "placeholder": "" },
-          "crm_main_goal": { "label": "¿Cuál es el objetivo #1 de implementar Forge?", "hint": "Meta principal.", "placeholder": "Escribe aquí..." }
+          "crm_main_goal": { "label": "¿Qué está pasando hoy en tu proceso de ventas que, si lo resolvieras, cambiaría todo?", "hint": "El cuello de botella real. ¿Dónde se caen los deals? ¿Dónde se pierde el tiempo? ¿Qué no tienes visibilidad?", "placeholder": "Ej: No sabemos en qué etapa está cada cliente. El equipo trabaja en silos y nadie sabe qué conversaciones tuvieron con cada prospecto." }
         }
       }
     },
@@ -191,6 +213,8 @@
       "web": {
         "type": ["Landing page", "Sitio corporativo", "Blog", "E-commerce", "Portafolio", "Web app"],
         "pages": ["Home", "Sobre nosotros", "Servicios", "Portafolio/Casos", "Blog", "Contacto", "Precios", "FAQ", "Política de privacidad"],
+        "contentOwner": ["Yo mismo / mi equipo lo tiene listo", "Necesitamos que Noctra gestione el contenido", "Tenemos algo pero necesita trabajo", "Aún no lo hemos definido"],
+        "contentOwner": ["Yo mismo / mi equipo lo tiene listo", "Necesitamos que Noctra gestione el contenido", "Tenemos algo pero necesita trabajo", "Aún no lo hemos definido"],
         "features": ["Formulario de contacto", "Chat en vivo", "Booking/Agenda", "Pagos en línea", "Multilenguaje", "Dashboard/Login", "Blog con CMS", "Newsletter", "Analytics avanzado"],
         "integrations": ["Google Analytics", "HubSpot", "Mailchimp", "Stripe", "Calendly", "WhatsApp", "Supabase", "Zapier", "Meta Pixel"]
       },
@@ -321,6 +345,41 @@
     "poweredBy": "Powered by Noctra Studio",
     "confidential": "Documento Confidencial",
     "back": "Volver",
-    "next": "Siguiente"
+    "next": "Siguiente",
+    "loading": "Cargando...",
+    "save": "Guardar",
+    "submit": "Enviar",
+    "cancel": "Cancelar",
+    "delete": "Eliminar",
+    "deleteConfirm": "¿Estás seguro que deseas eliminar este formulario? Esta acción no se puede deshacer.",
+    "edit": "Editar",
+    "yes": "Sí",
+    "no": "No",
+    "copy": "Copiar",
+    "copied": "¡Copiado!",
+    "view": "Ver",
+    "search": "Buscar...",
+    "noResults": "Sin resultados",
+    "error": "Error",
+    "success": "Éxito",
+    "required": "Campo requerido",
+    "optional": "Opcional",
+    "preview": "Vista previa",
+    "language": "Idioma",
+    "createdAt": "Creado",
+    "status": "Estado",
+    "actions": "Acciones",
+    "client": "Cliente",
+    "directedTo": "Dirigido a",
+    "slug": "URL del formulario",
+    "expires": "Vence",
+    "logoOptional": "Logo (opcional)",
+    "clientName": "Nombre del cliente",
+    "formCreated": "¡Formulario creado!",
+    "copyLink": "Copiar link",
+    "openNewTab": "Abrir en nueva pestaña",
+    "goDashboard": "Ir al panel",
+    "today": "hoy",
+    "yesterday": "ayer"
   }
 }

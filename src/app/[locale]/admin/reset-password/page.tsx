@@ -1,6 +1,8 @@
 import ResetPasswordForm from "@/components/auth/ResetPasswordForm";
 import { createClient } from "@/lib/supabase/server";
 import Link from "next/link";
+import { NextIntlClientProvider } from "next-intl";
+import esMessages from "@/messages/es.json";
 
 export default async function ResetPasswordPage({
   searchParams,
@@ -58,7 +60,9 @@ export default async function ResetPasswordPage({
 
         <main className="flex-1 flex items-center justify-center p-6">
           <div className="w-full max-w-[400px]">
-            <ResetPasswordForm />
+            <NextIntlClientProvider locale="es" messages={esMessages}>
+              <ResetPasswordForm />
+            </NextIntlClientProvider>
           </div>
         </main>
       </div>
@@ -72,15 +76,15 @@ function ErrorState() {
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(20,20,20,1)_0%,rgba(8,8,8,1)_100%)]" />
 
       <div className="relative z-10 space-y-8 max-w-sm">
-        <div className="w-16 h-16 rounded-full bg-red-500/10 flex items-center justify-center border border-red-500/20 mx-auto animate-in zoom-in duration-500">
-          <span className="text-red-500 font-bebas text-4xl mt-1">!</span>
+        <div className="w-16 h-16 bg-red-500/10 flex items-center justify-center border border-red-500/20 mx-auto animate-in zoom-in duration-500">
+          <span className="text-red-500 font-black text-4xl">!</span>
         </div>
 
         <div className="space-y-4">
-          <h1 className="font-bebas text-5xl text-white tracking-wide">
+          <h1 className="font-black text-[40px] md:text-5xl text-white tracking-tight uppercase">
             Link expirado.
           </h1>
-          <p className="font-body text-[13px] text-[#888] leading-relaxed">
+          <p className="text-[#555] text-[13px] leading-relaxed font-light">
             Este link para restablecer contraseña ya no es válido o ha expirado.
             Los links de recuperación tienen una validez de 1 hora.
           </p>
@@ -89,12 +93,12 @@ function ErrorState() {
         <div className="pt-4 space-y-4">
           <Link
             href="/admin/forgot-password"
-            className="w-full block bg-white text-black font-body font-medium py-3 text-sm uppercase tracking-wider hover:bg-[#00E5A0] transition-colors">
+            className="w-full block bg-white text-black font-medium py-3 text-sm uppercase tracking-[0.08em] hover:bg-[#00E5A0] transition-colors text-center">
             Solicitar nuevo link →
           </Link>
           <Link
             href="/admin/login"
-            className="block font-mono text-[10px] tracking-[0.2em] text-[#555] hover:text-white transition-colors uppercase">
+            className="block font-medium text-[10px] tracking-[0.18em] text-[#555] hover:text-white transition-colors uppercase">
             ← Volver al login
           </Link>
         </div>

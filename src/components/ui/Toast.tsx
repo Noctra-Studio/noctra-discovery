@@ -107,27 +107,29 @@ function ToastItem({
   return (
     <div
       className={cn(
-        "group relative flex w-full flex-col overflow-hidden bg-gray-1 border border-gray-2 text-white shadow-lg pointer-events-auto",
+        "group relative flex w-full flex-col overflow-hidden bg-gray-1 border border-gray-2 rounded-xl text-white shadow-lg pointer-events-auto",
         "animate-in slide-in-from-right-full fade-in duration-300",
       )}
       role="alert">
       <div className="flex w-full justify-between gap-4 p-4 pr-10">
-        <div className="flex flex-col gap-1">
+        <div className="flex flex-col gap-0.5">
           <h3
             className={cn(
-              "text-sm font-semibold",
+              "text-[14px] font-black uppercase tracking-tight",
               toast.type === "error" && "text-red-500",
               toast.type === "success" && "text-accent",
             )}>
             {toast.title}
           </h3>
           {toast.description && (
-            <p className="text-sm opacity-90">{toast.description}</p>
+            <p className="text-[13px] opacity-80 font-light leading-tight">
+              {toast.description}
+            </p>
           )}
         </div>
         <button
           onClick={onDismiss}
-          className="absolute right-2 top-2 rounded-md p-1 opacity-0 transition-opacity group-hover:opacity-100 hover:bg-white/10">
+          className="absolute right-2 top-2 p-1 opacity-0 transition-opacity rounded-full group-hover:opacity-100 hover:bg-white/10">
           <svg
             className="h-4 w-4"
             fill="none"

@@ -33,21 +33,17 @@ export default async function PublicFormPage({
   if (error || !form) {
     return (
       <div className="min-h-screen bg-[#050505] flex flex-col items-center justify-center p-6 text-center">
-        <h1 className="font-display text-8xl text-white/10 mb-4">404</h1>
-        <p className="font-body text-gray-400 text-lg">Este link no existe.</p>
-        <div className="mt-12 text-[#333] font-mono text-xs uppercase tracking-widest">
+        <h1 className="font-black text-8xl text-white/5 mb-4 uppercase">404</h1>
+        <p className="text-[#555] text-lg font-light">Este link no existe.</p>
+        <div className="mt-12 text-[#333] font-medium text-[10px] tracking-[0.18em] uppercase">
           noctra.studio
         </div>
       </div>
     );
   }
 
-  // Set the locale for translations: URL locale takes precedence, fallback to DB language
-  const availableLocales = ["es", "en"];
-  const formLocale = availableLocales.includes(locale)
-    ? locale
-    : form.language || "es";
-
+  // Rule 2: Use form.language strictly
+  const formLocale = form.language || "es";
   const dateLocale = formLocale === "es" ? es : enUS;
 
   if (form.status === "completed") {
@@ -66,28 +62,26 @@ export default async function PublicFormPage({
               />
             </div>
             <span className="text-gray-600 text-2xl">×</span>
-            <div className="w-12 h-12 rounded-full bg-green-500/10 flex items-center justify-center border border-green-500/20">
-              <span className="text-green-500 font-display text-2xl mt-1">
-                ✓
-              </span>
+            <div className="w-12 h-12 bg-green-500/10 flex items-center justify-center border border-green-500/20">
+              <span className="text-green-500 font-black text-2xl">✓</span>
             </div>
           </div>
 
-          <h1 className="font-display text-5xl text-white mb-6 tracking-wide">
+          <h1 className="font-black text-[40px] md:text-5xl text-white mb-6 tracking-tight uppercase">
             Ya enviado.
           </h1>
 
-          <p className="font-body text-gray-400 text-lg mb-8 leading-relaxed">
+          <p className="text-[#555] text-lg mb-8 leading-relaxed font-light">
             {form.directed_to} ya completó el Brand Discovery para{" "}
             <span className="text-white font-medium">{form.client_name}</span>.
           </p>
 
-          <div className="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-mono font-medium tracking-widest bg-green-500/10 text-green-400 border border-green-500/20 shadow-[0_0_15px_rgba(34,197,94,0.1)]">
+          <div className="inline-flex items-center px-4 py-1.5 font-medium text-[10px] tracking-[0.18em] uppercase bg-green-500/10 text-green-400 border border-green-500/20">
             PROCESO COMPLETADO
           </div>
         </div>
 
-        <div className="absolute bottom-8 text-[#444] font-mono text-xs uppercase tracking-widest">
+        <div className="absolute bottom-8 text-[#222] font-medium text-[10px] tracking-[0.18em] uppercase">
           noctra.studio
         </div>
       </div>
@@ -98,21 +92,21 @@ export default async function PublicFormPage({
     return (
       <div className="min-h-screen bg-[#050505] flex flex-col items-center justify-center p-6 text-center relative">
         <div className="relative z-10 w-full max-w-sm mx-auto flex flex-col items-center">
-          <div className="w-16 h-16 rounded-full bg-red-500/10 flex items-center justify-center border border-red-500/20 mb-8">
-            <span className="text-red-500 font-display text-3xl mt-1">!</span>
+          <div className="w-16 h-16 bg-red-500/10 flex items-center justify-center border border-red-500/20 mb-8">
+            <span className="text-red-500 font-black text-3xl">!</span>
           </div>
-          <h1 className="font-display text-4xl text-white mb-4 tracking-wide">
+          <h1 className="font-black text-4xl text-white mb-4 tracking-tight uppercase">
             Link expirado.
           </h1>
-          <p className="font-body text-gray-400 mb-2">
+          <p className="text-[#555] mb-2 font-light">
             Este enlace prescribió el{" "}
             {format(new Date(form.expires_at), "PPP", { locale: dateLocale })}.
           </p>
-          <p className="font-body text-gray-400 text-sm">
+          <p className="text-[#555] text-sm font-light">
             Contacta a Noctra Studio para generar uno nuevo.
           </p>
         </div>
-        <div className="absolute bottom-8 text-[#444] font-mono text-xs uppercase tracking-widest">
+        <div className="absolute bottom-8 text-[#222] font-medium text-[10px] tracking-[0.18em] uppercase">
           noctra.studio
         </div>
       </div>
@@ -122,12 +116,16 @@ export default async function PublicFormPage({
   // Pass raw dictionary to avoid next-intl locale conflicts
   const messages = (await import(`../../../../messages/${formLocale}.json`))
     .default;
-  const dict = messages.discoveryForm;
+  const dict = {
+    ...messages.discoveryForm,
+    common: messages.common,
+  };
 
   // OK -> Render Form
   return (
     <ClientDiscoveryForm
       formId={form.id}
+      slug={form.slug}
       clientName={form.client_name}
       clientLogoUrl={form.client_logo_url}
       directedTo={form.directed_to}

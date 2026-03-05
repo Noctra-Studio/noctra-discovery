@@ -167,6 +167,17 @@ export function buildPDFHtml(data: any, language: string, formMeta: any) {
             <div class="q-value">${escapeHtml(data.q_company_why) || '-'}</div>
           </div>
           <div class="q-box">
+            <div class="q-label">Business Stage</div>
+            <div class="q-value">
+              <strong>${data.q_business_stage || '-'}</strong>
+              ${data.q_business_stage_detail ? `<div style="margin-top: 5px; font-style: italic; color: #666;">${escapeHtml(data.q_business_stage_detail)}</div>` : ''}
+            </div>
+          </div>
+          <div class="q-box">
+            <div class="q-label">Voz del Cliente</div>
+            <div class="q-value">${escapeHtml(data.q_client_voice) || '-'}</div>
+          </div>
+          <div class="q-box">
             <div class="q-label">Diferenciador</div>
             <div class="q-value">${escapeHtml(data.q_differentiator) || '-'}</div>
           </div>
@@ -185,6 +196,14 @@ export function buildPDFHtml(data: any, language: string, formMeta: any) {
         <div class="page">
           <h2 class="section-title">Branding & Identity</h2>
           <div class="q-box">
+            <div class="q-label">Visual Inspiration</div>
+            <div class="q-value">${escapeHtml(data.q_visual_inspiration) || '-'}</div>
+          </div>
+          <div class="q-box">
+            <div class="q-label">Visual Avoid</div>
+            <div>${renderChips(data.q_visual_avoid)}</div>
+          </div>
+          <div class="q-box">
             <div class="q-label">Accent Color</div>
             <div class="q-value" style="display: flex; align-items: center; gap: 10px;">
               <div style="width: 24px; height: 24px; background: ${data.q_accent_color}; border: 1px solid #eee; border-radius: 4px;"></div>
@@ -192,8 +211,8 @@ export function buildPDFHtml(data: any, language: string, formMeta: any) {
             </div>
           </div>
           <div class="q-box">
-            <div class="q-label">Tagline</div>
-            <div class="q-value">${escapeHtml(data.q_tagline) || '-'}</div>
+            <div class="q-label">Concrete Result</div>
+            <div class="q-value">${escapeHtml(data.q_concrete_result) || '-'}</div>
           </div>
           <div class="q-box">
              <div class="q-label">Atributos de Voz</div>

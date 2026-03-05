@@ -170,7 +170,7 @@ export default function PasswordStrengthMeter({
         </div>
         {results.level !== "empty" && (
           <span
-            className={`text-xs font-mono uppercase tracking-wider transition-colors duration-300 ${strengthColors[
+            className={`font-medium text-[10px] tracking-[0.18em] uppercase transition-colors duration-300 ${strengthColors[
               results.level
             ].replace("bg-", "text-")}`}>
             {results.level === "very-strong"
@@ -192,7 +192,7 @@ export default function PasswordStrengthMeter({
           return (
             <li
               key={req.id}
-              className="flex items-center gap-2 font-mono text-[10px] tracking-[0.1em] text-[#888] transition-colors duration-200">
+              className="flex items-center gap-2 font-medium text-[10px] tracking-[0.12em] uppercase text-[#888] transition-colors duration-200">
               <span className="w-3 flex justify-center">
                 {isPending && <span className="text-[#555]">○</span>}
                 {isPassed && <span className="text-[#00E5A0]">✓</span>}
@@ -208,7 +208,7 @@ export default function PasswordStrengthMeter({
 
         {/* Anti-common password hidden requirement feedback */}
         {results.isCommon && (
-          <li className="flex items-center gap-2 font-mono text-[10px] tracking-[0.1em] text-red-500 transition-colors duration-200 animate-in fade-in">
+          <li className="flex items-center gap-2 font-medium text-[10px] tracking-[0.12em] uppercase text-red-500 transition-colors duration-200 animate-in fade-in">
             <span className="w-3 flex justify-center">✗</span>
             <span>Esta contraseña es muy común. Elige otra.</span>
           </li>

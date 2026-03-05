@@ -55,7 +55,7 @@ const AutoTextarea = ({
       ref={ref}
       value={value}
       onChange={(e) => onChange(e.target.value)}
-      className="w-full bg-[#0A0A0A] border border-white/5 rounded-xl px-[18px] py-[14px] text-[#F5F5F0] font-body text-sm placeholder:text-[#333] focus:outline-none focus:border-[#00E5A0]/50 transition-all resize-y min-h-[96px] leading-[1.6]"
+      className="w-full bg-[#0A0A0A] border border-white/5 rounded-2xl px-4 py-3 md:py-[14px] text-[#F5F5F0] text-base md:text-sm placeholder:text-[#333] focus:outline-none focus:border-[#00E5A0]/50 transition-all resize-y min-h-[96px] leading-[1.6]"
       placeholder={placeholder}
     />
   );
@@ -87,7 +87,7 @@ const ChipSelector = ({
             type="button"
             onClick={() => toggle(opt)}
             disabled={!active && selected.length >= max}
-            className={`min-h-[44px] px-[22px] py-2 border rounded-full font-sans text-xs transition-all duration-200 ${
+            className={`min-h-[44px] px-4 py-2.5 border rounded-full text-base md:text-[11px] font-medium tracking-[0.12em] uppercase transition-all duration-200 ${
               active
                 ? "border-[#00E5A0] text-[#00E5A0] bg-[#00E5A0]/5"
                 : "border-white/5 text-[#555] hover:border-white/20 hover:text-white bg-[#0A0A0A]"
@@ -131,16 +131,16 @@ const SortableItem = ({
       style={style}
       {...attributes}
       {...listeners}
-      className={`flex items-center gap-4 bg-[#0A0A0A] border border-white/5 rounded-xl px-[18px] py-[13px] cursor-grab active:cursor-grabbing touch-none mb-3 transition-all hover:border-white/10 ${
+      className={`flex items-center gap-4 bg-[#0A0A0A] border border-white/5 rounded-2xl px-4 py-3 min-h-[52px] cursor-grab active:cursor-grabbing touch-none mb-3 transition-all hover:border-white/10 ${
         isDragging ? "opacity-35 scale-[0.98]" : ""
       }`}>
-      <div className="font-mono text-[10px] text-[#00E5A0] w-4 flex-shrink-0">
+      <div className="font-medium text-[10px] tracking-[0.18em] uppercase text-[#00E5A0] w-4 flex-shrink-0">
         {(index + 1).toString().padStart(2, "0")}
       </div>
-      <span className="font-body text-gray-200 text-[13px] font-light flex-1">
+      <span className="text-[#F5F5F0] text-base md:text-[13px] font-light flex-1">
         {text}
       </span>
-      <div className="text-[#333] text-sm">⋮⋮</div>
+      <div className="text-[#333] text-sm flex-shrink-0">⋮⋮</div>
     </div>
   );
 };
@@ -163,7 +163,7 @@ const Toggle = ({
           key={label}
           type="button"
           onClick={() => onChange(idx === 0)}
-          className={`flex-1 min-h-[44px] border first:rounded-l-full last:rounded-r-full font-sans text-xs transition-all ${
+          className={`flex-1 min-h-[44px] border rounded-full text-[11px] font-medium tracking-[0.12em] uppercase transition-all ${
             active
               ? "border-[#00E5A0] text-[#00E5A0] bg-[#00E5A0]/5"
               : "border-white/5 text-[#555] hover:border-white/20 bg-[#0A0A0A]"
@@ -174,6 +174,63 @@ const Toggle = ({
     })}
   </div>
 );
+
+const STAGE_FOLLOWUP = {
+  es: {
+    starting: {
+      label: "¿Qué te hizo dar el paso ahora?",
+      hint: "¿Hubo algo que te dio el empujón para empezar? ¿O hay una fecha o meta concreta que te estás poniendo?",
+      placeholder:
+        "Ej: Renuncié a mi trabajo corporativo y decidí apostar por esto. Quiero tener mis primeros 5 clientes antes de que acabe el año.",
+    },
+    established: {
+      label: "¿Qué está funcionando bien y qué sientes que le falta?",
+      hint: "No hace falta que sea perfecto — queremos saber qué ya tiene tracción y dónde sientes que hay un techo.",
+      placeholder:
+        "Ej: Los clientes que llegan por referido cierran bien, pero no tenemos forma de atraer clientes nuevos sin depender de que alguien nos recomiende.",
+    },
+    struggling: {
+      label:
+        "¿Cuál sería el resultado que, si lo lograras en los próximos 6 meses, haría que valió la pena?",
+      hint: "A veces los resultados no llegaron porque la estrategia no era la correcta, otras veces porque las expectativas no eran realistas. Cuéntanos qué esperabas y qué encontraste.",
+      placeholder:
+        "Ej: Esperaba tener flujo constante de clientes a los 6 meses de lanzar el sitio. Tenemos tráfico pero nadie convierte. Algo no está funcionando en el mensaje o en la propuesta.",
+    },
+    relaunching: {
+      label: "¿Qué cambió? ¿Por qué ahora y no antes?",
+      hint: "Entender qué pasó en la primera etapa nos ayuda a no repetir los mismos errores y construir sobre lo que sí funcionó.",
+      placeholder:
+        "Ej: La primera vez lo intenté solo y no pude con todo. Ahora tengo un socio y queremos hacerlo bien desde el inicio, con una identidad clara y un proceso definido.",
+    },
+  },
+  en: {
+    starting: {
+      label: "What made you take the step now?",
+      hint: "Was there something that pushed you to start? Or is there a specific date or goal you're setting for yourself?",
+      placeholder:
+        "E.g.: I left my corporate job and decided to bet on this. I want my first 5 clients before the end of the year.",
+    },
+    established: {
+      label: "What's working well and what do you feel is missing?",
+      hint: "It doesn't have to be perfect — we want to know what already has traction and where you feel there's a ceiling.",
+      placeholder:
+        "E.g.: Clients who come through referrals close well, but we have no way to attract new clients without depending on someone recommending us.",
+    },
+    struggling: {
+      label:
+        "What result, if achieved in the next 6 months, would make it all worth it?",
+      hint: "Sometimes results didn't come because the strategy wasn't right, other times because expectations weren't realistic. Tell us what you expected and what you found.",
+      placeholder:
+        "E.g.: I expected a steady flow of clients within 6 months of launching the site. We have traffic but nobody converts. Something isn't working in the message or the offer.",
+    },
+    relaunching: {
+      label: "What changed? Why now and not before?",
+      hint: "Understanding what happened in the first phase helps us avoid repeating the same mistakes and build on what did work.",
+      placeholder:
+        "E.g.: The first time I tried it alone and couldn't handle everything. Now I have a partner and we want to do it right from the start, with a clear identity and a defined process.",
+    },
+  },
+} as const;
 
 // Add Option Item (for ranking)
 const AddOptionItem = ({
@@ -218,7 +275,7 @@ const AddOptionItem = ({
           }}
           onBlur={handleConfirm}
           placeholder={placeholder}
-          className="bg-transparent border-none text-[13px] text-white focus:outline-none flex-1 font-body font-normal"
+          className="bg-transparent border-none text-[13px] text-white focus:outline-none flex-1 font-normal"
         />
       </div>
     );
@@ -232,7 +289,7 @@ const AddOptionItem = ({
       <div className="text-[#333] group-hover:text-[#00E5A0] transition-colors">
         <Plus size={16} />
       </div>
-      <span className="font-body text-[#555] text-[13px] font-normal group-hover:text-gray-300 transition-colors">
+      <span className="text-[#555] text-[13px] font-normal group-hover:text-[#F5F5F0] transition-colors">
         {addLabel}
       </span>
     </button>
@@ -253,7 +310,7 @@ const QBox = ({
     <label className="block text-[13px] font-medium text-[#F5F5F0] mb-1 uppercase tracking-wider">
       {label}
     </label>
-    <p className="font-body text-[12px] font-light text-[#555] mb-3 leading-[1.6]">
+    <p className="text-[12px] font-light text-[#555] mb-3 leading-[1.6]">
       {hint}
     </p>
     {children}
@@ -264,6 +321,7 @@ const QBox = ({
 
 export default function ClientDiscoveryForm({
   formId,
+  slug,
   clientName,
   clientLogoUrl,
   directedTo,
@@ -272,6 +330,7 @@ export default function ClientDiscoveryForm({
   services = ["branding"],
 }: {
   formId: string;
+  slug: string;
   clientName: string;
   clientLogoUrl: string | null;
   directedTo: string;
@@ -289,25 +348,34 @@ export default function ClientDiscoveryForm({
     // Common
     q_company_one_liner: "",
     q_company_why: "",
-    q_company_adjectives: "",
+    q_business_stage: null as
+      | "starting"
+      | "established"
+      | "struggling"
+      | "relaunching"
+      | null,
+    q_business_stage_detail: "",
+    q_client_voice: "",
     q_ideal_client: "",
     q_differentiator: "",
     // Branding
     q_perception_rank: dict.chips.branding?.perception || [],
-    q_visual_refs: [],
+    q_visual_inspiration: "",
+    q_visual_avoid: [],
     q_accent_color: "",
     q_accent_color_name: "",
     q_visual_style: [],
     q_keep_elements: "",
     q_voice_attrs: [],
-    q_tagline: "",
+    q_concrete_result: "",
     q_tone_avoid: "",
     q_never: "",
     // Web
+    web_current_site: "",
     web_type: "",
     web_pages: [],
     web_references: "",
-    web_has_content: false,
+    web_content_owner: "",
     web_features: [],
     web_integrations: [],
     web_deadline: "",
@@ -317,6 +385,7 @@ export default function ClientDiscoveryForm({
     seo_target_keywords: "",
     seo_competitors: "",
     seo_geo: "",
+    seo_previous_attempts: "",
     seo_content_capacity: "",
     seo_current_traffic: "",
     seo_goal: "",
@@ -324,13 +393,14 @@ export default function ClientDiscoveryForm({
     ai_current_tools: "",
     ai_pain_points: "",
     ai_processes: [],
-    ai_data_sources: "",
+    ai_first_priority: "",
     ai_team_size: "",
     ai_tech_level: "",
     ai_budget_range: "",
     ai_timeline: "",
     // CRM
     crm_current_crm: "",
+    crm_previous_attempt: "",
     crm_pain_points: "",
     crm_team_size: "",
     crm_pipeline: "",
@@ -380,7 +450,7 @@ export default function ClientDiscoveryForm({
     // Simulate extra delay for animation UX
     await new Promise((resolve) => setTimeout(resolve, 4000));
 
-    const res = await submitDiscoveryForm(formId, payload);
+    const res = await submitDiscoveryForm(formId, slug, payload);
     if (res.success) {
       setView("success");
     } else {
@@ -417,38 +487,41 @@ export default function ClientDiscoveryForm({
               className="max-h-16 max-w-[200px] object-contain mb-10 mx-auto"
             />
           ) : (
-            <div className="font-display text-[28px] tracking-[0.1em] text-white mb-10 uppercase">
+            <div className="font-black text-[28px] tracking-tight text-white mb-10 uppercase">
               {clientName}
             </div>
           )}
 
-          <div className="font-mono text-[10px] tracking-[0.4em] text-[#555] uppercase mb-6">
-            BRAND DISCOVERY · {clientName}
+          <div className="font-medium text-[10px] tracking-[0.18em] text-[#555] uppercase mb-6">
+            {dict.intro.eyebrow} · {clientName}
           </div>
 
           <div className="relative z-10 text-center max-w-4xl px-6">
-            <h1 className="text-5xl md:text-7xl font-black mb-8 leading-[1.1] tracking-[-0.04em] text-white">
+            <h1 className="text-[52px] md:text-[86px] font-black mb-8 leading-[0.95] tracking-tight text-white uppercase">
               {dict.intro.title}
             </h1>
-            <p className="text-lg md:text-xl text-gray-400 font-light mb-12 max-w-2xl mx-auto leading-relaxed">
-              {dict.intro.subtitle}
+            <p className="text-lg md:text-xl text-[#555] font-light mb-12 max-w-2xl mx-auto leading-relaxed">
+              {dict.intro.description}
             </p>
           </div>
 
-          <p className="font-mono text-[10px] text-[#555] tracking-[0.15em] mb-12 uppercase">
-            ~{services.length * 5 + 5} MINUTOS · SOLO SE PUEDE ENVIAR UNA VEZ
+          <p className="font-medium text-[10px] text-[#555] tracking-[0.18em] mb-12 uppercase">
+            {dict.intro.duration.replace(
+              "{minutes}",
+              (services.length * 5 + 5).toString(),
+            )}
           </p>
 
           <button
             type="button"
             onClick={() => setView("form")}
-            className="group px-10 py-5 bg-white text-black font-semibold rounded-full tracking-[0.08em] uppercase text-sm hover:bg-[#00E5A0] transition-all hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-3 mx-auto relative z-20 cursor-pointer">
+            className="group min-h-[48px] rounded-full px-8 py-3.5 md:px-10 md:py-5 bg-white text-black font-medium tracking-[0.08em] uppercase text-base md:text-sm hover:bg-[#00E5A0] transition-all hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-3 mx-auto relative z-20 cursor-pointer">
             {dict.intro.cta} <Plus size={18} />
           </button>
         </div>
 
         <footer className="absolute bottom-8 left-0 right-0 text-center">
-          <div className="font-mono text-[9px] text-[#333] tracking-[0.2em] uppercase">
+          <div className="font-medium text-[9px] text-[#333] tracking-[0.18em] uppercase">
             Powered by Noctra Studio
           </div>
         </footer>
@@ -498,8 +571,12 @@ export default function ClientDiscoveryForm({
           <div className="absolute top-0 left-0 w-full h-full bg-[#00E5A0] animate-[shimmer_1.2s_ease-in-out_infinite]" />
         </div>
 
-        <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-[#00E5A0]">
-          {subStatus}
+        <p className="font-medium text-[11px] uppercase tracking-[0.18em] text-[#00E5A0]">
+          {subStatus === "Generando PDF..."
+            ? dict.states?.submitting?.generatingPdf || "Generando PDF..."
+            : subStatus === "Enviando..."
+              ? dict.states?.submitting?.sending || "Enviando..."
+              : dict.states?.submitting?.preparing || "Preparando..."}
         </p>
       </div>
     );
@@ -540,22 +617,26 @@ export default function ClientDiscoveryForm({
           </svg>
         </div>
 
-        <h1 className="font-display text-[clamp(48px,8vw,96px)] leading-[0.9] uppercase mb-8">
-          <span className="text-white block">Listo.</span>
-          <span className="text-[#555] block">Gracias.</span>
+        <h1 className="text-[clamp(48px,8vw,86px)] font-black leading-[0.95] tracking-tight uppercase mb-8">
+          <span className="text-white block">
+            {dict.states.success.title_1 || "Listo."}
+          </span>
+          <span className="text-[#333] block">
+            {dict.states.success.title_2 || "Gracias."}
+          </span>
         </h1>
 
         <div className="inline-block bg-[#00E5A0]/8 border border-[#00E5A0]/20 px-6 py-2.5 mb-8">
-          <span className="font-mono text-[10px] tracking-[0.2em] text-[#00E5A0] uppercase">
-            DISCOVERY ENVIADO
+          <span className="font-medium text-[10px] tracking-[0.18em] text-[#00E5A0] uppercase">
+            {dict.states.success.badge || "DISCOVERY ENVIADO"}
           </span>
         </div>
 
-        <p className="font-body text-[14px] font-light text-[#555] max-w-[420px] mx-auto mb-12">
+        <p className="text-[14px] font-light text-[#555] max-w-[420px] mx-auto mb-12 leading-relaxed">
           {dict.states.success.message}
         </p>
 
-        <div className="font-mono text-[9px] text-[#333] tracking-[0.15em] uppercase">
+        <div className="font-medium text-[9px] text-[#333] tracking-[0.18em] uppercase">
           noctra.studio
         </div>
       </div>
@@ -568,11 +649,12 @@ export default function ClientDiscoveryForm({
     const countFilled = (vals: any[]) =>
       vals.filter((v) => (Array.isArray(v) ? v.length > 0 : !!v)).length;
 
-    let totalPoints = 5; // Common section has 5 q's
+    let totalPoints = 6; // Common section has 6 q's
     let filledPoints = countFilled([
       payload.q_company_one_liner,
       payload.q_company_why,
-      payload.q_company_adjectives,
+      payload.q_business_stage,
+      payload.q_client_voice,
       payload.q_ideal_client,
       payload.q_differentiator,
     ]);
@@ -580,18 +662,18 @@ export default function ClientDiscoveryForm({
     if (services.includes("branding")) {
       totalPoints += 5;
       filledPoints += countFilled([
-        payload.q_visual_refs,
+        payload.q_visual_avoid,
         payload.q_accent_color,
         payload.q_visual_style,
         payload.q_voice_attrs,
-        payload.q_tagline,
+        payload.q_concrete_result,
       ]);
     }
     if (services.includes("web")) {
       totalPoints += 4;
       filledPoints += countFilled([
-        payload.web_type,
-        payload.web_pages,
+        payload.web_current_site,
+        payload.web_content_owner,
         payload.web_goal,
         payload.web_deadline,
       ]);
@@ -612,7 +694,7 @@ export default function ClientDiscoveryForm({
               className="max-h-6 object-contain"
             />
           ) : (
-            <div className="font-display text-base text-white tracking-widest uppercase">
+            <div className="font-black text-base text-white tracking-widest uppercase">
               {clientName}
             </div>
           )}
@@ -626,37 +708,37 @@ export default function ClientDiscoveryForm({
         </div>
 
         <div className="hidden md:block flex-1 text-right">
-          <span className="font-mono text-[9px] text-[#333] tracking-[0.2em] uppercase">
+          <span className="font-medium text-[9px] text-[#333] tracking-[0.18em] uppercase">
             {clientName} · Discovery
           </span>
         </div>
       </header>
-
       {/* Progress label (desktop) */}
       <div className="fixed top-[58px] left-0 right-0 flex justify-center z-30 hidden md:flex pointer-events-none">
-        <span className="font-mono text-[9px] text-[#555] tracking-[0.2em] uppercase">
-          {Math.round(calculateProgress())}% COMPLETADO
+        <span className="font-medium text-[9px] text-[#555] tracking-[0.18em] uppercase">
+          {dict.percentageComplete.replace(
+            "{percentage}",
+            Math.round(calculateProgress()).toString(),
+          )}
         </span>
       </div>
 
-      <main className="flex-1 w-full max-w-3xl mx-auto pt-24 pb-40 px-4 sm:px-8">
+      <main className="flex-1 w-full max-w-3xl mx-auto pt-24 pb-40 px-5 md:px-10">
         {/* --- COMMON SECTION --- */}
         <section className="mb-20">
-          <div className="p-8 lg:p-12 border border-white/5 bg-[#0A0A0A]/50 backdrop-blur-xl relative overflow-hidden rounded-2xl">
-            {" "}
-            {/* Updated className */}
+          <div className="p-8 lg:p-12 border border-white/5 bg-[#0A0A0A]/50 rounded-2xl md:rounded-3xl backdrop-blur-xl relative overflow-hidden">
             <div className="flex items-center gap-3 mb-2">
-              <span className="p-1.5 bg-[#00E5A0]/10 rounded-lg text-[#00E5A0]">
+              <span className="p-1.5 bg-[#00E5A0]/10 text-[#00E5A0]">
                 <Info size={14} />
               </span>
-              <span className="font-mono text-[#00E5A0] text-[9px] uppercase tracking-[0.4em] font-medium">
+              <span className="font-medium text-[#00E5A0] text-[10px] uppercase tracking-[0.18em]">
                 {dict.sections.common.eyebrow}
               </span>
             </div>
-            <h2 className="text-4xl md:text-5xl font-black text-white mb-6 tracking-tight">
+            <h2 className="text-[40px] md:text-[52px] font-black leading-none tracking-tight text-white mb-6 uppercase">
               {dict.sections.common.title}
             </h2>
-            <p className="text-gray-400 max-w-xl text-lg font-light leading-relaxed">
+            <p className="text-[#555] max-w-xl text-lg font-light leading-relaxed">
               {dict.sections.common.desc}
             </p>
           </div>
@@ -694,18 +776,78 @@ export default function ClientDiscoveryForm({
           </QBox>
 
           <QBox
-            label={dict.sections.common.questions.q_company_adjectives.label.replace(
+            label={dict.sections.common.questions.q_business_stage.label.replace(
               "{clientName}",
               clientName,
             )}
-            hint={dict.sections.common.questions.q_company_adjectives.hint}>
+            hint={dict.sections.common.questions.q_business_stage.hint}>
+            <div className="flex flex-col gap-6">
+              <div className="flex flex-wrap gap-2">
+                {Object.entries(
+                  dict.sections.common.questions.q_business_stage.options,
+                ).map(([key, label]: [any, any]) => {
+                  const active = payload.q_business_stage === key;
+                  return (
+                    <button
+                      key={key}
+                      type="button"
+                      onClick={() =>
+                        setPayload({ ...payload, q_business_stage: key })
+                      }
+                      className={`min-h-[44px] px-4 py-2.5 border rounded-2xl text-base md:text-[11px] font-medium tracking-[0.12em] uppercase transition-all duration-200 text-left md:text-center ${
+                        active
+                          ? "border-[#00E5A0] text-[#00E5A0] bg-[#00E5A0]/5"
+                          : "border-white/5 text-[#555] hover:border-white/20 hover:text-white bg-[#0A0A0A]"
+                      }`}>
+                      {label}
+                    </button>
+                  );
+                })}
+              </div>
+
+              {payload.q_business_stage && (
+                <div className="animate-in fade-in slide-in-from-top-2 duration-300">
+                  <QBox
+                    label={
+                      (STAGE_FOLLOWUP as any)[formLocale][
+                        payload.q_business_stage
+                      ].label
+                    }
+                    hint={
+                      (STAGE_FOLLOWUP as any)[formLocale][
+                        payload.q_business_stage
+                      ].hint
+                    }>
+                    <AutoTextarea
+                      placeholder={
+                        (STAGE_FOLLOWUP as any)[formLocale][
+                          payload.q_business_stage
+                        ].placeholder
+                      }
+                      value={payload.q_business_stage_detail}
+                      onChange={(val) =>
+                        setPayload({ ...payload, q_business_stage_detail: val })
+                      }
+                    />
+                  </QBox>
+                </div>
+              )}
+            </div>
+          </QBox>
+
+          <QBox
+            label={dict.sections.common.questions.q_client_voice.label.replace(
+              "{clientName}",
+              clientName,
+            )}
+            hint={dict.sections.common.questions.q_client_voice.hint}>
             <AutoTextarea
               placeholder={
-                dict.sections.common.questions.q_company_adjectives.placeholder
+                dict.sections.common.questions.q_client_voice.placeholder
               }
-              value={payload.q_company_adjectives}
+              value={payload.q_client_voice}
               onChange={(val) =>
-                setPayload({ ...payload, q_company_adjectives: val })
+                setPayload({ ...payload, q_client_voice: val })
               }
             />
           </QBox>
@@ -744,20 +886,20 @@ export default function ClientDiscoveryForm({
           <section className="mb-20">
             <div className="mb-16 pt-16 border-t border-white/5">
               <div className="flex items-center gap-3 mb-2">
-                <span className="p-1.5 bg-[#00E5A0]/10 rounded-lg text-[#00E5A0]">
+                <span className="p-1.5 bg-[#00E5A0]/10 text-[#00E5A0]">
                   <Sparkles size={14} />
                 </span>
-                <span className="font-mono text-[#00E5A0] text-[9px] uppercase tracking-[0.4em] font-medium">
+                <span className="font-medium text-[#00E5A0] text-[10px] uppercase tracking-[0.18em]">
                   01 {dict.sections.branding.eyebrow}
                 </span>
               </div>
-              <h2 className="font-display text-[clamp(36px,5vw,52px)] text-white mb-2 leading-none uppercase">
+              <h2 className="text-[40px] md:text-[52px] font-black leading-none tracking-tight text-white mb-6 uppercase">
                 {dict.sections.branding.title.replace(
                   "{clientName}",
                   clientName,
                 )}
               </h2>
-              <p className="font-body text-[13px] font-light text-[#555]">
+              <p className="text-[#555] max-w-xl text-lg font-light leading-relaxed">
                 {dict.sections.branding.desc.replace(
                   "{clientName}",
                   clientName,
@@ -814,13 +956,52 @@ export default function ClientDiscoveryForm({
             </QBox>
 
             <QBox
-              label={dict.sections.branding.questions.q_visual_refs.label}
-              hint={dict.sections.branding.questions.q_visual_refs.hint}>
+              label={dict.sections.branding.questions.q_visual_inspiration.label.replace(
+                "{clientName}",
+                clientName,
+              )}
+              hint={dict.sections.branding.questions.q_visual_inspiration.hint}>
+              <AutoTextarea
+                placeholder={
+                  dict.sections.branding.questions.q_visual_inspiration
+                    .placeholder
+                }
+                value={payload.q_visual_inspiration}
+                onChange={(val) =>
+                  setPayload({ ...payload, q_visual_inspiration: val })
+                }
+              />
+            </QBox>
+
+            <QBox
+              label={dict.sections.branding.questions.q_visual_avoid.label.replace(
+                "{clientName}",
+                clientName,
+              )}
+              hint={dict.sections.branding.questions.q_visual_avoid.hint}>
               <ChipSelector
                 options={dict.chips.branding.refs}
-                selected={payload.q_visual_refs}
-                onChange={(s) => setPayload({ ...payload, q_visual_refs: s })}
+                selected={payload.q_visual_avoid}
+                onChange={(s) => setPayload({ ...payload, q_visual_avoid: s })}
+                max={5}
               />
+              <div className="mt-3">
+                <AddOptionItem
+                  placeholder={
+                    dict.sections.branding.questions.q_perception_rank
+                      .customPlaceholder
+                  }
+                  addLabel={
+                    dict.sections.branding.questions.q_perception_rank.addLabel
+                  }
+                  onAdd={(text) =>
+                    setPayload({
+                      ...payload,
+                      q_visual_avoid: [...payload.q_visual_avoid, text],
+                    })
+                  }
+                />
+              </div>
             </QBox>
 
             <QBox
@@ -844,16 +1025,16 @@ export default function ClientDiscoveryForm({
                           q_accent_color_name: c.name,
                         })
                       }
-                      className={`aspect-square relative flex flex-col items-center justify-end p-2 border-2 transition-transform hover:scale-[1.04] ${isSelected ? "border-white" : "border-transparent"}`}
+                      className={`aspect-square rounded-2xl relative flex flex-col items-center justify-end p-2 border-2 transition-transform hover:scale-[1.04] ${isSelected ? "border-white" : "border-transparent"}`}
                       style={{ backgroundColor: c.hex }}>
                       {isSelected && (
                         <div
-                          className={`absolute top-1.5 right-2 text-xs font-bold drop-shadow-md ${isLight ? "text-black" : "text-white"}`}>
+                          className={`absolute top-1.5 right-2 text-[10px] font-black drop-shadow-md ${isLight ? "text-black" : "text-white"}`}>
                           ✓
                         </div>
                       )}
                       <span
-                        className={`font-mono text-[8px] uppercase tracking-tighter truncate w-full text-center ${isLight ? "text-black/50" : "text-white/50"}`}>
+                        className={`font-medium text-[9px] uppercase tracking-[0.12em] truncate w-full text-center ${isLight ? "text-black/50" : "text-white/50"}`}>
                         {c.name}
                       </span>
                     </button>
@@ -886,7 +1067,7 @@ export default function ClientDiscoveryForm({
                       <button
                         type="button"
                         onClick={() => colorInputRef.current?.click()}
-                        className={`w-full aspect-square relative flex flex-col items-center justify-end p-2 border-2 transition-transform hover:scale-[1.04] ${isCustomSelected ? "border-white" : "border-transparent"}`}
+                        className={`w-full aspect-square rounded-2xl relative flex flex-col items-center justify-end p-2 border-2 transition-transform hover:scale-[1.04] ${isCustomSelected ? "border-white" : "border-transparent"}`}
                         style={{
                           background: isCustomSelected
                             ? payload.q_accent_color
@@ -903,7 +1084,7 @@ export default function ClientDiscoveryForm({
                             ✓
                           </div>
                         )}
-                        <span className="font-mono text-[8px] text-white/50 uppercase tracking-tighter truncate w-full text-center">
+                        <span className="font-medium text-[9px] text-white/50 uppercase tracking-[0.12em] truncate w-full text-center">
                           {isCustomSelected
                             ? payload.q_accent_color
                             : dict.customColor.label}
@@ -939,14 +1120,16 @@ export default function ClientDiscoveryForm({
             </QBox>
 
             <QBox
-              label={dict.sections.branding.questions.q_tagline.label}
-              hint={dict.sections.branding.questions.q_tagline.hint}>
+              label={dict.sections.branding.questions.q_concrete_result.label}
+              hint={dict.sections.branding.questions.q_concrete_result.hint}>
               <AutoTextarea
                 placeholder={
-                  dict.sections.branding.questions.q_tagline.placeholder
+                  dict.sections.branding.questions.q_concrete_result.placeholder
                 }
-                value={payload.q_tagline}
-                onChange={(v) => setPayload({ ...payload, q_tagline: v })}
+                value={payload.q_concrete_result}
+                onChange={(v) =>
+                  setPayload({ ...payload, q_concrete_result: v })
+                }
               />
             </QBox>
 
@@ -969,17 +1152,17 @@ export default function ClientDiscoveryForm({
           <section className="mb-20">
             <div className="mb-16 pt-16 border-t border-white/5">
               <div className="flex items-center gap-3 mb-2">
-                <span className="p-1.5 bg-[#00E5A0]/10 rounded-lg text-[#00E5A0]">
+                <span className="p-1.5 bg-[#00E5A0]/10 text-[#00E5A0]">
                   <Layout size={14} />
                 </span>
-                <span className="font-mono text-[#00E5A0] text-[9px] uppercase tracking-[0.4em] font-medium">
+                <span className="font-medium text-[#00E5A0] text-[10px] uppercase tracking-[0.18em]">
                   02 {dict.sections.web.eyebrow}
                 </span>
               </div>
-              <h2 className="font-display text-[clamp(36px,5vw,52px)] text-white mb-2 leading-none uppercase">
+              <h2 className="text-[40px] md:text-[52px] font-black leading-none tracking-tight text-white mb-6 uppercase">
                 {dict.sections.web.title.replace("{clientName}", clientName)}
               </h2>
-              <p className="font-body text-[13px] font-light text-[#555]">
+              <p className="text-[#555] max-w-xl text-lg font-light leading-relaxed">
                 {dict.sections.web.desc.replace("{clientName}", clientName)}
               </p>
             </div>
@@ -998,6 +1181,20 @@ export default function ClientDiscoveryForm({
             </QBox>
 
             <QBox
+              label={dict.sections.web.questions.web_current_site.label}
+              hint={dict.sections.web.questions.web_current_site.hint}>
+              <AutoTextarea
+                placeholder={
+                  dict.sections.web.questions.web_current_site.placeholder
+                }
+                value={payload.web_current_site}
+                onChange={(v) =>
+                  setPayload({ ...payload, web_current_site: v })
+                }
+              />
+            </QBox>
+
+            <QBox
               label={dict.sections.web.questions.web_pages.label}
               hint={dict.sections.web.questions.web_pages.hint}>
               <ChipSelector
@@ -1009,11 +1206,18 @@ export default function ClientDiscoveryForm({
             </QBox>
 
             <QBox
-              label={dict.sections.web.questions.web_has_content.label}
-              hint={dict.sections.web.questions.web_has_content.hint}>
-              <Toggle
-                value={payload.web_has_content}
-                onChange={(v) => setPayload({ ...payload, web_has_content: v })}
+              label={dict.sections.web.questions.web_content_owner.label}
+              hint={dict.sections.web.questions.web_content_owner.hint}>
+              <ChipSelector
+                options={dict.chips.web.contentOwner}
+                selected={[payload.web_content_owner]}
+                onChange={(s) =>
+                  setPayload({
+                    ...payload,
+                    web_content_owner: s[s.length - 1] || "",
+                  })
+                }
+                max={1}
               />
             </QBox>
 
@@ -1046,17 +1250,17 @@ export default function ClientDiscoveryForm({
           <section className="mb-20">
             <div className="mb-16 pt-16 border-t border-white/5">
               <div className="flex items-center gap-3 mb-2">
-                <span className="p-1.5 bg-[#00E5A0]/10 rounded-lg text-[#00E5A0]">
+                <span className="p-1.5 bg-[#00E5A0]/10 text-[#00E5A0]">
                   <TrendingUp size={14} />
                 </span>
-                <span className="font-mono text-[#00E5A0] text-[9px] uppercase tracking-[0.4em] font-medium">
+                <span className="font-medium text-[#00E5A0] text-[10px] uppercase tracking-[0.18em]">
                   03 {dict.sections.seo.eyebrow}
                 </span>
               </div>
-              <h2 className="font-display text-[clamp(36px,5vw,52px)] text-white mb-2 leading-none uppercase">
+              <h2 className="text-[40px] md:text-[52px] font-black leading-none tracking-tight text-white mb-6 uppercase">
                 {dict.sections.seo.title.replace("{clientName}", clientName)}
               </h2>
-              <p className="font-body text-[13px] font-light text-[#555]">
+              <p className="text-[#555] max-w-xl text-lg font-light leading-relaxed">
                 {dict.sections.seo.desc}
               </p>
             </div>
@@ -1102,6 +1306,20 @@ export default function ClientDiscoveryForm({
             </QBox>
 
             <QBox
+              label={dict.sections.seo.questions.seo_previous_attempts.label}
+              hint={dict.sections.seo.questions.seo_previous_attempts.hint}>
+              <AutoTextarea
+                placeholder={
+                  dict.sections.seo.questions.seo_previous_attempts.placeholder
+                }
+                value={payload.seo_previous_attempts}
+                onChange={(v) =>
+                  setPayload({ ...payload, seo_previous_attempts: v })
+                }
+              />
+            </QBox>
+
+            <QBox
               label={dict.sections.seo.questions.seo_goal.label}
               hint={dict.sections.seo.questions.seo_goal.hint}>
               <AutoTextarea
@@ -1118,17 +1336,17 @@ export default function ClientDiscoveryForm({
           <section className="mb-20">
             <div className="mb-16 pt-16 border-t border-[#1a1a1a]">
               <div className="flex items-center gap-3 mb-2">
-                <span className="p-1.5 bg-[#00E5A0]/10 rounded-lg text-[#00E5A0]">
+                <span className="p-1.5 bg-[#00E5A0]/10 text-[#00E5A0]">
                   <Cpu size={14} />
                 </span>
-                <span className="font-mono text-[#00E5A0] text-[9px] uppercase tracking-[0.4em] font-medium">
+                <span className="font-medium text-[#00E5A0] text-[10px] uppercase tracking-[0.18em]">
                   04 {dict.sections.ai.eyebrow}
                 </span>
               </div>
-              <h2 className="font-display text-[clamp(36px,5vw,52px)] text-white mb-2 leading-none uppercase">
+              <h2 className="text-[40px] md:text-[52px] font-black leading-none tracking-tight text-white mb-6 uppercase">
                 {dict.sections.ai.title.replace("{clientName}", clientName)}
               </h2>
-              <p className="font-body text-[13px] font-light text-[#555]">
+              <p className="text-[#555] max-w-xl text-lg font-light leading-relaxed">
                 {dict.sections.ai.desc}
               </p>
             </div>
@@ -1152,6 +1370,20 @@ export default function ClientDiscoveryForm({
                 options={dict.chips.ai.processes}
                 selected={payload.ai_processes}
                 onChange={(s) => setPayload({ ...payload, ai_processes: s })}
+              />
+            </QBox>
+
+            <QBox
+              label={dict.sections.ai.questions.ai_first_priority.label}
+              hint={dict.sections.ai.questions.ai_first_priority.hint}>
+              <AutoTextarea
+                placeholder={
+                  dict.sections.ai.questions.ai_first_priority.placeholder
+                }
+                value={payload.ai_first_priority}
+                onChange={(v) =>
+                  setPayload({ ...payload, ai_first_priority: v })
+                }
               />
             </QBox>
 
@@ -1188,17 +1420,17 @@ export default function ClientDiscoveryForm({
           <section className="mb-20">
             <div className="mb-16 pt-16 border-t border-[#1a1a1a]">
               <div className="flex items-center gap-3 mb-2">
-                <span className="p-1.5 bg-[#00E5A0]/10 rounded-lg text-[#00E5A0]">
+                <span className="p-1.5 bg-[#00E5A0]/10 text-[#00E5A0]">
                   <Database size={14} />
                 </span>
-                <span className="font-mono text-[#00E5A0] text-[9px] uppercase tracking-[0.4em] font-medium">
+                <span className="font-medium text-[#00E5A0] text-[10px] uppercase tracking-[0.18em]">
                   05 {dict.sections.crm.eyebrow}
                 </span>
               </div>
-              <h2 className="font-display text-[clamp(36px,5vw,52px)] text-white mb-2 leading-none uppercase">
+              <h2 className="text-[40px] md:text-[52px] font-black leading-none tracking-tight text-white mb-6 uppercase">
                 {dict.sections.crm.title.replace("{clientName}", clientName)}
               </h2>
-              <p className="font-body text-[13px] font-light text-[#555]">
+              <p className="text-[#555] max-w-xl text-lg font-light leading-relaxed">
                 {dict.sections.crm.desc}
               </p>
             </div>
@@ -1212,6 +1444,20 @@ export default function ClientDiscoveryForm({
                 }
                 value={payload.crm_current_crm}
                 onChange={(v) => setPayload({ ...payload, crm_current_crm: v })}
+              />
+            </QBox>
+
+            <QBox
+              label={dict.sections.crm.questions.crm_previous_attempt.label}
+              hint={dict.sections.crm.questions.crm_previous_attempt.hint}>
+              <AutoTextarea
+                placeholder={
+                  dict.sections.crm.questions.crm_previous_attempt.placeholder
+                }
+                value={payload.crm_previous_attempt}
+                onChange={(v) =>
+                  setPayload({ ...payload, crm_previous_attempt: v })
+                }
               />
             </QBox>
 
@@ -1253,7 +1499,6 @@ export default function ClientDiscoveryForm({
           </section>
         )}
       </main>
-
       {/* Sticky Footer */}
       <footer className="fixed bottom-0 left-0 right-0 z-40">
         <div
@@ -1266,7 +1511,7 @@ export default function ClientDiscoveryForm({
           <button
             onClick={submitForm}
             disabled={!payload.q_company_one_liner}
-            className="bg-white hover:bg-[#00E5A0] text-black px-10 py-4 rounded-full font-semibold tracking-[0.08em] uppercase text-sm transition-all hover:scale-[1.02] active:scale-[0.98] disabled:opacity-40 disabled:cursor-not-allowed">
+            className="bg-white hover:bg-[#00E5A0] text-black rounded-full px-10 py-4 font-medium tracking-[0.08em] uppercase text-sm transition-all hover:scale-[1.02] active:scale-[0.98] disabled:opacity-40 disabled:cursor-not-allowed">
             {dict.submit} →
           </button>
         </div>

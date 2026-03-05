@@ -106,7 +106,7 @@ export async function createDiscoveryFormAction(formData: FormData) {
 
   } catch (err: any) {
     if (err instanceof z.ZodError) {
-      return { error: err.errors[0].message };
+      return { error: err.issues[0].message };
     }
     return { error: err.message || "Error al crear el formulario" };
   }

@@ -2,7 +2,7 @@
 
 import { createClient } from "@/lib/supabase/server";
 
-export async function submitDiscoveryForm(formId: string, payload: any) {
+export async function submitDiscoveryForm(formId: string, slug: string, payload: any) {
   try {
     const supabase = await createClient();
 
@@ -46,6 +46,19 @@ export async function submitDiscoveryForm(formId: string, payload: any) {
     if (updateError) {
       console.error("Form Update Error:", updateError);
       return { error: "Respuesta guardada, pero no se pudo actualizar el estado." };
+    }
+
+    // 3. Trigger Email/PDF via API route (background-ish)
+    // We don't await this if we want speed, but for discovery, it's safer to wait or at least fire-and-forget
+    try {
+      const baseUrl = process.env.NEXT_PUBLIC_APP_URL || '';
+      fetch(`${baseUrl}/api/submit`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ slug, data: payload, language: payload.language || 'es' }),
+      }).catch(err => console.error("API Trigger Error:", err));
+    } catch (e) {
+      console.error("Fetch implementation error:", e);
     }
 
     return { success: true };

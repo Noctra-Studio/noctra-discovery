@@ -76,7 +76,7 @@ export function Cursor() {
       {/* Spotlight Cursor */}
       <m.div
         aria-hidden="true"
-        className="fixed top-0 left-0 bg-white rounded-full pointer-events-none z-[9999] mix-blend-difference backdrop-grayscale backdrop-contrast-200"
+        className="fixed top-0 left-0 bg-white pointer-events-none z-[9999] mix-blend-difference backdrop-grayscale backdrop-contrast-200 rounded-full"
         style={{
           x: cursorXSpring,
           y: cursorYSpring,

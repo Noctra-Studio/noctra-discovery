@@ -112,44 +112,51 @@ export interface Database {
           language: string
           q_what: string | null
           q_why: string | null
-          q_adjectives: string | null
+          q_client_voice: string | null
           q_ideal_client: string | null
           q_differentiator: string | null
           q_perception_rank: Json | null
-          q_visual_refs: Json | null
+          q_visual_inspiration: string | null
+          q_visual_avoid: Json | null
           q_accent_color: string | null
           q_accent_color_name: string | null
           q_visual_style: Json | null
           q_keep_elements: string | null
           q_voice_attrs: Json | null
-          q_tagline: string | null
+          q_concrete_result: string | null
           q_tone_avoid: string | null
           q_vision_5y: string | null
           q_market_gap: string | null
           q_never: string | null
+          q_business_stage: 'starting' | 'established' | 'struggling' | 'relaunching' | null
+          q_business_stage_detail: string | null
           pdf_url: string | null
           email_sent_at: string | null
           // Web
+          web_current_site: string | null
           web_pages: Json | null
           web_references: string[] | null
           web_features: Json | null
-          web_has_content: boolean | null
+          web_content_owner: string | null
           web_integrations: string[] | null
           web_deadline: string | null
           // SEO
           seo_current_site: string | null
           seo_target_keywords: string | null
           seo_competitors: string | null
+          seo_previous_attempts: string | null
           seo_content_capacity: string | null
           seo_goal: string | null
           // AI Automations
           ai_current_tools: string | null
           ai_pain_points: string | null
           ai_processes: string[] | null
+          ai_first_priority: string | null
           ai_team_size: string | null
           ai_budget_range: string | null
           // CRM
           crm_current_crm: string | null
+          crm_previous_attempt: string | null
           crm_team_size: string | null
           crm_pipeline: string | null
           crm_integrations: string[] | null

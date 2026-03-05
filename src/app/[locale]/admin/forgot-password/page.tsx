@@ -1,4 +1,6 @@
 import ForgotPasswordForm from "@/components/auth/ForgotPasswordForm";
+import { NextIntlClientProvider } from "next-intl";
+import esMessages from "@/messages/es.json";
 
 export default function ForgotPasswordPage() {
   return (
@@ -36,7 +38,9 @@ export default function ForgotPasswordPage() {
 
         <main className="flex-1 flex items-center justify-center p-6">
           <div className="w-full max-w-[400px]">
-            <ForgotPasswordForm />
+            <NextIntlClientProvider locale="es" messages={esMessages}>
+              <ForgotPasswordForm />
+            </NextIntlClientProvider>
           </div>
         </main>
       </div>

@@ -16,7 +16,7 @@ export default async function NewFormPage({
       <header className="px-4 lg:px-10 py-6 border-b border-[#222] flex items-center gap-4">
         <Link
           href={`/${locale}/admin`}
-          className="p-2 rounded-full border border-[#222] bg-[#0E0E0E] text-gray-400 hover:text-white hover:border-[#444] transition-colors">
+          className="p-2 border border-[#222] bg-[#0E0E0E] text-gray-400 hover:text-white hover:border-[#444] transition-colors">
           <ArrowLeft size={18} />
         </Link>
         <h1 className="text-2xl lg:text-3xl text-white font-black uppercase tracking-tight">

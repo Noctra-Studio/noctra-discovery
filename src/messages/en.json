@@ -20,7 +20,15 @@
       "tableActions": "Actions",
       "statusPending": "Pending",
       "statusSubmitted": "Completed",
-      "logout": "Log out"
+      "logout": "Log out",
+      "statsTotal": "TOTAL",
+      "statsCompleted": "COMPLETED",
+      "statsPending": "PENDING",
+      "statsLast": "Last completed",
+      "tableTitle": "Your Forms",
+      "navPanel": "Panel",
+      "navForms": "Forms",
+      "navSettings": "Settings"
     },
     "newForm": {
       "title": "Create New Form",
@@ -92,17 +100,28 @@
       "cta": "Start"
     },
     "progress": "Step {current} of {total}",
+    "percentageComplete": "{percentage}% COMPLETE",
     "sections": {
       "common": {
         "eyebrow": "00 — Your Company",
         "title": "Who are you?",
         "desc": "The foundation of everything. No filters, no pitch.",
         "questions": {
-          "q_company_one_liner": { "label": "What does {clientName} do in one sentence?", "hint": "Describe your product or service simply.", "placeholder": "Type here..." },
-          "q_company_why": { "label": "Why does {clientName} exist? What was the origin?", "hint": "Describe your purpose or mission.", "placeholder": "Type here..." },
-          "q_company_adjectives": { "label": "If {clientName} were a person, what 3 adjectives would describe it?", "hint": "E.g.: Innovative, Rebellious, Elegant.", "placeholder": "Type here..." },
-          "q_ideal_client": { "label": "Who is the ideal client?", "hint": "Industry, size, role, pain point.", "placeholder": "Type here..." },
-          "q_differentiator": { "label": "What is the real differentiator?", "hint": "Not \"quality and price\".", "placeholder": "Type here..." }
+          "q_company_one_liner": { "label": "What does {clientName} do in one sentence?", "hint": "Describe what you do, for whom, and what changes in their business after working with you.", "placeholder": "Describe what you do, for whom, and what changes in their business after working with you." },
+          "q_company_why": { "label": "Why does {clientName} exist? What was the origin?", "hint": "The origin, the frustration you spotted, the opportunity nobody was capturing.", "placeholder": "Write here..." },
+          "q_business_stage": {
+            "label": "Where is {clientName} at today?",
+            "hint": "This helps us understand the real starting point and adapt the strategy to your current situation.",
+            "options": {
+              "starting":    "Just starting out — less than 1 year offering my services",
+              "established": "Been around a while — I have clients but want to grow or improve",
+              "struggling":  "Been around but haven't seen the results I expected",
+              "relaunching": "Relaunching — I had operations before and I'm starting over"
+            }
+          },
+          "q_client_voice": { "label": "What would a happy {clientName} client say when recommending you to a friend?", "hint": "Write it as if they were speaking. 'I hired them because...' or 'What I loved most was...'", "placeholder": "E.g.: I hired them because they were the only ones who truly understood the problem without me repeating myself. And they delivered exactly what they promised." },
+          "q_ideal_client": { "label": "Who is the client you enjoy working with the most?", "hint": "Not the one who pays the most — the one who makes your work worthwhile. Industry, size, role, their biggest pain.", "placeholder": "E.g.: Mid-size manufacturing business owners, 50-200 employees, who know they need to change but don't know where to start. Decisive, with real budget." },
+          "q_differentiator": { "label": "Why did a client who got quotes from competitors end up choosing you?", "hint": "If you don't have that story yet, what do clients say made them stay or come back?", "placeholder": "E.g.: They tell us we're the only ones who deliver on time and don't disappear after closing the deal. Competitors promised more but delivered less." }
         }
       },
       "branding": {
@@ -110,15 +129,15 @@
         "title": "Brand personality.",
         "desc": "Let's define how {clientName} looks, sounds, and feels.",
         "questions": {
-          "q_perception_rank": { "label": "How do you want {clientName} to be perceived?", "hint": "Rank from most to least important.", "placeholder": "", "addLabel": "Add custom attribute...", "customPlaceholder": "Type your attribute..." },
-          "q_visual_refs": { "label": "Which brands do you admire visually?", "hint": "Choose up to 3 references.", "placeholder": "" },
-          "q_accent_color": { "label": "Which accent color best represents {clientName}?", "hint": "The main brand color.", "placeholder": "" },
-          "q_visual_style": { "label": "Overall visual style?", "hint": "Choose up to 3 styles.", "placeholder": "" },
-          "q_keep_elements": { "label": "Are there current brand elements you want to keep?", "hint": "A color, an isotype, etc.", "placeholder": "Type here..." },
+          "q_perception_rank": { "label": "Which of these should be the first thing someone thinks when they see your brand?", "hint": "Rank from most to least important. #1 will guide every design decision.", "placeholder": "", "addLabel": "Add custom attribute...", "customPlaceholder": "Type your attribute..." },
+          "q_visual_inspiration": { "label": "What brand (from any industry) has the visual identity you admire most, and what makes it special?", "hint": "It doesn't have to be from your industry. It could be a craft beer, a digital bank, or a tech startup.", "placeholder": "E.g.: I like Notion because it's clean, unpretentious, and anyone can understand what it's for just by looking at it. It doesn't try to impress — it just works." },
+          "q_visual_avoid": { "label": "Any brand or visual style you definitely DON'T want {clientName} to resemble?", "hint": "Knowing what you don't want is just as valuable. Select any you'd avoid.", "placeholder": "" },
+          "q_visual_style": { "label": "General visual style?", "hint": "Choose up to 3 styles.", "placeholder": "" },
+          "q_keep_elements": { "label": "Are there current brand elements you want to keep?", "hint": "Current logo, color palette, typography, communication tone... anything that identifies {clientName} and should be preserved.", "placeholder": "Type here..." },
           "q_voice_attrs": { "label": "How does {clientName} communicate?", "hint": "Verbal personality.", "placeholder": "" },
-          "q_tagline": { "label": "What would be the ideal tagline?", "hint": "The phrase that summarizes everything.", "placeholder": "Type here..." },
-          "q_tone_avoid": { "label": "What tone should it always avoid?", "hint": "E.g.: Formal, boring, childish.", "placeholder": "Type here..." },
-          "q_never": { "label": "What do you NEVER want {clientName} to be?", "hint": "Styles or ideas you hate.", "placeholder": "Type here..." }
+          "q_concrete_result": { "label": "What is the most concrete, measurable result you deliver to a client?", "hint": "Not 'we improve your business.' What number changes, what process disappears, what problem never happens again?", "placeholder": "E.g.: Our clients cut their onboarding time from 3 weeks to 4 days. Or: We go from 0 to 50 qualified leads per month in the first 90 days." },
+          "q_tone_avoid": { "label": "Is there any brand or communication style that makes you feel 'this is not for me'?", "hint": "What makes you close a website or ignore a message? That's exactly what {clientName} should avoid.", "placeholder": "E.g.: Brands that talk down to their customers. Or ones that use words like 'ecosystem', 'synergy', and 'disruption' without saying anything real." },
+          "q_never": { "label": "What do you NEVER want {clientName} to be?", "hint": "No filters. What type of company, perception, or reputation would be a total failure for {clientName}?", "placeholder": "Type here..." }
         }
       },
       "web": {
@@ -126,14 +145,15 @@
         "title": "The site {clientName} needs.",
         "desc": "Structure, content, and project functionalities.",
         "questions": {
+          "web_current_site": { "label": "Do you have an active website? If so, what bothers you most about it?", "hint": "URL if you have one. Be honest — what makes it not work as it should?", "placeholder": "E.g.: noctra.studio — the problem is nobody understands what we sell when they land. Or: We don't have a site yet." },
           "web_type": { "label": "What type of site do you need?", "hint": "Main purpose of the site.", "placeholder": "" },
           "web_pages": { "label": "What pages/sections should it include?", "hint": "Select all that apply.", "placeholder": "" },
           "web_references": { "label": "Websites you admire or inspire you?", "hint": "URLs or names.", "placeholder": "Type here..." },
-          "web_has_content": { "label": "Do you already have copy, images, and copywriting ready?", "hint": "Content for the site.", "placeholder": "" },
+          "web_content_owner": { "label": "Who will be responsible for the website content (copy, images, messaging)?", "hint": "This helps us plan the project realistically from the start.", "placeholder": "" },
           "web_features": { "label": "What functionalities does the site need?", "hint": "Technical features.", "placeholder": "" },
           "web_integrations": { "label": "Required integrations?", "hint": "Third-party tools.", "placeholder": "" },
           "web_deadline": { "label": "Do you have a deadline for the launch?", "hint": "Estimated date or period.", "placeholder": "Type here..." },
-          "web_goal": { "label": "What is the main goal of the site?", "hint": "Conversion, information, etc.", "placeholder": "Type here..." }
+          "web_goal": { "label": "What is the one action you want a visitor to take when they land on your site?", "hint": "If you could only ask them for one thing, what would it be? Being specific here makes all the difference.", "placeholder": "E.g.: Book a 30-minute diagnostic call. Not buy immediately — just take the first step." }
         }
       },
       "seo": {
@@ -142,12 +162,13 @@
         "desc": "Let's define the strategy so {clientName} appears where it matters.",
         "questions": {
           "seo_current_site": { "label": "Do you have an active website?", "hint": "Current URL if it exists.", "placeholder": "Type here..." },
-          "seo_target_keywords": { "label": "What terms or phrases would your ideal client use to find you on Google?", "hint": "Search terms.", "placeholder": "Type here..." },
+          "seo_target_keywords": { "label": "When your ideal client has the problem you solve, what do they type into Google?", "hint": "Think of the exact moment of pain, not your service. What phrase would they type at 11pm when they've had enough?", "placeholder": "E.g.: 'how to automate invoicing small business', 'web design agency pricing', 'why my sales team can't close deals'" },
           "seo_competitors": { "label": "Who are your top 2-3 competitors?", "hint": "URLs or names.", "placeholder": "Type here..." },
           "seo_geo": { "label": "What geographic market do you want to reach?", "hint": "SEO scope.", "placeholder": "" },
+          "seo_previous_attempts": { "label": "Have you tried SEO before? What happened?", "hint": "If you have prior experience (good or bad), it helps us avoid repeating what didn't work.", "placeholder": "E.g.: We hired an agency for 6 months, paid for links, saw no results. Or: We've never formally tried it." },
           "seo_content_capacity": { "label": "Can you generate content regularly?", "hint": "Articles, guides, etc.", "placeholder": "" },
           "seo_current_traffic": { "label": "Do you know how much organic traffic you currently receive?", "hint": "Optional monthly estimate.", "placeholder": "" },
-          "seo_goal": { "label": "What is the main goal of SEO?", "hint": "Traffic, leads, authority.", "placeholder": "Type here..." }
+          "seo_goal": { "label": "What is the primary goal of SEO?", "hint": "Traffic, leads, authority.", "placeholder": "Type here..." }
         }
       },
       "ai-automations": {
@@ -156,13 +177,13 @@
         "desc": "Let's identify which processes at {clientName} can run themselves.",
         "questions": {
           "ai_current_tools": { "label": "What tools does the team currently use?", "hint": "CRM, email, ops, etc.", "placeholder": "Type here..." },
-          "ai_pain_points": { "label": "Which repetitive tasks consume the most team time today?", "hint": "Friction points.", "placeholder": "Type here..." },
+          "ai_pain_points": { "label": "What task does your team do that nobody would miss if it disappeared tomorrow — but they can't avoid doing it today?", "hint": "The work everyone hates but 'has to be done.' That's exactly what we want to automate first.", "placeholder": "E.g.: Copying data from emails into a spreadsheet. Or manually sending the same follow-up to every prospect 3 days after a call." },
           "ai_processes": { "label": "Which processes are you interested in automating?", "hint": "Select key areas.", "placeholder": "" },
-          "ai_data_sources": { "label": "Where does your business information live today?", "hint": "Data sources.", "placeholder": "" },
+          "ai_first_priority": { "label": "If you could automate ONE thing this week, what would it be?", "hint": "The process causing the most pain right now. Even if it seems small.", "placeholder": "E.g.: Post-sale follow-up. We always forget it and lose clients because of that." },
           "ai_team_size": { "label": "How many people are on the team that would use the automations?", "hint": "Team size.", "placeholder": "" },
           "ai_tech_level": { "label": "How would you describe the team's technical level?", "hint": "Technical skills.", "placeholder": "" },
-          "ai_budget_range": { "label": "What is the estimated monthly budget?", "hint": "For tools and automation.", "placeholder": "" },
-          "ai_timeline": { "label": "How soon do you need to see results?", "hint": "Project urgency.", "placeholder": "" }
+          "ai_budget_range": { "label": "Do you have a rough monthly budget in mind for tools and automation? (optional)", "hint": "Not a commitment. Helps us design a solution you can sustain long-term.", "placeholder": "" },
+          "ai_timeline": { "label": "In how much time do you need to see results?", "hint": "Project urgency.", "placeholder": "" }
         }
       },
       "crm": {
@@ -190,7 +211,8 @@
       },
       "web": {
         "type": ["Landing page", "Corporate site", "Blog", "E-commerce", "Portfolio", "Web app"],
-        "pages": ["Home", "About us", "Services", "Portfolio/Cases", "Blog", "Contact", "Pricing", "FAQ", "Privacy policy"],
+        "pages": ["Home", "About us", "Services", "Portfolio/Cases", "Blog", "Contact", "Pricing", "FAQ", "Privacy Policy"],
+        "contentOwner": ["We have it ready", "We need Noctra to handle content", "We have something but it needs work", "We haven't defined it yet"],
         "features": ["Contact form", "Live chat", "Booking/Scheduling", "Online payments", "Multi-language", "Dashboard/Login", "Blog with CMS", "Newsletter", "Advanced analytics"],
         "integrations": ["Google Analytics", "HubSpot", "Mailchimp", "Stripe", "Calendly", "WhatsApp", "Supabase", "Zapier", "Meta Pixel"]
       },
@@ -321,6 +343,41 @@
     "poweredBy": "Powered by Noctra Studio",
     "confidential": "Confidential Document",
     "back": "Back",
-    "next": "Next"
+    "next": "Next",
+    "loading": "Loading...",
+    "save": "Save",
+    "submit": "Submit",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "deleteConfirm": "Are you sure you want to delete this form? This action cannot be undone.",
+    "edit": "Edit",
+    "yes": "Yes",
+    "no": "No",
+    "copy": "Copy",
+    "copied": "Copied!",
+    "view": "View",
+    "search": "Search...",
+    "noResults": "No results found",
+    "error": "Error",
+    "success": "Success",
+    "required": "Required field",
+    "optional": "Optional",
+    "preview": "Preview",
+    "language": "Language",
+    "createdAt": "Created",
+    "status": "Status",
+    "actions": "Actions",
+    "client": "Client",
+    "directedTo": "Directed to",
+    "slug": "Form URL",
+    "expires": "Expires",
+    "logoOptional": "Logo (optional)",
+    "clientName": "Client name",
+    "formCreated": "Form created!",
+    "copyLink": "Copy link",
+    "openNewTab": "Open in new tab",
+    "goDashboard": "Go to panel",
+    "today": "today",
+    "yesterday": "yesterday"
   }
 }

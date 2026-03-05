@@ -50,7 +50,7 @@ export default function ForgotPasswordForm() {
     return (
       <div className="space-y-6 animate-in fade-in zoom-in-95 duration-500">
         <div className="flex justify-center mb-8">
-          <div className="w-16 h-16 rounded-full bg-[#141414] border border-[#222] flex items-center justify-center relative">
+          <div className="w-16 h-16 bg-[#141414] border border-[#222] rounded-2xl flex items-center justify-center relative">
             <svg
               className="w-8 h-8 text-[#555]"
               fill="none"
@@ -81,10 +81,10 @@ export default function ForgotPasswordForm() {
         </div>
 
         <div className="text-center space-y-2">
-          <h2 className="font-bebas text-4xl text-white tracking-wide">
+          <h2 className="font-black text-4xl text-white tracking-tight uppercase">
             {t("auth.forgotPassword.sent.title")}
           </h2>
-          <p className="font-body text-[13px] text-[#888] font-light leading-relaxed max-w-[280px] mx-auto">
+          <p className="text-[13px] text-[#888] font-light leading-relaxed max-w-[280px] mx-auto">
             {t("auth.forgotPassword.sent.description", { email })}
           </p>
         </div>
@@ -93,7 +93,7 @@ export default function ForgotPasswordForm() {
           <button
             onClick={handleSubmit}
             disabled={countdown > 0 || isSubmitting}
-            className="w-full bg-[#141414] border border-[#222] text-white font-body font-medium py-3 text-sm tracking-wider hover:bg-[#222] hover:border-[#333] transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+            className="w-full min-h-[48px] bg-[#141414] border border-[#222] rounded-full text-white font-medium py-3 text-base md:text-sm tracking-wider hover:bg-[#222] hover:border-[#333] transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
             {isSubmitting
               ? "..."
               : countdown > 0
@@ -106,7 +106,7 @@ export default function ForgotPasswordForm() {
           <div className="text-center">
             <Link
               href="/admin/login"
-              className="font-mono text-[10px] tracking-[0.2em] text-[#555] hover:text-white transition-colors uppercase">
+              className="font-medium text-[10px] tracking-[0.18em] text-[#555] hover:text-white transition-colors uppercase">
               {t("auth.forgotPassword.backToLogin")}
             </Link>
           </div>
@@ -118,13 +118,13 @@ export default function ForgotPasswordForm() {
   return (
     <div className="space-y-6 animate-in fade-in duration-500">
       <div className="text-center space-y-4 mb-10">
-        <p className="font-mono text-[10px] tracking-[0.3em] text-[#00E5A0] uppercase">
+        <p className="font-medium text-[10px] tracking-[0.18em] text-[#00E5A0] uppercase">
           {t("auth.forgotPassword.eyebrow")}
         </p>
-        <h1 className="font-bebas text-5xl md:text-6xl text-white tracking-wide">
+        <h1 className="font-black text-5xl md:text-6xl text-white tracking-tight uppercase">
           {t("auth.forgotPassword.title")}
         </h1>
-        <p className="font-body text-[13px] text-[#888] font-light leading-relaxed max-w-[280px] mx-auto">
+        <p className="text-[13px] text-[#888] font-light leading-relaxed max-w-[280px] mx-auto">
           {t("auth.forgotPassword.description")}
         </p>
       </div>
@@ -133,7 +133,7 @@ export default function ForgotPasswordForm() {
         <div className="space-y-2">
           <label
             htmlFor="email"
-            className="block text-xs font-mono uppercase tracking-widest text-[#888]">
+            className="block text-[10px] font-medium uppercase tracking-[0.18em] text-[#333]">
             {t("auth.forgotPassword.emailLabel")}
           </label>
           <input
@@ -143,7 +143,7 @@ export default function ForgotPasswordForm() {
             required
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="w-full bg-[#141414] border border-[#222] px-4 py-3 text-white font-body text-sm placeholder:text-[#555] focus:border-white focus:outline-none transition-colors"
+            className="w-full bg-[#141414] border border-[#222] rounded-xl px-4 py-3 text-white text-base md:text-sm placeholder:text-[#555] focus:border-white focus:outline-none transition-colors"
           />
         </div>
 
@@ -151,14 +151,14 @@ export default function ForgotPasswordForm() {
           <button
             type="submit"
             disabled={isSubmitting || !email}
-            className="w-full bg-white text-black font-body font-medium py-3 text-sm uppercase tracking-wider hover:bg-[#00E5A0] transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+            className="w-full min-h-[48px] bg-white text-black rounded-full font-medium py-3 text-base md:text-sm uppercase tracking-[0.08em] hover:bg-[#00E5A0] transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
             {isSubmitting ? "..." : t("auth.forgotPassword.submitBtn")}
           </button>
 
           <div className="text-center mt-4">
             <Link
               href="/admin/login"
-              className="font-mono text-[10px] tracking-[0.2em] text-[#555] hover:text-white transition-colors uppercase">
+              className="font-medium text-[10px] tracking-[0.18em] text-[#555] hover:text-white transition-colors uppercase">
               {t("auth.forgotPassword.backToLogin")}
             </Link>
           </div>
