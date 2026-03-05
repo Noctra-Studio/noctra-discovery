@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { ServiceId } from "@/types";
+import { ConfirmModal } from "@/components/ui/ConfirmModal";
 
 const SERVICE_ICONS: Record<ServiceId, string> = {
   branding: "◈",
@@ -44,6 +45,8 @@ export default function FormsTableClient({
   const router = useRouter();
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [deletingId, setDeletingId] = useState<string | null>(null);
+  const [showConfirm, setShowConfirm] = useState(false);
+  const [pendingDeleteId, setPendingDeleteId] = useState<string | null>(null);
   const t = useTranslations();
 
   const handleCopy = async (url: string, id: string) => {
@@ -56,16 +59,24 @@ export default function FormsTableClient({
     }
   };
 
-  const handleDelete = async (id: string) => {
-    if (
-      confirm(
-        t("common.deleteConfirm") ||
-          "¿Estás seguro que deseas eliminar este formulario? Esta acción no se puede deshacer.",
-      )
-    ) {
-      setDeletingId(id);
-      await deleteForm(id);
+  const handleDeleteClick = (id: string) => {
+    setPendingDeleteId(id);
+    setShowConfirm(true);
+  };
+
+  const handleConfirmDelete = async () => {
+    if (!pendingDeleteId) return;
+
+    setDeletingId(pendingDeleteId);
+    setShowConfirm(false);
+
+    try {
+      await deleteForm(pendingDeleteId);
+    } catch (err) {
+      console.error("Error deleting form:", err);
+    } finally {
       setDeletingId(null);
+      setPendingDeleteId(null);
     }
   };
 
@@ -163,7 +174,7 @@ export default function FormsTableClient({
                   <Eye size={16} />
                 </Link>
                 <button
-                  onClick={() => handleDelete(f.id)}
+                  onClick={() => handleDeleteClick(f.id)}
                   disabled={deletingId === f.id}
                   className="p-2.5 text-[#555] hover:text-red-500 rounded-lg border border-transparent hover:border-[#222] transition-colors">
                   <Trash2 size={16} />
@@ -264,7 +275,7 @@ export default function FormsTableClient({
                       <Eye size={16} />
                     </Link>
                     <button
-                      onClick={() => handleDelete(f.id)}
+                      onClick={() => handleDeleteClick(f.id)}
                       disabled={deletingId === f.id}
                       className="p-2 text-[#555] hover:text-red-500 border border-transparent hover:border-[#222] transition-colors disabled:opacity-50"
                       title={t("common.delete")}>
@@ -304,6 +315,22 @@ export default function FormsTableClient({
           </div>
         </div>
       )}
+
+      {/* Confirmation Modal */}
+      <ConfirmModal
+        isOpen={showConfirm}
+        onClose={() => setShowConfirm(false)}
+        onConfirm={handleConfirmDelete}
+        title={t("common.deleteConfirmTitle") || "ELIMINAR FORMULARIO"}
+        message={
+          t("common.deleteConfirm") ||
+          "¿Estás seguro de que deseas eliminar este formulario? Esta acción es permanente y no se puede deshacer."
+        }
+        confirmText={t("common.confirm") || "Eliminar"}
+        cancelText={t("common.cancel") || "Cancelar"}
+        variant="danger"
+        isLoading={deletingId !== null}
+      />
     </div>
   );
 }

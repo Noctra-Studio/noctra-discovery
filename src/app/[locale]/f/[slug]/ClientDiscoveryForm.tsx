@@ -14,6 +14,9 @@ import {
   Info,
 } from "lucide-react";
 import { submitDiscoveryForm } from "./actions";
+import { useToast } from "@/components/ui/Toast";
+import { FieldError } from "@/components/ui/FieldError";
+import { cn } from "@/lib/utils";
 import {
   DndContext,
   closestCenter,
@@ -38,10 +41,12 @@ const AutoTextarea = ({
   value,
   onChange,
   placeholder,
+  error,
 }: {
   value: string;
   onChange: (val: string) => void;
   placeholder: string;
+  error?: boolean;
 }) => {
   const ref = useRef<HTMLTextAreaElement>(null);
   useEffect(() => {
@@ -55,7 +60,10 @@ const AutoTextarea = ({
       ref={ref}
       value={value}
       onChange={(e) => onChange(e.target.value)}
-      className="w-full bg-[#0A0A0A] border border-white/5 rounded-2xl px-4 py-3 md:py-[14px] text-[#F5F5F0] text-base md:text-sm placeholder:text-[#333] focus:outline-none focus:border-[#00E5A0]/50 transition-all resize-y min-h-[96px] leading-[1.6]"
+      className={cn(
+        "w-full bg-[#0A0A0A] border rounded-2xl px-4 py-3 md:py-[14px] text-[#F5F5F0] text-base md:text-sm placeholder:text-[#333] focus:outline-none focus:border-[#00E5A0]/50 transition-all resize-y min-h-[96px] leading-[1.6]",
+        error ? "border-[#FFB800]/50" : "border-white/5",
+      )}
       placeholder={placeholder}
     />
   );
@@ -301,12 +309,16 @@ const QBox = ({
   label,
   hint,
   children,
+  error,
+  id,
 }: {
   label: string;
   hint: string;
   children: React.ReactNode;
+  error?: string;
+  id?: string;
 }) => (
-  <div className="mb-10 last:mb-0">
+  <div className="mb-10 last:mb-0" id={id}>
     <label className="block text-[13px] font-medium text-[#F5F5F0] mb-1 uppercase tracking-wider">
       {label}
     </label>
@@ -314,6 +326,7 @@ const QBox = ({
       {hint}
     </p>
     {children}
+    <FieldError message={error} />
   </div>
 );
 
@@ -341,6 +354,8 @@ export default function ClientDiscoveryForm({
   const [view, setView] = useState<"intro" | "form" | "submitting" | "success">(
     "intro",
   );
+  const { addToast } = useToast();
+  const [errors, setErrors] = useState<Record<string, string>>({});
 
   // Form State
   const [payload, setPayload] = useState<any>({
@@ -436,6 +451,40 @@ export default function ClientDiscoveryForm({
   };
 
   const submitForm = async () => {
+    // Validation
+    const newErrors: Record<string, string> = {};
+    if (!payload.q_origin.trim())
+      newErrors.q_origin = "Este campo es requerido";
+    if (!payload.q_ideal_client.trim())
+      newErrors.q_ideal_client = "Este campo es requerido";
+    if (!payload.q_concrete_result.trim())
+      newErrors.q_concrete_result = "Este campo es requerido";
+    if (!payload.q_differentiator.trim())
+      newErrors.q_differentiator = "Este campo es requerido";
+    if (!payload.q_previous_attempts.trim())
+      newErrors.q_previous_attempts = "Este campo es requerido";
+    if (!payload.q_internal_obstacle.trim())
+      newErrors.q_internal_obstacle = "Este campo es requerido";
+    if (!payload.q_business_stage)
+      newErrors.q_business_stage = "Selecciona una etapa";
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      addToast({
+        title: "Atención",
+        description:
+          "Por favor revisa que hayas respondido todas las preguntas de la sección Empresa & Contexto",
+        type: "info",
+      });
+      // Scroll to first error
+      const firstError = Object.keys(newErrors)[0];
+      const element = document.getElementById(`field-${firstError}`);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+      return;
+    }
+
     setView("submitting");
     setTimeout(() => setSubStatus("Generando PDF..."), 1500);
     setTimeout(() => setSubStatus("Enviando..."), 3000);
@@ -445,7 +494,11 @@ export default function ClientDiscoveryForm({
 
     const res = await submitDiscoveryForm(formId, slug, payload);
     if (!res.success) {
-      alert(res.error || "Error al enviar");
+      addToast({
+        title: "Error",
+        description: res.error || "Error al enviar",
+        type: "error",
+      });
       setView("form");
       return;
     }
@@ -767,81 +820,131 @@ export default function ClientDiscoveryForm({
               "{clientName}",
               clientName,
             )}
-            hint={dict.sections.common.questions.q_origin.hint}>
+            hint={dict.sections.common.questions.q_origin.hint}
+            error={errors.q_origin}
+            id="field-q_origin">
             <AutoTextarea
               placeholder={dict.sections.common.questions.q_origin.placeholder}
               value={payload.q_origin}
-              onChange={(val) => setPayload({ ...payload, q_origin: val })}
+              onChange={(val) => {
+                setPayload({ ...payload, q_origin: val });
+                if (errors.q_origin)
+                  setErrors((prev) => {
+                    const { q_origin, ...rest } = prev;
+                    return rest;
+                  });
+              }}
+              error={!!errors.q_origin}
             />
           </QBox>
 
           <QBox
             label={dict.sections.common.questions.q_ideal_client.label}
-            hint={dict.sections.common.questions.q_ideal_client.hint}>
+            hint={dict.sections.common.questions.q_ideal_client.hint}
+            error={errors.q_ideal_client}
+            id="field-q_ideal_client">
             <AutoTextarea
               placeholder={
                 dict.sections.common.questions.q_ideal_client.placeholder
               }
               value={payload.q_ideal_client}
-              onChange={(val) =>
-                setPayload({ ...payload, q_ideal_client: val })
-              }
+              onChange={(val) => {
+                setPayload({ ...payload, q_ideal_client: val });
+                if (errors.q_ideal_client)
+                  setErrors((prev) => {
+                    const { q_ideal_client, ...rest } = prev;
+                    return rest;
+                  });
+              }}
+              error={!!errors.q_ideal_client}
             />
           </QBox>
 
           <QBox
             label={dict.sections.common.questions.q_concrete_result.label}
-            hint={dict.sections.common.questions.q_concrete_result.hint}>
+            hint={dict.sections.common.questions.q_concrete_result.hint}
+            error={errors.q_concrete_result}
+            id="field-q_concrete_result">
             <AutoTextarea
               placeholder={
                 dict.sections.common.questions.q_concrete_result.placeholder
               }
               value={payload.q_concrete_result}
-              onChange={(val) =>
-                setPayload({ ...payload, q_concrete_result: val })
-              }
+              onChange={(val) => {
+                setPayload({ ...payload, q_concrete_result: val });
+                if (errors.q_concrete_result)
+                  setErrors((prev) => {
+                    const { q_concrete_result, ...rest } = prev;
+                    return rest;
+                  });
+              }}
+              error={!!errors.q_concrete_result}
             />
           </QBox>
 
           <QBox
             label={dict.sections.common.questions.q_differentiator.label}
-            hint={dict.sections.common.questions.q_differentiator.hint}>
+            hint={dict.sections.common.questions.q_differentiator.hint}
+            error={errors.q_differentiator}
+            id="field-q_differentiator">
             <AutoTextarea
               placeholder={
                 dict.sections.common.questions.q_differentiator.placeholder
               }
               value={payload.q_differentiator}
-              onChange={(val) =>
-                setPayload({ ...payload, q_differentiator: val })
-              }
+              onChange={(val) => {
+                setPayload({ ...payload, q_differentiator: val });
+                if (errors.q_differentiator)
+                  setErrors((prev) => {
+                    const { q_differentiator, ...rest } = prev;
+                    return rest;
+                  });
+              }}
+              error={!!errors.q_differentiator}
             />
           </QBox>
 
           <QBox
             label={dict.sections.common.questions.q_previous_attempts.label}
-            hint={dict.sections.common.questions.q_previous_attempts.hint}>
+            hint={dict.sections.common.questions.q_previous_attempts.hint}
+            error={errors.q_previous_attempts}
+            id="field-q_previous_attempts">
             <AutoTextarea
               placeholder={
                 dict.sections.common.questions.q_previous_attempts.placeholder
               }
               value={payload.q_previous_attempts}
-              onChange={(val) =>
-                setPayload({ ...payload, q_previous_attempts: val })
-              }
+              onChange={(val) => {
+                setPayload({ ...payload, q_previous_attempts: val });
+                if (errors.q_previous_attempts)
+                  setErrors((prev) => {
+                    const { q_previous_attempts, ...rest } = prev;
+                    return rest;
+                  });
+              }}
+              error={!!errors.q_previous_attempts}
             />
           </QBox>
 
           <QBox
             label={dict.sections.common.questions.q_internal_obstacle.label}
-            hint={dict.sections.common.questions.q_internal_obstacle.hint}>
+            hint={dict.sections.common.questions.q_internal_obstacle.hint}
+            error={errors.q_internal_obstacle}
+            id="field-q_internal_obstacle">
             <AutoTextarea
               placeholder={
                 dict.sections.common.questions.q_internal_obstacle.placeholder
               }
               value={payload.q_internal_obstacle}
-              onChange={(val) =>
-                setPayload({ ...payload, q_internal_obstacle: val })
-              }
+              onChange={(val) => {
+                setPayload({ ...payload, q_internal_obstacle: val });
+                if (errors.q_internal_obstacle)
+                  setErrors((prev) => {
+                    const { q_internal_obstacle, ...rest } = prev;
+                    return rest;
+                  });
+              }}
+              error={!!errors.q_internal_obstacle}
             />
           </QBox>
 
@@ -850,6 +953,8 @@ export default function ClientDiscoveryForm({
               "{clientName}",
               clientName,
             )}
+            error={errors.q_business_stage}
+            id="field-q_business_stage"
             hint={dict.sections.common.questions.q_business_stage.hint}>
             <div className="flex flex-col gap-6">
               <div className="flex flex-wrap gap-2">
@@ -861,14 +966,22 @@ export default function ClientDiscoveryForm({
                     <button
                       key={key}
                       type="button"
-                      onClick={() =>
-                        setPayload({ ...payload, q_business_stage: key })
-                      }
-                      className={`min-h-[44px] px-4 py-2.5 border rounded-2xl text-base md:text-[11px] font-medium tracking-[0.12em] uppercase transition-all duration-200 text-left md:text-center ${
+                      onClick={() => {
+                        setPayload({ ...payload, q_business_stage: key });
+                        if (errors.q_business_stage)
+                          setErrors((prev) => {
+                            const { q_business_stage, ...rest } = prev;
+                            return rest;
+                          });
+                      }}
+                      className={cn(
+                        "min-h-[44px] px-4 py-2.5 border rounded-2xl text-base md:text-[11px] font-medium tracking-[0.12em] uppercase transition-all duration-200 text-left md:text-center",
                         active
                           ? "border-[#00E5A0] text-[#00E5A0] bg-[#00E5A0]/5"
-                          : "border-white/5 text-[#555] hover:border-white/20 hover:text-white bg-[#0A0A0A]"
-                      }`}>
+                          : errors.q_business_stage
+                            ? "border-[#FFB800]/30 text-[#555] bg-red-500/5 hover:border-[#FFB800]/50"
+                            : "border-white/5 text-[#555] hover:border-white/20 hover:text-white bg-[#0A0A0A]",
+                      )}>
                       {label}
                     </button>
                   );

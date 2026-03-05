@@ -12,6 +12,9 @@ import {
 } from "lucide-react";
 import { checkSlugAvailability, createDiscoveryFormAction } from "./actions";
 import { useRouter } from "next/navigation";
+import { useToast } from "@/components/ui/Toast";
+import { FieldError } from "@/components/ui/FieldError";
+import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import {
@@ -59,6 +62,7 @@ const SERVICES_CONFIG: Record<
 export default function ClientFormNew({ locale }: { locale: string }) {
   const router = useRouter();
   const t = useTranslations("admin.newForm");
+  const { addToast } = useToast();
 
   // Form State
   const [clientName, setClientName] = useState("");
@@ -83,6 +87,7 @@ export default function ClientFormNew({ locale }: { locale: string }) {
     id: string;
   } | null>(null);
   const [copied, setCopied] = useState(false);
+  const [errors, setErrors] = useState<Record<string, string>>({});
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -127,7 +132,11 @@ export default function ClientFormNew({ locale }: { locale: string }) {
   };
   const setFile = (file: File) => {
     if (file.size > 2 * 1024 * 1024) {
-      alert("Máx 2MB");
+      addToast({
+        title: t("common.error") || "Error",
+        description: "El logo no debe superar los 2MB",
+        type: "error",
+      });
       return;
     }
     setLogoFile(file);
@@ -137,6 +146,29 @@ export default function ClientFormNew({ locale }: { locale: string }) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
+    setErrors({});
+
+    // Validation
+    const newErrors: Record<string, string> = {};
+    if (!clientName.trim())
+      newErrors.clientName = t("errors.required") || "Este campo es requerido";
+    if (!slug.trim())
+      newErrors.slug = t("errors.required") || "Este campo es requerido";
+    if (!directedTo.trim())
+      newErrors.directedTo = t("errors.required") || "Este campo es requerido";
+    if (selectedServices.length === 0)
+      newErrors.services = "Selecciona al menos un servicio";
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      addToast({
+        title: "Atención",
+        description: "Por favor revisa los campos requeridos",
+        type: "info",
+      });
+      return;
+    }
+
     if (!slugAvailable) return setError("Problemas con el slug.");
 
     setIsSubmitting(true);
@@ -249,19 +281,30 @@ export default function ClientFormNew({ locale }: { locale: string }) {
       <SuccessModal />
 
       <div className="space-y-8">
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form onSubmit={handleSubmit} noValidate className="space-y-6">
           {/* 1. Client Name */}
           <div>
             <label className="block text-[11px] text-[#555] mb-2 font-medium tracking-[0.18em] uppercase">
               {t("clientName")} *
             </label>
             <input
-              required
               type="text"
+              name="clientName"
               value={clientName}
-              onChange={(e) => setClientName(e.target.value)}
-              className="w-full px-4 py-3 bg-[#141414] border border-[#222] rounded-xl text-white focus:outline-none focus:border-white transition-colors text-base md:text-sm"
+              onChange={(e) => {
+                setClientName(e.target.value);
+                if (errors.clientName)
+                  setErrors((prev) => {
+                    const { clientName, ...rest } = prev;
+                    return rest;
+                  });
+              }}
+              className={cn(
+                "w-full px-4 py-3 bg-[#141414] border rounded-xl text-white focus:outline-none focus:border-white transition-colors text-base md:text-sm",
+                errors.clientName ? "border-[#FFB800]/50" : "border-[#222]",
+              )}
             />
+            <FieldError message={errors.clientName} />
           </div>
 
           {/* 2. Logo Upload */}
@@ -322,12 +365,23 @@ export default function ClientFormNew({ locale }: { locale: string }) {
               {t("directedTo")} *
             </label>
             <input
-              required
               type="text"
+              name="directedTo"
               value={directedTo}
-              onChange={(e) => setDirectedTo(e.target.value)}
-              className="w-full px-4 py-3 bg-[#141414] border border-[#222] rounded-xl text-white focus:outline-none focus:border-white transition-colors"
+              onChange={(e) => {
+                setDirectedTo(e.target.value);
+                if (errors.directedTo)
+                  setErrors((prev) => {
+                    const { directedTo, ...rest } = prev;
+                    return rest;
+                  });
+              }}
+              className={cn(
+                "w-full px-4 py-3 bg-[#141414] border rounded-xl text-white focus:outline-none focus:border-white transition-colors",
+                errors.directedTo ? "border-[#FFB800]/50" : "border-[#222]",
+              )}
             />
+            <FieldError message={errors.directedTo} />
             <p className="mt-2 text-[11px] text-[#555] font-light">
               Nombre de quien llenará el formulario. Aparece en el saludo.
             </p>
@@ -407,11 +461,19 @@ export default function ClientFormNew({ locale }: { locale: string }) {
                       } else {
                         setSelectedServices((prev) => [...prev, id]);
                       }
+
+                      if (errors.services)
+                        setErrors((prev) => {
+                          const { services, ...rest } = prev;
+                          return rest;
+                        });
                     }}
                     className={`relative p-5 border rounded-2xl cursor-pointer transition-all ${
                       isSelected
                         ? "bg-[#00E5A0]/5 border-[#00E5A0]"
-                        : "bg-[#141414] border-[#222] hover:border-[#444]"
+                        : errors.services
+                          ? "bg-red-500/5 border-[#FFB800]/30 hover:border-[#FFB800]/50"
+                          : "bg-[#141414] border-[#222] hover:border-[#444]"
                     }`}>
                     {isSelected && (
                       <span className="absolute top-4 right-4 font-medium text-[10px] text-[#00E5A0]">
@@ -432,6 +494,7 @@ export default function ClientFormNew({ locale }: { locale: string }) {
                 );
               })}
             </div>
+            <FieldError message={errors.services} />
           </div>
 
           {/* Slug / Link URL */}
@@ -442,14 +505,19 @@ export default function ClientFormNew({ locale }: { locale: string }) {
             </label>
             <div className="relative group">
               <input
-                required
                 type="text"
+                name="slug"
                 value={slug}
                 onChange={(e) => {
                   setSlug(e.target.value);
                   setSlugEdited(true);
+                  if (errors.slug)
+                    setErrors((prev) => {
+                      const { slug, ...rest } = prev;
+                      return rest;
+                    });
                 }}
-                className={`w-full px-4 py-3 bg-[#141414] border rounded-xl text-white font-medium text-base md:text-sm focus:outline-none transition-colors ${slugAvailable === false ? "border-red-500" : slugAvailable === true ? "border-[#00E5A0]" : "border-[#222]"}`}
+                className={`w-full px-4 py-3 bg-[#141414] border rounded-xl text-white font-medium text-base md:text-sm focus:outline-none transition-colors ${errors.slug ? "border-[#FFB800]/50" : slugAvailable === false ? "border-red-500" : slugAvailable === true ? "border-[#00E5A0]" : "border-[#222]"}`}
               />
               <button
                 type="button"
@@ -464,6 +532,7 @@ export default function ClientFormNew({ locale }: { locale: string }) {
                 {copied ? <Check size={16} /> : <Copy size={16} />}
               </button>
             </div>
+            <FieldError message={errors.slug} />
             <div className="mt-2 flex items-center justify-between">
               <p className="font-medium text-[11px] text-[#555] tracking-tight">
                 discovery.noctra.studio/f/
