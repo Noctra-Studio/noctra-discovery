@@ -210,7 +210,7 @@ function buildEmailHTML(data: any, form: any, hasPdf: boolean): string {
         <h1 style="font-size:20px;font-weight:700;margin:0 0 4px">${form.client_name}</h1>
         <p style="color:#888;margin:0;font-size:12px">
           Discovery completado ·
-          ${new Date().toLocaleDateString('es-MX', { dateStyle: 'long', timeStyle: 'short' })}
+          ${new Date().toLocaleString('es-MX', { dateStyle: 'long', timeStyle: 'short' })}
         </p>
       </div>
 
