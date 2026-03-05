@@ -93,8 +93,8 @@
     "intro": {
       "eyebrow": "Discovery",
       "title": "Tell us about your project.",
-      "title_hola": "Hello {directedTo},",
-      "title_cta": "tell us about your brand.",
+      "title_hola": "Hello {directedTo}!",
+      "title_cta": "Tell us about your project.",
       "description": "We want to deeply understand your project so we can create a visual identity that truly resonates with you and your audience.",
       "duration": "~{minutes} minutes · Can only be submitted once",
       "cta": "Start"

@@ -93,8 +93,8 @@
     "intro": {
       "eyebrow": "Discovery",
       "title": "Cuéntanos tu proyecto.",
-      "title_hola": "Hola {directedTo},",
-      "title_cta": "cuéntanos tu marca.",
+      "title_hola": "¡Hola {directedTo}!",
+      "title_cta": "Cuéntanos de tu proyecto.",
       "description": "Queremos conocer a fondo tu empresa para poder crear una solución que realmente resuene contigo y con tu audiencia.",
       "duration": "~{minutes} minutos · Solo se puede enviar una vez",
       "cta": "Comenzar"

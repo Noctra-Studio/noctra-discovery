@@ -498,7 +498,19 @@ export default function ClientDiscoveryForm({
 
           <div className="relative z-10 text-center max-w-4xl px-6">
             <h1 className="text-[52px] md:text-[86px] font-black mb-8 leading-[0.95] tracking-tight text-white uppercase">
-              {dict.intro.title}
+              {directedTo ? (
+                <>
+                  <span className="block text-[#555] text-[32px] md:text-[52px]">
+                    {dict.intro.title_hola.replace(
+                      "{directedTo}",
+                      directedTo.split(" ")[0],
+                    )}
+                  </span>
+                  {dict.intro.title_cta}
+                </>
+              ) : (
+                dict.intro.title
+              )}
             </h1>
             <p className="text-lg md:text-xl text-[#555] font-light mb-12 max-w-2xl mx-auto leading-relaxed">
               {dict.intro.description}

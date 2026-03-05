@@ -63,8 +63,8 @@ export async function processSubmission(slug: string, data: any, language: strin
     .single();
 
   if (subError) {
-    console.error('[submission-service] Error saving submission:', subError);
-    throw new Error("Error saving submission");
+    console.error('[submission-service] Error saving submission:', subError.message, subError.details, subError.hint);
+    throw new Error(`Error saving submission: ${subError.message}`);
   }
 
   // Update status to completed
