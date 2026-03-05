@@ -41,7 +41,11 @@
       "langEn": "Inglés",
       "submitButton": "Crear y generar link",
       "success": "Formulario creado con éxito",
-      "error": "Error al crear el formulario"
+      "error": "Error al crear el formulario",
+      "errors": {
+        "required": "Este campo es requerido",
+        "minServices": "Selecciona al menos un servicio"
+      }
     },
     "formDetail": {
       "title": "Detalle del Formulario",

@@ -41,7 +41,11 @@
       "langEn": "English",
       "submitButton": "Create and generate link",
       "success": "Form created successfully",
-      "error": "Error creating form"
+      "error": "Error creating form",
+      "errors": {
+        "required": "This field is required",
+        "minServices": "Select at least one service"
+      }
     },
     "formDetail": {
       "title": "Form Details",

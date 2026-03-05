@@ -452,21 +452,17 @@ export default function ClientDiscoveryForm({
 
   const submitForm = async () => {
     // Validation
+    const req = dict.common.required;
     const newErrors: Record<string, string> = {};
-    if (!payload.q_origin.trim())
-      newErrors.q_origin = "Este campo es requerido";
-    if (!payload.q_ideal_client.trim())
-      newErrors.q_ideal_client = "Este campo es requerido";
-    if (!payload.q_concrete_result.trim())
-      newErrors.q_concrete_result = "Este campo es requerido";
-    if (!payload.q_differentiator.trim())
-      newErrors.q_differentiator = "Este campo es requerido";
+    if (!payload.q_origin.trim()) newErrors.q_origin = req;
+    if (!payload.q_ideal_client.trim()) newErrors.q_ideal_client = req;
+    if (!payload.q_concrete_result.trim()) newErrors.q_concrete_result = req;
+    if (!payload.q_differentiator.trim()) newErrors.q_differentiator = req;
     if (!payload.q_previous_attempts.trim())
-      newErrors.q_previous_attempts = "Este campo es requerido";
+      newErrors.q_previous_attempts = req;
     if (!payload.q_internal_obstacle.trim())
-      newErrors.q_internal_obstacle = "Este campo es requerido";
-    if (!payload.q_business_stage)
-      newErrors.q_business_stage = "Selecciona una etapa";
+      newErrors.q_internal_obstacle = req;
+    if (!payload.q_business_stage) newErrors.q_business_stage = req;
 
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);

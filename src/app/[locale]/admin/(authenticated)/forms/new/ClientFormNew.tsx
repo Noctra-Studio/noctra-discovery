@@ -150,14 +150,11 @@ export default function ClientFormNew({ locale }: { locale: string }) {
 
     // Validation
     const newErrors: Record<string, string> = {};
-    if (!clientName.trim())
-      newErrors.clientName = t("errors.required") || "Este campo es requerido";
-    if (!slug.trim())
-      newErrors.slug = t("errors.required") || "Este campo es requerido";
-    if (!directedTo.trim())
-      newErrors.directedTo = t("errors.required") || "Este campo es requerido";
+    if (!clientName.trim()) newErrors.clientName = t("errors.required");
+    if (!slug.trim()) newErrors.slug = t("errors.required");
+    if (!directedTo.trim()) newErrors.directedTo = t("errors.required");
     if (selectedServices.length === 0)
-      newErrors.services = "Selecciona al menos un servicio";
+      newErrors.services = t("errors.minServices");
 
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
