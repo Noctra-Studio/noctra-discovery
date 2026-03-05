@@ -1669,7 +1669,7 @@ export default function ClientDiscoveryForm({
         <div className="relative px-5 md:px-14 pb-8 pt-4 flex justify-end max-w-7xl mx-auto">
           <button
             onClick={submitForm}
-            disabled={!payload.q_company_one_liner}
+            disabled={Math.round(calculateProgress()) < 100}
             className="bg-white hover:bg-[#00E5A0] text-black rounded-full px-10 py-4 font-medium tracking-[0.08em] uppercase text-sm transition-all hover:scale-[1.02] active:scale-[0.98] disabled:opacity-40 disabled:cursor-not-allowed">
             {dict.submit} →
           </button>
