@@ -65,10 +65,14 @@ export default function ClientFormDetail({
           </div>
         </div>
 
-        {isCompleted && (
-          <button className="bg-white text-black px-8 py-4 rounded-full font-medium tracking-[0.08em] uppercase text-sm hover:bg-[#00E5A0] transition-colors flex items-center gap-3">
+        {isCompleted && submission?.pdf_url && (
+          <a
+            href={submission.pdf_url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bg-white text-black px-8 py-4 rounded-full font-medium tracking-[0.08em] uppercase text-sm hover:bg-[#00E5A0] transition-colors flex items-center gap-3">
             <Download size={18} /> Descargar PDF
-          </button>
+          </a>
         )}
       </div>
 
@@ -123,37 +127,126 @@ export default function ClientFormDetail({
               <h2 className="text-2xl font-black uppercase tracking-tight">
                 Respuestas del cliente
               </h2>
-              <div className="space-y-4">
-                {submission?.responses &&
-                  Object.entries(submission.responses).map(
-                    ([section, answers]: [string, any], idx) => (
+              <div className="space-y-8">
+                {(() => {
+                  const responses = submission?.responses || {};
+
+                  // Helper to group flat responses into sections
+                  const sections = [
+                    {
+                      id: "Estrategia y Negocio",
+                      keys: [
+                        "q_origin",
+                        "q_ideal_client",
+                        "q_concrete_result",
+                        "q_differentiator",
+                        "q_previous_attempts",
+                        "q_internal_obstacle",
+                        "q_business_stage",
+                      ],
+                    },
+                    {
+                      id: "Branding y Visual",
+                      keys: [
+                        "q_perception_rank",
+                        "q_visual_inspiration",
+                        "q_visual_avoid",
+                        "q_visual_style",
+                        "q_voice_attrs",
+                        "q_concrete_result_brand",
+                        "q_tone_avoid",
+                        "q_never",
+                        "q_accent_color",
+                      ],
+                    },
+                    {
+                      id: "Digital / Web",
+                      keys: [
+                        "web_type",
+                        "web_current_site",
+                        "web_goal",
+                        "web_content_owner",
+                        "web_features",
+                        "web_pages",
+                        "web_references",
+                        "web_deadline",
+                      ],
+                    },
+                    {
+                      id: "SEO",
+                      keys: [
+                        "seo_target_keywords",
+                        "seo_previous_attempts",
+                        "seo_competitors",
+                        "seo_geo",
+                        "seo_goal",
+                      ],
+                    },
+                    {
+                      id: "AI y Automatización",
+                      keys: [
+                        "ai_processes",
+                        "ai_first_priority",
+                        "ai_team_size",
+                        "ai_tech_level",
+                        "ai_budget_range",
+                      ],
+                    },
+                    {
+                      id: "CRM y Ventas",
+                      keys: [
+                        "crm_main_goal",
+                        "crm_pipeline",
+                        "crm_previous_attempt",
+                        "crm_team_size",
+                      ],
+                    },
+                  ];
+
+                  return sections.map((section, sIdx) => {
+                    const sectionResponses = Object.entries(responses).filter(
+                      ([key]) => section.keys.includes(key),
+                    );
+
+                    if (sectionResponses.length === 0) return null;
+
+                    return (
                       <div
-                        key={idx}
+                        key={sIdx}
                         className="bg-[#141414] border border-[#222] rounded-2xl overflow-hidden">
                         <div className="bg-[#080808] px-6 py-4 border-b border-[#222]">
                           <h3 className="font-medium text-[10px] text-[#555] uppercase tracking-[0.18em]">
-                            {section}
+                            {section.id}
                           </h3>
                         </div>
-                        <div className="p-6 space-y-8">
-                          {Object.entries(answers).map(
-                            ([q, a]: [string, any], qIdx) => (
-                              <div key={qIdx} className="space-y-3">
-                                <p className="text-[#333] text-[9px] uppercase tracking-[0.12em]">
-                                  {q}
-                                </p>
-                                <div className="bg-[#0A0A0A] border border-[#222] rounded-xl p-4 text-sm text-[#F5F5F0] leading-relaxed">
-                                  {typeof a === "string"
-                                    ? a
-                                    : JSON.stringify(a)}
-                                </div>
+                        <div className="p-6 space-y-6">
+                          {sectionResponses.map(([q, a], qIdx) => (
+                            <div key={qIdx} className="space-y-3">
+                              <p className="text-[#333] text-[9px] uppercase tracking-[0.12em]">
+                                {q.replace(/_/g, " ").replace(/^q /, "")}
+                              </p>
+                              <div className="bg-[#0A0A0A] border border-[#222] rounded-xl p-4 text-sm text-[#F5F5F0] leading-relaxed whitespace-pre-wrap">
+                                {Array.isArray(a) ? (
+                                  <div className="flex flex-wrap gap-2">
+                                    {a.map((item, i) => (
+                                      <span
+                                        key={i}
+                                        className="bg-[#111] border border-[#222] px-2 py-1 rounded text-[10px] uppercase tracking-wide">
+                                        {item}
+                                      </span>
+                                    ))}
+                                  </div>
+                                ) : (
+                                  String(a)
+                                )}
                               </div>
-                            ),
-                          )}
+                            </div>
+                          ))}
                         </div>
                       </div>
-                    ),
-                  )}
+                    );
+                  });
+                })()}
               </div>
             </div>
           )}
