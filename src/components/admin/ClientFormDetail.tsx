@@ -205,7 +205,22 @@ export default function ClientFormDetail({
 
                   return sections.map((section, sIdx) => {
                     const sectionResponses = Object.entries(responses).filter(
-                      ([key]) => section.keys.includes(key),
+                      ([key, value]) => {
+                        const isRelevant = section.keys.includes(key);
+                        if (!isRelevant) return false;
+
+                        // Exclude empty values
+                        if (
+                          value === null ||
+                          value === undefined ||
+                          value === ""
+                        )
+                          return false;
+                        if (Array.isArray(value) && value.length === 0)
+                          return false;
+
+                        return true;
+                      },
                     );
 
                     if (sectionResponses.length === 0) return null;

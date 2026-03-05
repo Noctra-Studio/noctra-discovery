@@ -175,56 +175,44 @@ export async function processSubmission(slug: string, data: any, language: strin
 }
 
 function buildEmailHTML(data: any, form: any, hasPdf: boolean): string {
-  const rows = [
-    ['Empresa', form.client_name],
-    ['Dirigido a', form.directed_to],
-    ['Origen', data.q_origin],
-    ['Cliente Ideal', data.q_ideal_client],
-    ['Diferenciador', data.q_differentiator],
-    ['Business Stage', data.q_business_stage ? `${data.q_business_stage}${data.q_business_stage_detail ? `: ${data.q_business_stage_detail}` : ''}` : null],
-    ['Resultado concreto', data.q_concrete_result],
-    ['Inspiración visual', data.q_visual_inspiration],
-    ['Evitar visualmente', Array.isArray(data.q_visual_avoid) ? data.q_visual_avoid.join(', ') : data.q_visual_avoid],
-    ['Color acento', data.q_accent_color ? `${data.q_accent_color_name} (${data.q_accent_color})` : null],
-    ['Jamás será', data.q_never],
-    ['Objetivo web', data.web_goal],
-    ['Prioridad AI', data.ai_first_priority],
-    ['Cuello de botella CRM', data.crm_main_goal],
-  ].filter(([, v]) => v);
-
-  const tableRows = rows.map(([label, value]) => `
-    <tr>
-      <td style="padding:10px 12px;background:#f7f7f5;font-size:10px;font-weight:600;
-                 color:#888;text-transform:uppercase;letter-spacing:0.05em;
-                 white-space:nowrap;vertical-align:top;width:1%">${label}</td>
-      <td style="padding:10px 12px;border-left:2px solid #080808;font-size:13px;
-                 color:#333;line-height:1.6">${String(value).replace(/\n/g, '<br>')}</td>
-    </tr>
-  `).join('');
-
+  const accentColor = "#00E5A0"; // Noctra Green
+  
   return `
     <!DOCTYPE html><html><head><meta charset="UTF-8"></head>
-    <body style="font-family:-apple-system,sans-serif;max-width:600px;margin:0 auto;
-                 padding:40px 24px;background:#ffffff;color:#111">
-      <div style="border-left:3px solid #080808;padding-left:20px;margin-bottom:32px">
-        <h1 style="font-size:20px;font-weight:700;margin:0 0 4px">${form.client_name}</h1>
-        <p style="color:#888;margin:0;font-size:12px">
-          Discovery completado ·
-          ${new Date().toLocaleString('es-MX', { dateStyle: 'long', timeStyle: 'short' })}
+    <body style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+                 max-width:600px;margin:0 auto;padding:60px 24px;background:#080808;color:#ffffff">
+      
+      <div style="margin-bottom:48px">
+        <h1 style="font-size:32px;font-weight:900;margin:0;letter-spacing:-0.04em;text-transform:uppercase">
+          ${form.client_name}
+        </h1>
+        <div style="width:40px;height:2px;background:${accentColor};margin-top:16px"></div>
+      </div>
+
+      <div style="margin-bottom:48px">
+        <p style="font-size:18px;line-height:1.6;color:#ececeb;margin:0">
+          Ha concluido el formulario de discovery.
         </p>
       </div>
 
-      <table style="width:100%;border-collapse:collapse;margin-bottom:32px">
-        ${tableRows}
-      </table>
+      <div style="margin-bottom:60px">
+        <a href="${process.env.NEXT_PUBLIC_APP_URL}/es/admin/forms/${form.id}"
+           style="display:inline-block;background:#ffffff;color:#000000;padding:16px 32px;
+                  border-radius:100px;text-decoration:none;font-weight:700;font-size:12px;
+                  text-transform:uppercase;letter-spacing:0.1em">
+          Ver respuestas completas en Noctra Discovery →
+        </a>
+      </div>
 
-      <div style="padding:16px 20px;background:#f7f7f5;border-left:2px solid #080808">
-        <p style="font-size:11px;color:#888;margin:0;line-height:1.6">
-          ${hasPdf ? 'El PDF completo está adjunto.' : 'El PDF se generará en el panel.'}<br>
-          <a href="${process.env.NEXT_PUBLIC_APP_URL}/es/admin/forms/${form.id}"
-             style="color:#080808;font-weight:600;font-size:12px">
-            Ver respuestas completas en Noctra Discovery →
-          </a>
+      <div style="padding-top:32px;border-top:1px solid #222">
+        <p style="font-size:11px;color:#555;margin:0;letter-spacing:0.05em;text-transform:uppercase">
+          ${hasPdf ? 'El reporte técnico detallado está adjunto en este correo.' : 'El reporte técnico se está generando y estará disponible en el panel.'}
+        </p>
+      </div>
+
+      <div style="margin-top:40px">
+        <p style="font-size:10px;color:#333;margin:0;letter-spacing:0.2em;text-transform:uppercase">
+          Noctra Studio
         </p>
       </div>
     </body></html>
