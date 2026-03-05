@@ -165,6 +165,20 @@ export default function ClientFormNew({ locale }: { locale: string }) {
     }
   };
 
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setSuccessData(null);
+      }
+    };
+    if (successData) {
+      window.addEventListener("keydown", handleKeyDown);
+    }
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [successData]);
+
   // --- SUCCESS MODAL ---
   const SuccessModal = () => {
     if (!successData) return null;

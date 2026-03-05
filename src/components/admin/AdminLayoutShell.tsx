@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X, LayoutDashboard, FileText, LogOut } from "lucide-react";
@@ -25,6 +25,22 @@ export function AdminLayoutShell({
   const t = useTranslations("admin.dashboard");
 
   const closeMenu = () => setIsMobileMenuOpen(false);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        closeMenu();
+      }
+    };
+
+    if (isMobileMenuOpen) {
+      window.addEventListener("keydown", handleKeyDown);
+    }
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isMobileMenuOpen]);
 
   const navLinks = [
     {

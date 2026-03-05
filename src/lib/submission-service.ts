@@ -179,41 +179,43 @@ function buildEmailHTML(data: any, form: any, hasPdf: boolean): string {
   
   return `
     <!DOCTYPE html><html><head><meta charset="UTF-8"></head>
-    <body style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
-                 max-width:600px;margin:0 auto;padding:60px 24px;background:#080808;color:#ffffff">
-      
-      <div style="margin-bottom:48px">
-        <h1 style="font-size:32px;font-weight:900;margin:0;letter-spacing:-0.04em;text-transform:uppercase">
-          ${form.client_name}
-        </h1>
-        <div style="width:40px;height:2px;background:${accentColor};margin-top:16px"></div>
-      </div>
+    <body style="margin:0;padding:0;background-color:#080808;">
+      <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+                  max-width:600px;margin:0 auto;padding:60px 40px;background-color:#080808;color:#ffffff">
+        
+        <div style="margin-bottom:48px">
+          <h1 style="font-size:32px;font-weight:900;margin:0;letter-spacing:-0.04em;text-transform:uppercase;color:#ffffff">
+            ${form.client_name}
+          </h1>
+          <div style="width:40px;height:2px;background:${accentColor};margin-top:16px"></div>
+        </div>
 
-      <div style="margin-bottom:48px">
-        <p style="font-size:18px;line-height:1.6;color:#ececeb;margin:0">
-          Ha concluido el formulario de discovery.
-        </p>
-      </div>
+        <div style="margin-bottom:48px">
+          <p style="font-size:18px;line-height:1.6;color:#ececeb;margin:0">
+            Ha concluido el formulario de discovery.
+          </p>
+        </div>
 
-      <div style="margin-bottom:60px">
-        <a href="${process.env.NEXT_PUBLIC_APP_URL}/es/admin/forms/${form.id}"
-           style="display:inline-block;background:#ffffff;color:#000000;padding:16px 32px;
-                  border-radius:100px;text-decoration:none;font-weight:700;font-size:12px;
-                  text-transform:uppercase;letter-spacing:0.1em">
-          Ver respuestas completas en Noctra Discovery →
-        </a>
-      </div>
+        <div style="margin-bottom:60px">
+          <a href="${process.env.NEXT_PUBLIC_APP_URL}/es/admin/forms/${form.id}"
+             style="display:inline-block;background-color:#ffffff;color:#000000;padding:16px 32px;
+                    border-radius:100px;text-decoration:none;font-weight:700;font-size:12px;
+                    text-transform:uppercase;letter-spacing:0.1em;border:1px solid #ffffff">
+            Ver respuestas completas en Noctra Discovery →
+          </a>
+        </div>
 
-      <div style="padding-top:32px;border-top:1px solid #222">
-        <p style="font-size:11px;color:#555;margin:0;letter-spacing:0.05em;text-transform:uppercase">
-          ${hasPdf ? 'El reporte técnico detallado está adjunto en este correo.' : 'El reporte técnico se está generando y estará disponible en el panel.'}
-        </p>
-      </div>
+        <div style="padding-top:32px;border-top:1px solid #222">
+          <p style="font-size:11px;color:#555;margin:0;letter-spacing:0.05em;text-transform:uppercase">
+            ${hasPdf ? 'El reporte técnico detallado está adjunto en este correo.' : 'El reporte técnico se está generando y estará disponible en el panel.'}
+          </p>
+        </div>
 
-      <div style="margin-top:40px">
-        <p style="font-size:10px;color:#333;margin:0;letter-spacing:0.2em;text-transform:uppercase">
-          Noctra Studio
-        </p>
+        <div style="margin-top:40px">
+          <p style="font-size:10px;color:#333;margin:0;letter-spacing:0.2em;text-transform:uppercase">
+            Noctra Studio
+          </p>
+        </div>
       </div>
     </body></html>
   `;

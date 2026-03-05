@@ -96,10 +96,13 @@ export function buildPDFHtml(data: any, language: string, formMeta: any) {
           .q-label {
             color: #888;
             font-family: 'DM Mono', monospace;
-            font-size: 9px;
+            font-size: 8px;
             text-transform: uppercase;
-            letter-spacing: 0.2em;
-            margin-bottom: 6px;
+            letter-spacing: 0.1em;
+            margin-bottom: 8px;
+            line-height: 1.4;
+            border-left: 2px solid #ddd;
+            padding-left: 10px;
           }
 
           .q-value {
@@ -160,31 +163,31 @@ export function buildPDFHtml(data: any, language: string, formMeta: any) {
         <div class="page">
           <h2 class="section-title">Common Insight</h2>
           <div class="q-box">
-            <div class="q-label">Origen de la empresa</div>
+            <div class="q-label">¿Por qué existe la empresa? ¿Cuál fue la frustración original o la oportunidad que nadie estaba aprovechando?</div>
             <div class="q-value">${escapeHtml(data.q_origin) || '-'}</div>
           </div>
           <div class="q-box">
-            <div class="q-label">Cliente Ideal</div>
+            <div class="q-label">¿Quién es exactamente el cliente con el que MÁS disfrutan trabajar?</div>
             <div class="q-value">${escapeHtml(data.q_ideal_client) || '-'}</div>
           </div>
           <div class="q-box">
-            <div class="q-label">Resultado Concreto</div>
+            <div class="q-label">¿Cuál es el resultado más concreto y medible que le entregan a un cliente?</div>
             <div class="q-value">${escapeHtml(data.q_concrete_result) || '-'}</div>
           </div>
           <div class="q-box">
-            <div class="q-label">Diferenciador</div>
+            <div class="q-label">¿Por qué un cliente que cotizó con la competencia terminó eligiéndolos a ustedes?</div>
             <div class="q-value">${escapeHtml(data.q_differentiator) || '-'}</div>
           </div>
           <div class="q-box">
-            <div class="q-label">Intentos Previos</div>
+            <div class="q-label">¿Has intentado resolver este problema antes?</div>
             <div class="q-value">${escapeHtml(data.q_previous_attempts) || '-'}</div>
           </div>
           <div class="q-box">
-            <div class="q-label">Obstáculo Interno</div>
+            <div class="q-label">Si tuvieran una varita mágica, ¿qué proceso interno eliminarían?</div>
             <div class="q-value">${escapeHtml(data.q_internal_obstacle) || '-'}</div>
           </div>
           <div class="q-box">
-            <div class="q-label">Business Stage</div>
+            <div class="q-label">¿En qué momento está la empresa hoy?</div>
             <div class="q-value">
               <strong>${data.q_business_stage || '-'}</strong>
               ${data.q_business_stage_detail ? `<div style="margin-top: 5px; font-style: italic; color: #666;">${escapeHtml(data.q_business_stage_detail)}</div>` : ''}
@@ -201,11 +204,11 @@ export function buildPDFHtml(data: any, language: string, formMeta: any) {
         <div class="page">
           <h2 class="section-title">Branding & Identity</h2>
           <div class="q-box">
-            <div class="q-label">Visual Inspiration</div>
+            <div class="q-label">¿Qué marca tiene la identidad visual que MÁS te gusta, y qué la hace especial?</div>
             <div class="q-value">${escapeHtml(data.q_visual_inspiration) || '-'}</div>
           </div>
           <div class="q-box">
-            <div class="q-label">Visual Avoid</div>
+            <div class="q-label">Estilos visuales a EVITAR</div>
             <div>${renderChips(data.q_visual_avoid)}</div>
           </div>
           <div class="q-box">
@@ -216,8 +219,8 @@ export function buildPDFHtml(data: any, language: string, formMeta: any) {
             </div>
           </div>
           <div class="q-box">
-            <div class="q-label">Concrete Result</div>
-            <div class="q-value">${escapeHtml(data.q_concrete_result) || '-'}</div>
+            <div class="q-label">Más allá del logo, ¿qué tiene que lograr esta nueva identidad?</div>
+            <div class="q-value">${escapeHtml(data.q_concrete_result_brand) || escapeHtml(data.q_concrete_result) || '-'}</div>
           </div>
           <div class="q-box">
              <div class="q-label">Atributos de Voz</div>
@@ -228,7 +231,7 @@ export function buildPDFHtml(data: any, language: string, formMeta: any) {
             <div class="q-value">${escapeHtml(data.q_tone_avoid) || '-'}</div>
           </div>
           <div class="q-box">
-            <div class="q-label">Jamás Será</div>
+            <div class="q-label">¿Qué tipo de empresa o reputación sería un FRACASO total?</div>
             <div class="q-value">${escapeHtml(data.q_never) || '-'}</div>
           </div>
           <div class="footer mono">
@@ -245,7 +248,7 @@ export function buildPDFHtml(data: any, language: string, formMeta: any) {
             <div class="q-value">${escapeHtml(data.web_type) || '-'}</div>
           </div>
           <div class="q-box">
-            <div class="q-label">Objetivo Principal</div>
+            <div class="q-label">Si pudieras pedirle al visitante que haga SOLO UNA COSA, ¿qué sería?</div>
             <div class="q-value">${escapeHtml(data.web_goal) || '-'}</div>
           </div>
           <div class="q-box">
@@ -308,11 +311,11 @@ export function buildPDFHtml(data: any, language: string, formMeta: any) {
              <div class="q-value">${escapeHtml(data.ai_current_tools) || '-'}</div>
           </div>
           <div class="q-box">
-             <div class="q-label">Cuellos de Botella</div>
+             <div class="q-label">¿Qué tarea hace tu equipo hoy que, si desapareciera mañana, nadie la extrañaría, pero hoy no pueden evitar hacer?</div>
              <div class="q-value">${escapeHtml(data.ai_pain_points) || '-'}</div>
           </div>
           <div class="q-box">
-             <div class="q-label">Gran Prioridad</div>
+             <div class="q-label">Si pudieras automatizar UNA SOLA COSA esta misma semana, ¿cuál sería?</div>
              <div class="q-value">${escapeHtml(data.ai_first_priority) || '-'}</div>
           </div>
           <div class="q-box">
@@ -328,7 +331,7 @@ export function buildPDFHtml(data: any, language: string, formMeta: any) {
              <div class="q-value">${escapeHtml(data.ai_tech_level) || '-'}</div>
           </div>
           <div class="q-box">
-             <div class="q-label">Presupuesto Estimado</div>
+             <div class="q-label">¿Tienen un presupuesto mensual contemplado para pagar licencias de software y automatizaciones?</div>
              <div class="q-value">${escapeHtml(data.ai_budget_range) || '-'}</div>
           </div>
           <div class="footer mono"><span>AI Section</span><span>06</span></div>
@@ -338,19 +341,19 @@ export function buildPDFHtml(data: any, language: string, formMeta: any) {
         <div class="page">
           <h2 class="section-title">CRM & Systems</h2>
           <div class="q-box">
-             <div class="q-label">CRM Actual</div>
+             <div class="q-label">¿Qué usan hoy para gestionar clientes/ventas?</div>
              <div class="q-value">${escapeHtml(data.crm_current_crm) || '-'}</div>
           </div>
           <div class="q-box">
-             <div class="q-label">Intentos Previos</div>
+             <div class="q-label">¿Han intentado implementar un CRM antes y la gente dejó de usarlo? ¿Por qué crees que fracasó?</div>
              <div class="q-value">${escapeHtml(data.crm_previous_attempt) || '-'}</div>
           </div>
           <div class="q-box">
-             <div class="q-label">Puntos de Dolor</div>
+             <div class="q-label">¿En qué parte exacta del proceso comercial actual se están estancando los leads o perdiendo el tiempo?</div>
              <div class="q-value">${escapeHtml(data.crm_pain_points) || '-'}</div>
           </div>
           <div class="q-box">
-             <div class="q-label">Pipeline (Proceso Comercial)</div>
+             <div class="q-label">¿Cómo es tu proceso de ventas hoy (tu pipeline)?</div>
              <div class="q-value">${escapeHtml(data.crm_pipeline) || '-'}</div>
           </div>
           <div class="q-box">
