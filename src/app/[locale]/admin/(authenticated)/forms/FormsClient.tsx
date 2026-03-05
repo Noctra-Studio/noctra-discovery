@@ -199,6 +199,7 @@ export default function FormsClient({
             type="text"
             placeholder={dict.search}
             value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
             className="w-full bg-[#141414] border border-[#222] rounded-full pl-11 pr-4 py-2.5 text-[13px] text-white focus:outline-none focus:border-[#444] transition-colors font-light"
           />
         </div>
@@ -225,6 +226,7 @@ export default function FormsClient({
         <div className="relative">
           <select
             value={serviceFilter}
+            onChange={(e) => setServiceFilter(e.target.value)}
             className="bg-[#141414] border border-[#222] rounded-xl text-[#F5F5F0] pl-4 pr-10 py-2.5 text-[13px] focus:outline-none focus:border-[#444] cursor-pointer appearance-none">
             <option value="all">{dict.filterService}</option>
             <option value="branding">Branding</option>
@@ -242,6 +244,7 @@ export default function FormsClient({
         <div className="relative ml-auto">
           <select
             value={sortBy}
+            onChange={(e) => setSortBy(e.target.value)}
             className="bg-[#141414] border border-[#222] rounded-xl text-[#F5F5F0] pl-4 pr-10 py-2.5 text-[13px] focus:outline-none focus:border-[#444] cursor-pointer appearance-none">
             <option value="newest">{dict.sortNewest}</option>
             <option value="oldest">{dict.sortOldest}</option>

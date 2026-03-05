@@ -65,7 +65,10 @@ export default async function FormsPage({
         dict={{
           title: t("title"),
           eyebrow: t("eyebrow"),
-          subtitle: t("subtitle"),
+          subtitle: t("subtitle", {
+            total: "{total}",
+            completed: "{completed}",
+          }),
           newForm: t("newForm"),
           search: t("search"),
           filterAll: t("filterAll"),
@@ -93,10 +96,14 @@ export default async function FormsPage({
           emptyDesc: t("emptyDesc"),
           emptyFilter: t("emptyFilter"),
           clearFilters: t("clearFilters"),
-          showing: t("showing"),
+          showing: t("showing", {
+            from: "{from}",
+            to: "{to}",
+            total: "{total}",
+          }),
           deleteModal: {
             title: t("deleteModal.title"),
-            desc: t("deleteModal.desc"),
+            desc: t("deleteModal.desc", { clientName: "{clientName}" }),
             cancel: t("deleteModal.cancel"),
             confirm: t("deleteModal.confirm"),
           },
