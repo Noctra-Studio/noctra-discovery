@@ -107,21 +107,46 @@
         "title": "Who are you?",
         "desc": "The foundation of everything. No filters, no pitch.",
         "questions": {
-          "q_company_one_liner": { "label": "What does {clientName} do in one sentence?", "hint": "Describe what you do, for whom, and what changes in their business after working with you.", "placeholder": "Describe what you do, for whom, and what changes in their business after working with you." },
-          "q_company_why": { "label": "Why does {clientName} exist? What was the origin?", "hint": "The origin, the frustration you spotted, the opportunity nobody was capturing.", "placeholder": "Write here..." },
+          "q_origin": {
+            "label": "Why does {clientName} exist? What was the original frustration or opportunity nobody was capturing?",
+            "hint": "The origin of the company.",
+            "placeholder": "Type here..."
+          },
+          "q_ideal_client": {
+            "label": "Who is the exact client you MOST enjoy working with?",
+            "hint": "Not the one who pays the most, but the one who makes your work worthwhile.",
+            "placeholder": "E.g.: Mid-size manufacturing business owners..."
+          },
+          "q_concrete_result": {
+            "label": "What is the most concrete, measurable result you deliver to a client?",
+            "hint": "Not 'we improve processes', but 'we reduce onboarding time from 3 weeks to 4 days'.",
+            "placeholder": "E.g.: Our clients reduce their time..."
+          },
+          "q_differentiator": {
+            "label": "Why did a client who got quotes from competitors end up choosing you?",
+            "hint": "Or what do returning clients say makes them stay?",
+            "placeholder": "E.g.: They tell us we are the only ones delivering on time..."
+          },
+          "q_previous_attempts": {
+            "label": "Have you tried to solve this problem before?",
+            "hint": "E.g.: Hired an agency, did it in-house. What failed?",
+            "placeholder": "Type here..."
+          },
+          "q_internal_obstacle": {
+            "label": "Today, if you had a magic wand, what internal process would you eliminate?",
+            "hint": "That process that drains your energy or time.",
+            "placeholder": "Type here..."
+          },
           "q_business_stage": {
             "label": "Where is {clientName} at today?",
             "hint": "This helps us understand the real starting point and adapt the strategy to your current situation.",
             "options": {
-              "starting":    "Just starting out — less than 1 year offering my services",
+              "starting": "Just starting out — less than 1 year offering my services",
               "established": "Been around a while — I have clients but want to grow or improve",
-              "struggling":  "Been around but haven't seen the results I expected",
+              "struggling": "Been around but haven't seen the results I expected",
               "relaunching": "Relaunching — I had operations before and I'm starting over"
             }
-          },
-          "q_client_voice": { "label": "What would a happy {clientName} client say when recommending you to a friend?", "hint": "Write it as if they were speaking. 'I hired them because...' or 'What I loved most was...'", "placeholder": "E.g.: I hired them because they were the only ones who truly understood the problem without me repeating myself. And they delivered exactly what they promised." },
-          "q_ideal_client": { "label": "Who is the client you enjoy working with the most?", "hint": "Not the one who pays the most — the one who makes your work worthwhile. Industry, size, role, their biggest pain.", "placeholder": "E.g.: Mid-size manufacturing business owners, 50-200 employees, who know they need to change but don't know where to start. Decisive, with real budget." },
-          "q_differentiator": { "label": "Why did a client who got quotes from competitors end up choosing you?", "hint": "If you don't have that story yet, what do clients say made them stay or come back?", "placeholder": "E.g.: They tell us we're the only ones who deliver on time and don't disappear after closing the deal. Competitors promised more but delivered less." }
+          }
         }
       },
       "branding": {
@@ -129,15 +154,53 @@
         "title": "Brand personality.",
         "desc": "Let's define how {clientName} looks, sounds, and feels.",
         "questions": {
-          "q_perception_rank": { "label": "Which of these should be the first thing someone thinks when they see your brand?", "hint": "Rank from most to least important. #1 will guide every design decision.", "placeholder": "", "addLabel": "Add custom attribute...", "customPlaceholder": "Type your attribute..." },
-          "q_visual_inspiration": { "label": "What brand (from any industry) has the visual identity you admire most, and what makes it special?", "hint": "It doesn't have to be from your industry. It could be a craft beer, a digital bank, or a tech startup.", "placeholder": "E.g.: I like Notion because it's clean, unpretentious, and anyone can understand what it's for just by looking at it. It doesn't try to impress — it just works." },
-          "q_visual_avoid": { "label": "Any brand or visual style you definitely DON'T want {clientName} to resemble?", "hint": "Knowing what you don't want is just as valuable. Select any you'd avoid.", "placeholder": "" },
-          "q_visual_style": { "label": "General visual style?", "hint": "Choose up to 3 styles.", "placeholder": "" },
-          "q_keep_elements": { "label": "Are there current brand elements you want to keep?", "hint": "Current logo, color palette, typography, communication tone... anything that identifies {clientName} and should be preserved.", "placeholder": "Type here..." },
-          "q_voice_attrs": { "label": "How does {clientName} communicate?", "hint": "Verbal personality.", "placeholder": "" },
-          "q_concrete_result": { "label": "What is the most concrete, measurable result you deliver to a client?", "hint": "Not 'we improve your business.' What number changes, what process disappears, what problem never happens again?", "placeholder": "E.g.: Our clients cut their onboarding time from 3 weeks to 4 days. Or: We go from 0 to 50 qualified leads per month in the first 90 days." },
-          "q_tone_avoid": { "label": "Is there any brand or communication style that makes you feel 'this is not for me'?", "hint": "What makes you close a website or ignore a message? That's exactly what {clientName} should avoid.", "placeholder": "E.g.: Brands that talk down to their customers. Or ones that use words like 'ecosystem', 'synergy', and 'disruption' without saying anything real." },
-          "q_never": { "label": "What do you NEVER want {clientName} to be?", "hint": "No filters. What type of company, perception, or reputation would be a total failure for {clientName}?", "placeholder": "Type here..." }
+          "q_perception_rank": {
+            "label": "Perception Ranking: What should be the first thing someone thinks when they see your brand?",
+            "hint": "Rank from most to least important.",
+            "placeholder": "",
+            "addLabel": "Add custom attribute...",
+            "customPlaceholder": "Type your attribute..."
+          },
+          "q_visual_inspiration": {
+            "label": "What brand (from any industry) has the visual identity you MOST like, and what makes it special?",
+            "hint": "It doesn't have to be from your sector.",
+            "placeholder": "E.g.: I like Notion because it's clean and unpretentious..."
+          },
+          "q_visual_avoid": {
+            "label": "Any brand or visual style you definitely DO NOT want to resemble?",
+            "hint": "Knowing what you don't want is just as valuable.",
+            "placeholder": ""
+          },
+          "q_visual_style": {
+            "label": "General visual style?",
+            "hint": "Choose up to 3 styles.",
+            "placeholder": ""
+          },
+          "q_voice_attrs": {
+            "label": "How does {clientName} communicate?",
+            "hint": "Verbal personality.",
+            "placeholder": ""
+          },
+          "q_concrete_result_brand": {
+            "label": "Beyond the logo, what does this new identity have to achieve for you to consider it a successful investment?",
+            "hint": "The branding result.",
+            "placeholder": "Type here..."
+          },
+          "q_tone_avoid": {
+            "label": "Is there any communication style that generates rejection as a consumer?",
+            "hint": "E.g.: 'Brands that talk to you like you're dumb'.",
+            "placeholder": "Type here..."
+          },
+          "q_never": {
+            "label": "What kind of company, perception, or reputation would be a total failure for {clientName}?",
+            "hint": "The 'Never will be'.",
+            "placeholder": "Type here..."
+          },
+          "q_accent_color": {
+            "label": "Is there a representative color that should be kept or explored?",
+            "hint": "Optional.",
+            "placeholder": "Type here..."
+          }
         }
       },
       "web": {
@@ -145,15 +208,36 @@
         "title": "The site {clientName} needs.",
         "desc": "Structure, content, and project functionalities.",
         "questions": {
-          "web_current_site": { "label": "Do you have an active website? If so, what bothers you most about it?", "hint": "URL if you have one. Be honest — what makes it not work as it should?", "placeholder": "E.g.: noctra.studio — the problem is nobody understands what we sell when they land. Or: We don't have a site yet." },
-          "web_type": { "label": "What type of site do you need?", "hint": "Main purpose of the site.", "placeholder": "" },
-          "web_pages": { "label": "What pages/sections should it include?", "hint": "Select all that apply.", "placeholder": "" },
-          "web_references": { "label": "Websites you admire or inspire you?", "hint": "URLs or names.", "placeholder": "Type here..." },
-          "web_content_owner": { "label": "Who will be responsible for the website content (copy, images, messaging)?", "hint": "This helps us plan the project realistically from the start.", "placeholder": "" },
-          "web_features": { "label": "What functionalities does the site need?", "hint": "Technical features.", "placeholder": "" },
-          "web_integrations": { "label": "Required integrations?", "hint": "Third-party tools.", "placeholder": "" },
-          "web_deadline": { "label": "Do you have a deadline for the launch?", "hint": "Estimated date or period.", "placeholder": "Type here..." },
-          "web_goal": { "label": "What is the one action you want a visitor to take when they land on your site?", "hint": "If you could only ask them for one thing, what would it be? Being specific here makes all the difference.", "placeholder": "E.g.: Book a 30-minute diagnostic call. Not buy immediately — just take the first step." }
+          "web_current_site": {
+            "label": "Do you currently have an active website? If so, what frustrates you most about it today?",
+            "hint": "URL if you have one. And be honest.",
+            "placeholder": "Type here..."
+          },
+          "web_goal": {
+            "label": "If you could ask a visitor to the new site to do ONLY ONE THING, what would it be?",
+            "hint": "E.g.: 'Book a 15 min call', not 'sell more'.",
+            "placeholder": "Type here..."
+          },
+          "web_type": {
+            "label": "What type of site do you need?",
+            "hint": "Main purpose of the site.",
+            "placeholder": ""
+          },
+          "web_content_owner": {
+            "label": "Who will handle the content (texts, images, case studies)?",
+            "hint": "This is the #1 bottleneck in web projects.",
+            "placeholder": ""
+          },
+          "web_features": {
+            "label": "What features does the site need?",
+            "hint": "Technical features.",
+            "placeholder": ""
+          },
+          "web_deadline": {
+            "label": "Is there any date or event that forces the site to be ready by then?",
+            "hint": "Estimated date or period.",
+            "placeholder": "Type here..."
+          }
         }
       },
       "seo": {
@@ -161,29 +245,83 @@
         "title": "Organic visibility.",
         "desc": "Let's define the strategy so {clientName} appears where it matters.",
         "questions": {
-          "seo_current_site": { "label": "Do you have an active website?", "hint": "Current URL if it exists.", "placeholder": "Type here..." },
-          "seo_target_keywords": { "label": "When your ideal client has the problem you solve, what do they type into Google?", "hint": "Think of the exact moment of pain, not your service. What phrase would they type at 11pm when they've had enough?", "placeholder": "E.g.: 'how to automate invoicing small business', 'web design agency pricing', 'why my sales team can't close deals'" },
-          "seo_competitors": { "label": "Who are your top 2-3 competitors?", "hint": "URLs or names.", "placeholder": "Type here..." },
-          "seo_geo": { "label": "What geographic market do you want to reach?", "hint": "SEO scope.", "placeholder": "" },
-          "seo_previous_attempts": { "label": "Have you tried SEO before? What happened?", "hint": "If you have prior experience (good or bad), it helps us avoid repeating what didn't work.", "placeholder": "E.g.: We hired an agency for 6 months, paid for links, saw no results. Or: We've never formally tried it." },
-          "seo_content_capacity": { "label": "Can you generate content regularly?", "hint": "Articles, guides, etc.", "placeholder": "" },
-          "seo_current_traffic": { "label": "Do you know how much organic traffic you currently receive?", "hint": "Optional monthly estimate.", "placeholder": "" },
-          "seo_goal": { "label": "What is the primary goal of SEO?", "hint": "Traffic, leads, authority.", "placeholder": "Type here..." }
+          "seo_current_site": {
+            "label": "Do you have an active website? Do you know how much real organic traffic you get per month?",
+            "hint": "Current context.",
+            "placeholder": "Type here..."
+          },
+          "seo_target_keywords": {
+            "label": "When your ideal client has the exact problem you solve, what phrase do they type in Google at 11 PM?",
+            "hint": "The pain moment.",
+            "placeholder": "E.g.: 'how to automate small business billing'"
+          },
+          "seo_competitors": {
+            "label": "Top 2-3 competitors that currently appear where you should be.",
+            "hint": "URLs or names.",
+            "placeholder": "Type here..."
+          },
+          "seo_previous_attempts": {
+            "label": "Have you invested in SEO before? What happened?",
+            "hint": "E.g.: 'We paid an agency for 6 months and nothing happened'.",
+            "placeholder": "Type here..."
+          },
+          "seo_content_capacity": {
+            "label": "Do you have the capacity to generate articles/guides internally, or need someone to handle it 100%?",
+            "hint": "SEO requires content.",
+            "placeholder": "Type here..."
+          },
+          "seo_geo": {
+            "label": "What geographic market do you want to reach?",
+            "hint": "SEO scope.",
+            "placeholder": ""
+          },
+          "seo_goal": {
+            "label": "What would be the point of ranking #1?",
+            "hint": "More qualified leads, brand authority, etc.",
+            "placeholder": "Type here..."
+          }
         }
       },
       "ai-automations": {
         "eyebrow": "— AI Automations",
         "title": "Automate what slows you down.",
-        "desc": "Let's identify which processes at {clientName} can run themselves.",
+        "desc": "Let's identify what processes inside {clientName} can run themselves.",
         "questions": {
-          "ai_current_tools": { "label": "What tools does the team currently use?", "hint": "CRM, email, ops, etc.", "placeholder": "Type here..." },
-          "ai_pain_points": { "label": "What task does your team do that nobody would miss if it disappeared tomorrow — but they can't avoid doing it today?", "hint": "The work everyone hates but 'has to be done.' That's exactly what we want to automate first.", "placeholder": "E.g.: Copying data from emails into a spreadsheet. Or manually sending the same follow-up to every prospect 3 days after a call." },
-          "ai_processes": { "label": "Which processes are you interested in automating?", "hint": "Select key areas.", "placeholder": "" },
-          "ai_first_priority": { "label": "If you could automate ONE thing this week, what would it be?", "hint": "The process causing the most pain right now. Even if it seems small.", "placeholder": "E.g.: Post-sale follow-up. We always forget it and lose clients because of that." },
-          "ai_team_size": { "label": "How many people are on the team that would use the automations?", "hint": "Team size.", "placeholder": "" },
-          "ai_tech_level": { "label": "How would you describe the team's technical level?", "hint": "Technical skills.", "placeholder": "" },
-          "ai_budget_range": { "label": "Do you have a rough monthly budget in mind for tools and automation? (optional)", "hint": "Not a commitment. Helps us design a solution you can sustain long-term.", "placeholder": "" },
-          "ai_timeline": { "label": "In how much time do you need to see results?", "hint": "Project urgency.", "placeholder": "" }
+          "ai_current_tools": {
+            "label": "What tools does the team use today?",
+            "hint": "CRMs, Notion, Excel, WhatsApp, etc.",
+            "placeholder": "Type here..."
+          },
+          "ai_pain_points": {
+            "label": "What task does your team do today that, if it disappeared tomorrow, no one would miss, but today they can't avoid doing?",
+            "hint": "The Draining Task.",
+            "placeholder": "E.g.: transferring data from excel to a software."
+          },
+          "ai_first_priority": {
+            "label": "If you could automate OUTRIGHT ONE THING this week, what would it be?",
+            "hint": "Priority 1.",
+            "placeholder": "Type here..."
+          },
+          "ai_processes": {
+            "label": "What are the main processes to consider?",
+            "hint": "Select key areas.",
+            "placeholder": ""
+          },
+          "ai_team_size": {
+            "label": "How many people are on the team that will use the automations?",
+            "hint": "Team size.",
+            "placeholder": ""
+          },
+          "ai_tech_level": {
+            "label": "From 1 to 10, how resistant is the current team to adopting new technologies?",
+            "hint": "Technical team readiness.",
+            "placeholder": ""
+          },
+          "ai_budget_range": {
+            "label": "Do you have a monthly budget in mind to pay for software licenses and automations?",
+            "hint": "Realistic budget.",
+            "placeholder": ""
+          }
         }
       },
       "crm": {
@@ -191,61 +329,282 @@
         "title": "Your sales operation.",
         "desc": "Let's understand how {clientName} manages its clients and sales today.",
         "questions": {
-          "crm_current_crm": { "label": "What do you currently use to manage clients and sales?", "hint": "Current tool.", "placeholder": "" },
-          "crm_pain_points": { "label": "What problems does your current CRM or process have?", "hint": "Current failures.", "placeholder": "Type here..." },
-          "crm_team_size": { "label": "How many people would use the CRM?", "hint": "System users.", "placeholder": "" },
-          "crm_pipeline": { "label": "What is your sales process like today?", "hint": "Describe the stages.", "placeholder": "Type here..." },
-          "crm_avg_deals": { "label": "About how many deals/leads do you handle per month?", "hint": "Sales volume.", "placeholder": "" },
-          "crm_integrations": { "label": "What tools does the CRM need to integrate with?", "hint": "Digital ecosystem.", "placeholder": "" },
-          "crm_ai_features": { "label": "What AI features are you interested in for the CRM?", "hint": "Smart features.", "placeholder": "" },
-          "crm_main_goal": { "label": "What is the #1 goal of implementing Forge?", "hint": "Main goal.", "placeholder": "Type here..." }
+          "crm_current_crm": {
+            "label": "What do you use today to manage clients/sales?",
+            "hint": "Excel, notebook, HubSpot, etc.",
+            "placeholder": "Type here..."
+          },
+          "crm_previous_attempt": {
+            "label": "Have you tried implementing a CRM before and people stopped using it? Why do you think it failed?",
+            "hint": "The CRM graveyard.",
+            "placeholder": "Type here..."
+          },
+          "crm_pain_points": {
+            "label": "In what exact part of the current commercial process are leads stalling or time is being lost?",
+            "hint": "The Black Hole.",
+            "placeholder": "Type here..."
+          },
+          "crm_pipeline": {
+            "label": "What is your sales process today (your pipeline)?",
+            "hint": "Describe the stages.",
+            "placeholder": "Type here..."
+          },
+          "crm_team_size": {
+            "label": "How many sales reps/managers will use the CRM?",
+            "hint": "The sales team.",
+            "placeholder": ""
+          },
+          "crm_integrations": {
+            "label": "A must-have, what does this CRM have to talk to?",
+            "hint": "WhatsApp, ERP, billing software, etc.",
+            "placeholder": ""
+          },
+          "crm_ai_features": {
+            "label": "Out of everything that can be done with AI and CRM, what 'superpower' would you give your salespeople?",
+            "hint": "Magic features.",
+            "placeholder": ""
+          }
         }
       }
     },
     "chips": {
       "branding": {
-        "refs": ["Linear", "Vercel", "Stripe", "Palantir", "Apple", "Figma", "SpaceX", "Notion", "AWS", "IBM"],
-        "style": ["Extreme minimalism", "Technical and precise", "Bold and editorial", "Premium corporate", "Futuristic and dark", "Human and warm"],
-        "voice": ["Direct and blunt", "Technical but accessible", "Empathetic and human", "Challenger and provocative", "Authority and trust", "Educational", "Inspirational"],
-        "perception": ["Reliable and solid", "Innovative and cutting-edge", "Accessible and human", "Powerful and high-impact"]
+        "refs": [
+          "Linear",
+          "Vercel",
+          "Stripe",
+          "Palantir",
+          "Apple",
+          "Figma",
+          "SpaceX",
+          "Notion",
+          "AWS",
+          "IBM"
+        ],
+        "style": [
+          "Extreme minimalism",
+          "Technical and precise",
+          "Bold and editorial",
+          "Premium corporate",
+          "Futuristic and dark",
+          "Human and warm"
+        ],
+        "voice": [
+          "Direct and blunt",
+          "Technical but accessible",
+          "Empathetic and human",
+          "Challenger and provocative",
+          "Authority and trust",
+          "Educational",
+          "Inspirational"
+        ],
+        "perception": [
+          "Reliable and solid",
+          "Innovative and cutting-edge",
+          "Accessible and human",
+          "Powerful and high-impact"
+        ]
       },
       "web": {
-        "type": ["Landing page", "Corporate site", "Blog", "E-commerce", "Portfolio", "Web app"],
-        "pages": ["Home", "About us", "Services", "Portfolio/Cases", "Blog", "Contact", "Pricing", "FAQ", "Privacy Policy"],
-        "contentOwner": ["We have it ready", "We need Noctra to handle content", "We have something but it needs work", "We haven't defined it yet"],
-        "features": ["Contact form", "Live chat", "Booking/Scheduling", "Online payments", "Multi-language", "Dashboard/Login", "Blog with CMS", "Newsletter", "Advanced analytics"],
-        "integrations": ["Google Analytics", "HubSpot", "Mailchimp", "Stripe", "Calendly", "WhatsApp", "Supabase", "Zapier", "Meta Pixel"]
+        "type": [
+          "Landing page",
+          "Corporate site",
+          "Blog",
+          "E-commerce",
+          "Portfolio",
+          "Web app"
+        ],
+        "pages": [
+          "Home",
+          "About us",
+          "Services",
+          "Portfolio/Cases",
+          "Blog",
+          "Contact",
+          "Pricing",
+          "FAQ",
+          "Privacy Policy"
+        ],
+        "contentOwner": [
+          "We have it ready",
+          "We need Noctra to handle content",
+          "We have something but it needs work",
+          "We haven't defined it yet"
+        ],
+        "features": [
+          "Contact form",
+          "Live chat",
+          "Booking/Scheduling",
+          "Online payments",
+          "Multi-language",
+          "Dashboard/Login",
+          "Blog with CMS",
+          "Newsletter",
+          "Advanced analytics"
+        ],
+        "integrations": [
+          "Google Analytics",
+          "HubSpot",
+          "Mailchimp",
+          "Stripe",
+          "Calendly",
+          "WhatsApp",
+          "Supabase",
+          "Zapier",
+          "Meta Pixel"
+        ]
       },
       "seo": {
-        "geo": ["Mexico only", "LATAM", "Spain", "USA (Spanish)", "Global", "Other"],
-        "content": ["Yes, weekly", "Yes, monthly", "No internal capacity", "Need Noctra to manage it"],
-        "traffic": ["I don't know", "Less than 500/mo", "500–5,000/mo", "5,000–20,000/mo", "More than 20,000/mo"]
+        "geo": [
+          "Mexico only",
+          "LATAM",
+          "Spain",
+          "USA (Spanish)",
+          "Global",
+          "Other"
+        ],
+        "content": [
+          "Yes, weekly",
+          "Yes, monthly",
+          "No internal capacity",
+          "Need Noctra to manage it"
+        ],
+        "traffic": [
+          "I don't know",
+          "Less than 500/mo",
+          "500–5,000/mo",
+          "5,000–20,000/mo",
+          "More than 20,000/mo"
+        ]
       },
       "ai": {
-        "processes": ["Lead nurturing", "Customer support / chatbot", "Report generation", "Client onboarding", "Invoicing / payments", "Sales follow-up", "Content management", "Recruiting", "Internal support"],
-        "data": ["Google Sheets", "Notion", "Airtable", "HubSpot", "Salesforce", "Email (Gmail/Outlook)", "WhatsApp", "Own database", "PDF/Excel files"],
-        "team": ["Just me", "2–5 people", "6–20 people", "21–50 people", "More than 50"],
-        "tech": ["Basic (non-technical)", "Intermediate (use SaaS tools)", "Advanced (have devs)", "Very advanced (engineering team)"],
-        "budget": ["Less than $500 USD/mo", "$500–$2,000 USD/mo", "$2,000–$5,000 USD/mo", "More than $5,000 USD/mo", "To be defined"],
-        "timeline": ["ASAP (1–2 weeks)", "1–3 months", "3–6 months", "Just exploring, no urgency"]
+        "processes": [
+          "Lead nurturing",
+          "Customer support / chatbot",
+          "Report generation",
+          "Client onboarding",
+          "Invoicing / payments",
+          "Sales follow-up",
+          "Content management",
+          "Recruiting",
+          "Internal support"
+        ],
+        "data": [
+          "Google Sheets",
+          "Notion",
+          "Airtable",
+          "HubSpot",
+          "Salesforce",
+          "Email (Gmail/Outlook)",
+          "WhatsApp",
+          "Own database",
+          "PDF/Excel files"
+        ],
+        "team": [
+          "Just me",
+          "2–5 people",
+          "6–20 people",
+          "21–50 people",
+          "More than 50"
+        ],
+        "tech": [
+          "Basic (non-technical)",
+          "Intermediate (use SaaS tools)",
+          "Advanced (have devs)",
+          "Very advanced (engineering team)"
+        ],
+        "budget": [
+          "Less than $500 USD/mo",
+          "$500–$2,000 USD/mo",
+          "$2,000–$5,000 USD/mo",
+          "More than $5,000 USD/mo",
+          "To be defined"
+        ],
+        "timeline": [
+          "ASAP (1–2 weeks)",
+          "1–3 months",
+          "3–6 months",
+          "Just exploring, no urgency"
+        ]
       },
       "crm": {
-        "current": ["Excel / Google Sheets", "HubSpot", "Salesforce", "Pipedrive", "Notion", "No CRM", "Other"],
-        "team": ["Just me", "2–5 people", "6–15 people", "16–50 people", "More than 50"],
-        "deals": ["Less than 10/mo", "10–50/mo", "50–200/mo", "More than 200/mo"],
-        "integrations": ["Gmail / Google Workspace", "Outlook / Microsoft 365", "WhatsApp", "Slack", "Stripe / payments", "Calendly / scheduling", "Zapier / Make", "Own API", "Billing/Invoicing"],
-        "ai": ["Auto lead scoring", "AI email composition", "Conversation summaries", "Close prediction", "Sales chatbot", "Auto reports", "Smart follow-up"]
+        "current": [
+          "Excel / Google Sheets",
+          "HubSpot",
+          "Salesforce",
+          "Pipedrive",
+          "Notion",
+          "No CRM",
+          "Other"
+        ],
+        "team": [
+          "Just me",
+          "2–5 people",
+          "6–15 people",
+          "16–50 people",
+          "More than 50"
+        ],
+        "deals": [
+          "Less than 10/mo",
+          "10–50/mo",
+          "50–200/mo",
+          "More than 200/mo"
+        ],
+        "integrations": [
+          "Gmail / Google Workspace",
+          "Outlook / Microsoft 365",
+          "WhatsApp",
+          "Slack",
+          "Stripe / payments",
+          "Calendly / scheduling",
+          "Zapier / Make",
+          "Own API",
+          "Billing/Invoicing"
+        ],
+        "ai": [
+          "Auto lead scoring",
+          "AI email composition",
+          "Conversation summaries",
+          "Close prediction",
+          "Sales chatbot",
+          "Auto reports",
+          "Smart follow-up"
+        ]
       }
     },
     "colors": [
-      { "hex": "#00E5B8", "name": "Teal" },
-      { "hex": "#0057FF", "name": "Electric Blue" },
-      { "hex": "#FF3D00", "name": "Fire Red" },
-      { "hex": "#EAFF00", "name": "Neon Yellow" },
-      { "hex": "#A855F7", "name": "Purple" },
-      { "hex": "#FF6B00", "name": "Orange" },
-      { "hex": "#00FF88", "name": "Matrix Green" },
-      { "hex": "#F5F5F0", "name": "Only B&W" }
+      {
+        "hex": "#00E5B8",
+        "name": "Teal"
+      },
+      {
+        "hex": "#0057FF",
+        "name": "Electric Blue"
+      },
+      {
+        "hex": "#FF3D00",
+        "name": "Fire Red"
+      },
+      {
+        "hex": "#EAFF00",
+        "name": "Neon Yellow"
+      },
+      {
+        "hex": "#A855F7",
+        "name": "Purple"
+      },
+      {
+        "hex": "#FF6B00",
+        "name": "Orange"
+      },
+      {
+        "hex": "#00FF88",
+        "name": "Matrix Green"
+      },
+      {
+        "hex": "#F5F5F0",
+        "name": "Only B&W"
+      }
     ],
     "customColor": {
       "label": "OTHER COLOR...",
