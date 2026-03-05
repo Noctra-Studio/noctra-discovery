@@ -164,17 +164,37 @@ export async function generateSubmissionPDF(submissionId: string) {
       // Some versions of sparticuz/chromium have issues with brotli if not configured
       chromium.setGraphicsMode = false;
       
+      console.log('[submission-service] Resolving local executable path...');
       const executablePath = await chromium.executablePath();
+      console.log(`[submission-service] Local path resolved: ${executablePath}`);
       
       browser = await puppeteerCore.launch({
-        args: chromium.args,
+        args: [...chromium.args, "--hide-scrollbars", "--disable-web-security"],
         defaultViewport: { width: 1200, height: 900 },
         executablePath: executablePath,
         headless: true, // Use boolean directly if property is missing from types
       });
     } catch (launchErr: any) {
-      console.error('[submission-service] Chromium Launch Error:', launchErr);
-      throw new Error(`Error al iniciar el navegador: ${launchErr.message}`);
+      console.warn('[submission-service] Local Chromium launch failed, attempting remote fallback:', launchErr);
+      
+      // Remote fallback URL - uses v131 which is compatible with many puppeteer versions
+      // This bypasses the local "brotli files missing" error by pulling a clean pack
+      const REMOTE_CHROMIUM_URL = "https://github.com/Sparticuz/chromium/releases/download/v131.0.1/chromium-v131.0.1-pack.tar";
+      
+      try {
+        const remotePath = await chromium.executablePath(REMOTE_CHROMIUM_URL);
+        console.log(`[submission-service] Remote path resolved: ${remotePath}`);
+        
+        browser = await puppeteerCore.launch({
+          args: [...chromium.args, "--hide-scrollbars", "--disable-web-security"],
+          defaultViewport: { width: 1200, height: 900 },
+          executablePath: remotePath,
+          headless: true,
+        });
+      } catch (remoteErr: any) {
+        console.error('[submission-service] Remote Chromium launch failed too:', remoteErr);
+        throw new Error(`Error fatal al iniciar el navegador (Local y Remoto): ${remoteErr.message}`);
+      }
     }
   }
   

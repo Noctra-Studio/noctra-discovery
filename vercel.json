@@ -1,6 +1,8 @@
 {
   "functions": {
-    "src/app/api/submit/route.ts": { "memory": 1024, "maxDuration": 60 }
+    "src/app/api/submit/route.ts": { "memory": 1024, "maxDuration": 60 },
+    "src/app/[locale]/f/[slug]/page.tsx": { "memory": 1024, "maxDuration": 60 },
+    "src/app/[locale]/admin/(authenticated)/forms/[id]/page.tsx": { "memory": 1024, "maxDuration": 60 }
   },
   "headers": [
     {

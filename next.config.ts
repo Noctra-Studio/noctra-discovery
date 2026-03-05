@@ -48,6 +48,8 @@ const securityHeaders = [
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  // Ensure Chromium binary is not bundled but traced correctly
+  serverExternalPackages: ["@sparticuz/chromium"],
   async headers() {
     return [
       {
