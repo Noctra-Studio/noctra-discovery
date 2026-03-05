@@ -82,10 +82,6 @@ export default function ClientFormNew({ locale }: { locale: string }) {
   const [slugAvailable, setSlugAvailable] = useState<boolean | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [successData, setSuccessData] = useState<{
-    url: string;
-    id: string;
-  } | null>(null);
   const [copied, setCopied] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
 
@@ -184,99 +180,19 @@ export default function ClientFormNew({ locale }: { locale: string }) {
       setError(result.error);
       setIsSubmitting(false);
     } else if (result.success && result.formUrl && result.formId) {
-      setSuccessData({ url: result.formUrl, id: result.formId });
-      try {
-        await navigator.clipboard.writeText(result.formUrl);
-        setCopied(true);
-        setTimeout(() => setCopied(false), 2000);
-      } catch (err) {}
-      setIsSubmitting(false);
+      // Redirect to dashboard with success param and data
+      const params = new URLSearchParams();
+      params.append("success", "true");
+      params.append("formUrl", result.formUrl);
+      params.append("slug", slug);
+      params.append("clientName", clientName);
+
+      router.push(`/${locale}/admin?${params.toString()}`);
     }
-  };
-
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        setSuccessData(null);
-      }
-    };
-    if (successData) {
-      window.addEventListener("keydown", handleKeyDown);
-    }
-    return () => {
-      window.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [successData]);
-
-  // --- SUCCESS MODAL ---
-  const SuccessModal = () => {
-    if (!successData) return null;
-    return (
-      <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-none animate-in fade-in duration-300">
-        <div className="bg-[#141414] border border-[#222] rounded-2xl p-8 max-w-md w-full relative animate-in zoom-in-95 duration-300">
-          <button
-            onClick={() => setSuccessData(null)}
-            className="absolute top-4 right-4 text-[#555] hover:text-white transition-colors">
-            <X size={20} />
-          </button>
-
-          <div className="mb-6">
-            <h2 className="text-[28px] text-white mb-2 uppercase font-black tracking-tight">
-              ✓ Formulario creado
-            </h2>
-            <p className="text-[13px] text-[#555] font-light">
-              Comparte este link con {clientName}
-            </p>
-          </div>
-
-          <div className="bg-[#080808] border border-[#222] rounded-lg px-4 py-3 mb-6 group relative">
-            <span className="font-medium text-[12px] text-[#F5F5F0] break-all block pr-8">
-              discovery.noctra.studio/f/{slug}
-            </span>
-            <button
-              onClick={async () => {
-                await navigator.clipboard.writeText(successData.url);
-                setCopied(true);
-                setTimeout(() => setCopied(false), 2000);
-              }}
-              className="absolute right-3 top-3 text-[#555] hover:text-[#00E5A0] transition-colors">
-              {copied ? <Check size={16} /> : <Copy size={16} />}
-            </button>
-          </div>
-
-          <div className="space-y-3">
-            <button
-              onClick={async () => {
-                await navigator.clipboard.writeText(successData.url);
-                setCopied(true);
-                setTimeout(() => setCopied(false), 2000);
-              }}
-              className="w-full min-h-[48px] py-3.5 md:py-3 bg-white text-black rounded-full font-medium tracking-[0.08em] uppercase text-base md:text-sm hover:bg-[#00E5A0] transition-colors">
-              {copied ? "✓ Copiado" : "Copiar link"}
-            </button>
-            <a
-              href={successData.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-full min-h-[48px] py-3.5 md:py-3 border border-[#222] rounded-full text-white font-medium tracking-[0.08em] uppercase text-base md:text-sm hover:bg-[#222] transition-colors flex items-center justify-center gap-2">
-              Abrir en nueva pestaña <ExternalLink size={14} />
-            </a>
-          </div>
-
-          <button
-            onClick={() => router.push(`/${locale}/admin`)}
-            className="w-full mt-6 text-center font-medium text-[11px] text-[#555] hover:text-white transition-colors uppercase tracking-[0.18em]">
-            Ir al dashboard →
-          </button>
-        </div>
-      </div>
-    );
   };
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 max-w-7xl mx-auto px-5 py-8 md:px-10 relative">
-      <SuccessModal />
-
       <div className="space-y-8">
         <form onSubmit={handleSubmit} noValidate className="space-y-6">
           {/* 1. Client Name */}
