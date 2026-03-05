@@ -130,6 +130,10 @@ export interface Database {
           q_never: string | null
           q_business_stage: 'starting' | 'established' | 'struggling' | 'relaunching' | null
           q_business_stage_detail: string | null
+          q_origin: string | null
+          q_previous_attempts: string | null
+          q_internal_obstacle: string | null
+          q_concrete_result_brand: string | null
           pdf_url: string | null
           email_sent_at: string | null
           // Web
@@ -140,6 +144,7 @@ export interface Database {
           web_content_owner: string | null
           web_integrations: string[] | null
           web_deadline: string | null
+          web_goal: string | null
           // SEO
           seo_current_site: string | null
           seo_target_keywords: string | null
@@ -147,6 +152,7 @@ export interface Database {
           seo_previous_attempts: string | null
           seo_content_capacity: string | null
           seo_goal: string | null
+          seo_geo: string | null
           // AI Automations
           ai_current_tools: string | null
           ai_pain_points: string | null
@@ -184,6 +190,13 @@ export interface Database {
           q_vision_5y?: string | null
           q_market_gap?: string | null
           q_never?: string | null
+          q_origin?: string | null
+          q_previous_attempts?: string | null
+          q_internal_obstacle?: string | null
+          q_concrete_result_brand?: string | null
+          web_goal?: string | null
+          seo_goal?: string | null
+          seo_geo?: string | null
           pdf_url?: string | null
           email_sent_at?: string | null
         }
@@ -209,6 +222,13 @@ export interface Database {
           q_vision_5y?: string | null
           q_market_gap?: string | null
           q_never?: string | null
+          q_origin?: string | null
+          q_previous_attempts?: string | null
+          q_internal_obstacle?: string | null
+          q_concrete_result_brand?: string | null
+          web_goal?: string | null
+          seo_goal?: string | null
+          seo_geo?: string | null
           pdf_url?: string | null
           email_sent_at?: string | null
         }

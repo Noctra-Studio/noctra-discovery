@@ -346,8 +346,12 @@ export default function ClientDiscoveryForm({
   const [payload, setPayload] = useState<any>({
     language: formLocale,
     // Common
-    q_company_one_liner: "",
-    q_company_why: "",
+    q_origin: "",
+    q_ideal_client: "",
+    q_concrete_result: "",
+    q_differentiator: "",
+    q_previous_attempts: "",
+    q_internal_obstacle: "",
     q_business_stage: null as
       | "starting"
       | "established"
@@ -355,9 +359,6 @@ export default function ClientDiscoveryForm({
       | "relaunching"
       | null,
     q_business_stage_detail: "",
-    q_client_voice: "",
-    q_ideal_client: "",
-    q_differentiator: "",
     // Branding
     q_perception_rank: dict.chips.branding?.perception || [],
     q_visual_inspiration: "",
@@ -365,49 +366,41 @@ export default function ClientDiscoveryForm({
     q_accent_color: "",
     q_accent_color_name: "",
     q_visual_style: [],
-    q_keep_elements: "",
     q_voice_attrs: [],
-    q_concrete_result: "",
+    q_concrete_result_brand: "",
     q_tone_avoid: "",
     q_never: "",
     // Web
     web_current_site: "",
+    web_goal: "",
     web_type: "",
-    web_pages: [],
-    web_references: "",
     web_content_owner: "",
     web_features: [],
-    web_integrations: [],
     web_deadline: "",
-    web_goal: "",
     // SEO
     seo_current_site: "",
     seo_target_keywords: "",
     seo_competitors: "",
-    seo_geo: "",
     seo_previous_attempts: "",
     seo_content_capacity: "",
-    seo_current_traffic: "",
+    seo_geo: "",
     seo_goal: "",
     // AI
     ai_current_tools: "",
     ai_pain_points: "",
-    ai_processes: [],
     ai_first_priority: "",
+    ai_processes: [],
     ai_team_size: "",
     ai_tech_level: "",
     ai_budget_range: "",
-    ai_timeline: "",
     // CRM
     crm_current_crm: "",
     crm_previous_attempt: "",
     crm_pain_points: "",
-    crm_team_size: "",
     crm_pipeline: "",
-    crm_avg_deals: "",
+    crm_team_size: "",
     crm_integrations: [],
     crm_ai_features: [],
-    crm_main_goal: "",
   });
 
   // Submission Progress State
@@ -649,32 +642,39 @@ export default function ClientDiscoveryForm({
     const countFilled = (vals: any[]) =>
       vals.filter((v) => (Array.isArray(v) ? v.length > 0 : !!v)).length;
 
-    let totalPoints = 6; // Common section has 6 q's
+    let totalPoints = 6; // Common section has 6 required q's (+ business stage which is different)
     let filledPoints = countFilled([
-      payload.q_company_one_liner,
-      payload.q_company_why,
-      payload.q_business_stage,
-      payload.q_client_voice,
+      payload.q_origin,
       payload.q_ideal_client,
+      payload.q_concrete_result,
       payload.q_differentiator,
+      payload.q_previous_attempts,
+      payload.q_internal_obstacle,
     ]);
+    if (payload.q_business_stage) filledPoints++;
+    totalPoints++;
 
     if (services.includes("branding")) {
-      totalPoints += 5;
+      totalPoints += 8;
       filledPoints += countFilled([
+        payload.q_visual_inspiration,
         payload.q_visual_avoid,
         payload.q_accent_color,
         payload.q_visual_style,
         payload.q_voice_attrs,
-        payload.q_concrete_result,
+        payload.q_concrete_result_brand,
+        payload.q_tone_avoid,
+        payload.q_never,
       ]);
     }
     if (services.includes("web")) {
-      totalPoints += 4;
+      totalPoints += 6;
       filledPoints += countFilled([
         payload.web_current_site,
-        payload.web_content_owner,
         payload.web_goal,
+        payload.web_type,
+        payload.web_content_owner,
+        payload.web_features,
         payload.web_deadline,
       ]);
     }
@@ -744,34 +744,85 @@ export default function ClientDiscoveryForm({
           </div>
 
           <QBox
-            label={dict.sections.common.questions.q_company_one_liner.label.replace(
+            label={dict.sections.common.questions.q_origin.label.replace(
               "{clientName}",
               clientName,
             )}
-            hint={dict.sections.common.questions.q_company_one_liner.hint}>
+            hint={dict.sections.common.questions.q_origin.hint}>
+            <AutoTextarea
+              placeholder={dict.sections.common.questions.q_origin.placeholder}
+              value={payload.q_origin}
+              onChange={(val) => setPayload({ ...payload, q_origin: val })}
+            />
+          </QBox>
+
+          <QBox
+            label={dict.sections.common.questions.q_ideal_client.label}
+            hint={dict.sections.common.questions.q_ideal_client.hint}>
             <AutoTextarea
               placeholder={
-                dict.sections.common.questions.q_company_one_liner.placeholder
+                dict.sections.common.questions.q_ideal_client.placeholder
               }
-              value={payload.q_company_one_liner}
+              value={payload.q_ideal_client}
               onChange={(val) =>
-                setPayload({ ...payload, q_company_one_liner: val })
+                setPayload({ ...payload, q_ideal_client: val })
               }
             />
           </QBox>
 
           <QBox
-            label={dict.sections.common.questions.q_company_why.label.replace(
-              "{clientName}",
-              clientName,
-            )}
-            hint={dict.sections.common.questions.q_company_why.hint}>
+            label={dict.sections.common.questions.q_concrete_result.label}
+            hint={dict.sections.common.questions.q_concrete_result.hint}>
             <AutoTextarea
               placeholder={
-                dict.sections.common.questions.q_company_why.placeholder
+                dict.sections.common.questions.q_concrete_result.placeholder
               }
-              value={payload.q_company_why}
-              onChange={(val) => setPayload({ ...payload, q_company_why: val })}
+              value={payload.q_concrete_result}
+              onChange={(val) =>
+                setPayload({ ...payload, q_concrete_result: val })
+              }
+            />
+          </QBox>
+
+          <QBox
+            label={dict.sections.common.questions.q_differentiator.label}
+            hint={dict.sections.common.questions.q_differentiator.hint}>
+            <AutoTextarea
+              placeholder={
+                dict.sections.common.questions.q_differentiator.placeholder
+              }
+              value={payload.q_differentiator}
+              onChange={(val) =>
+                setPayload({ ...payload, q_differentiator: val })
+              }
+            />
+          </QBox>
+
+          <QBox
+            label={dict.sections.common.questions.q_previous_attempts.label}
+            hint={dict.sections.common.questions.q_previous_attempts.hint}>
+            <AutoTextarea
+              placeholder={
+                dict.sections.common.questions.q_previous_attempts.placeholder
+              }
+              value={payload.q_previous_attempts}
+              onChange={(val) =>
+                setPayload({ ...payload, q_previous_attempts: val })
+              }
+            />
+          </QBox>
+
+          <QBox
+            label={dict.sections.common.questions.q_internal_obstacle.label}
+            hint={dict.sections.common.questions.q_internal_obstacle.hint}>
+            <AutoTextarea
+              placeholder={
+                dict.sections.common.questions.q_internal_obstacle.placeholder
+              }
+              value={payload.q_internal_obstacle}
+              onChange={(val) =>
+                setPayload({ ...payload, q_internal_obstacle: val })
+              }
             />
           </QBox>
 
@@ -833,51 +884,6 @@ export default function ClientDiscoveryForm({
                 </div>
               )}
             </div>
-          </QBox>
-
-          <QBox
-            label={dict.sections.common.questions.q_client_voice.label.replace(
-              "{clientName}",
-              clientName,
-            )}
-            hint={dict.sections.common.questions.q_client_voice.hint}>
-            <AutoTextarea
-              placeholder={
-                dict.sections.common.questions.q_client_voice.placeholder
-              }
-              value={payload.q_client_voice}
-              onChange={(val) =>
-                setPayload({ ...payload, q_client_voice: val })
-              }
-            />
-          </QBox>
-
-          <QBox
-            label={dict.sections.common.questions.q_ideal_client.label}
-            hint={dict.sections.common.questions.q_ideal_client.hint}>
-            <AutoTextarea
-              placeholder={
-                dict.sections.common.questions.q_ideal_client.placeholder
-              }
-              value={payload.q_ideal_client}
-              onChange={(val) =>
-                setPayload({ ...payload, q_ideal_client: val })
-              }
-            />
-          </QBox>
-
-          <QBox
-            label={dict.sections.common.questions.q_differentiator.label}
-            hint={dict.sections.common.questions.q_differentiator.hint}>
-            <AutoTextarea
-              placeholder={
-                dict.sections.common.questions.q_differentiator.placeholder
-              }
-              value={payload.q_differentiator}
-              onChange={(val) =>
-                setPayload({ ...payload, q_differentiator: val })
-              }
-            />
           </QBox>
         </section>
 
@@ -1120,21 +1126,30 @@ export default function ClientDiscoveryForm({
             </QBox>
 
             <QBox
-              label={dict.sections.branding.questions.q_concrete_result.label}
-              hint={dict.sections.branding.questions.q_concrete_result.hint}>
+              label={dict.sections.branding.questions.q_concrete_result_brand.label.replace(
+                "{clientName}",
+                clientName,
+              )}
+              hint={
+                dict.sections.branding.questions.q_concrete_result_brand.hint
+              }>
               <AutoTextarea
                 placeholder={
-                  dict.sections.branding.questions.q_concrete_result.placeholder
+                  dict.sections.branding.questions.q_concrete_result_brand
+                    .placeholder
                 }
-                value={payload.q_concrete_result}
+                value={payload.q_concrete_result_brand}
                 onChange={(v) =>
-                  setPayload({ ...payload, q_concrete_result: v })
+                  setPayload({ ...payload, q_concrete_result_brand: v })
                 }
               />
             </QBox>
 
             <QBox
-              label={dict.sections.branding.questions.q_tone_avoid.label}
+              label={dict.sections.branding.questions.q_tone_avoid.label.replace(
+                "{clientName}",
+                clientName,
+              )}
               hint={dict.sections.branding.questions.q_tone_avoid.hint}>
               <AutoTextarea
                 placeholder={
@@ -1142,6 +1157,21 @@ export default function ClientDiscoveryForm({
                 }
                 value={payload.q_tone_avoid}
                 onChange={(v) => setPayload({ ...payload, q_tone_avoid: v })}
+              />
+            </QBox>
+
+            <QBox
+              label={dict.sections.branding.questions.q_never.label.replace(
+                "{clientName}",
+                clientName,
+              )}
+              hint={dict.sections.branding.questions.q_never.hint}>
+              <AutoTextarea
+                placeholder={
+                  dict.sections.branding.questions.q_never.placeholder
+                }
+                value={payload.q_never}
+                onChange={(v) => setPayload({ ...payload, q_never: v })}
               />
             </QBox>
           </section>
@@ -1168,19 +1198,6 @@ export default function ClientDiscoveryForm({
             </div>
 
             <QBox
-              label={dict.sections.web.questions.web_type.label}
-              hint={dict.sections.web.questions.web_type.hint}>
-              <ChipSelector
-                options={dict.chips.web.type}
-                selected={[payload.web_type]}
-                onChange={(s) =>
-                  setPayload({ ...payload, web_type: s[s.length - 1] || "" })
-                }
-                max={1}
-              />
-            </QBox>
-
-            <QBox
               label={dict.sections.web.questions.web_current_site.label}
               hint={dict.sections.web.questions.web_current_site.hint}>
               <AutoTextarea
@@ -1195,13 +1212,25 @@ export default function ClientDiscoveryForm({
             </QBox>
 
             <QBox
-              label={dict.sections.web.questions.web_pages.label}
-              hint={dict.sections.web.questions.web_pages.hint}>
+              label={dict.sections.web.questions.web_goal.label}
+              hint={dict.sections.web.questions.web_goal.hint}>
+              <AutoTextarea
+                placeholder={dict.sections.web.questions.web_goal.placeholder}
+                value={payload.web_goal}
+                onChange={(v) => setPayload({ ...payload, web_goal: v })}
+              />
+            </QBox>
+
+            <QBox
+              label={dict.sections.web.questions.web_type.label}
+              hint={dict.sections.web.questions.web_type.hint}>
               <ChipSelector
-                options={dict.chips.web.pages}
-                selected={payload.web_pages}
-                onChange={(s) => setPayload({ ...payload, web_pages: s })}
-                max={10}
+                options={dict.chips.web.type}
+                selected={[payload.web_type]}
+                onChange={(s) =>
+                  setPayload({ ...payload, web_type: s[s.length - 1] || "" })
+                }
+                max={1}
               />
             </QBox>
 
@@ -1222,12 +1251,12 @@ export default function ClientDiscoveryForm({
             </QBox>
 
             <QBox
-              label={dict.sections.web.questions.web_goal.label}
-              hint={dict.sections.web.questions.web_goal.hint}>
-              <AutoTextarea
-                placeholder={dict.sections.web.questions.web_goal.placeholder}
-                value={payload.web_goal}
-                onChange={(v) => setPayload({ ...payload, web_goal: v })}
+              label={dict.sections.web.questions.web_features.label}
+              hint={dict.sections.web.questions.web_features.hint}>
+              <ChipSelector
+                options={dict.chips.web.features}
+                selected={payload.web_features}
+                onChange={(s) => setPayload({ ...payload, web_features: s })}
               />
             </QBox>
 
@@ -1320,6 +1349,38 @@ export default function ClientDiscoveryForm({
             </QBox>
 
             <QBox
+              label={dict.sections.seo.questions.seo_content_capacity.label}
+              hint={dict.sections.seo.questions.seo_content_capacity.hint}>
+              <ChipSelector
+                options={dict.chips.seo.content}
+                selected={[payload.seo_content_capacity]}
+                onChange={(s) =>
+                  setPayload({
+                    ...payload,
+                    seo_content_capacity: s[s.length - 1] || "",
+                  })
+                }
+                max={1}
+              />
+            </QBox>
+
+            <QBox
+              label={dict.sections.seo.questions.seo_geo.label}
+              hint={dict.sections.seo.questions.seo_geo.hint}>
+              <ChipSelector
+                options={dict.chips.seo.geo}
+                selected={[payload.seo_geo]}
+                onChange={(s) =>
+                  setPayload({
+                    ...payload,
+                    seo_geo: s[s.length - 1] || "",
+                  })
+                }
+                max={1}
+              />
+            </QBox>
+
+            <QBox
               label={dict.sections.seo.questions.seo_goal.label}
               hint={dict.sections.seo.questions.seo_goal.hint}>
               <AutoTextarea
@@ -1352,11 +1413,35 @@ export default function ClientDiscoveryForm({
             </div>
 
             <QBox
-              label={dict.sections.ai.questions.ai_pain_points.label}
-              hint={dict.sections.ai.questions.ai_pain_points.hint}>
+              label={
+                dict.sections["ai-automations"].questions.ai_current_tools.label
+              }
+              hint={
+                dict.sections["ai-automations"].questions.ai_current_tools.hint
+              }>
               <AutoTextarea
                 placeholder={
-                  dict.sections.ai.questions.ai_pain_points.placeholder
+                  dict.sections["ai-automations"].questions.ai_current_tools
+                    .placeholder
+                }
+                value={payload.ai_current_tools}
+                onChange={(v) =>
+                  setPayload({ ...payload, ai_current_tools: v })
+                }
+              />
+            </QBox>
+
+            <QBox
+              label={
+                dict.sections["ai-automations"].questions.ai_pain_points.label
+              }
+              hint={
+                dict.sections["ai-automations"].questions.ai_pain_points.hint
+              }>
+              <AutoTextarea
+                placeholder={
+                  dict.sections["ai-automations"].questions.ai_pain_points
+                    .placeholder
                 }
                 value={payload.ai_pain_points}
                 onChange={(v) => setPayload({ ...payload, ai_pain_points: v })}
@@ -1364,21 +1449,17 @@ export default function ClientDiscoveryForm({
             </QBox>
 
             <QBox
-              label={dict.sections.ai.questions.ai_processes.label}
-              hint={dict.sections.ai.questions.ai_processes.hint}>
-              <ChipSelector
-                options={dict.chips.ai.processes}
-                selected={payload.ai_processes}
-                onChange={(s) => setPayload({ ...payload, ai_processes: s })}
-              />
-            </QBox>
-
-            <QBox
-              label={dict.sections.ai.questions.ai_first_priority.label}
-              hint={dict.sections.ai.questions.ai_first_priority.hint}>
+              label={
+                dict.sections["ai-automations"].questions.ai_first_priority
+                  .label
+              }
+              hint={
+                dict.sections["ai-automations"].questions.ai_first_priority.hint
+              }>
               <AutoTextarea
                 placeholder={
-                  dict.sections.ai.questions.ai_first_priority.placeholder
+                  dict.sections["ai-automations"].questions.ai_first_priority
+                    .placeholder
                 }
                 value={payload.ai_first_priority}
                 onChange={(v) =>
@@ -1388,10 +1469,48 @@ export default function ClientDiscoveryForm({
             </QBox>
 
             <QBox
-              label={dict.sections.ai.questions.ai_tech_level.label}
-              hint={dict.sections.ai.questions.ai_tech_level.hint}>
+              label={
+                dict.sections["ai-automations"].questions.ai_processes.label
+              }
+              hint={
+                dict.sections["ai-automations"].questions.ai_processes.hint
+              }>
               <ChipSelector
-                options={dict.chips.ai.level}
+                options={dict.chips.ai.processes}
+                selected={payload.ai_processes}
+                onChange={(s) => setPayload({ ...payload, ai_processes: s })}
+              />
+            </QBox>
+
+            <QBox
+              label={
+                dict.sections["ai-automations"].questions.ai_team_size.label
+              }
+              hint={
+                dict.sections["ai-automations"].questions.ai_team_size.hint
+              }>
+              <ChipSelector
+                options={dict.chips.ai.team}
+                selected={[payload.ai_team_size]}
+                onChange={(s) =>
+                  setPayload({
+                    ...payload,
+                    ai_team_size: s[s.length - 1] || "",
+                  })
+                }
+                max={1}
+              />
+            </QBox>
+
+            <QBox
+              label={
+                dict.sections["ai-automations"].questions.ai_tech_level.label
+              }
+              hint={
+                dict.sections["ai-automations"].questions.ai_tech_level.hint
+              }>
+              <ChipSelector
+                options={dict.chips.ai.tech}
                 selected={[payload.ai_tech_level]}
                 onChange={(s) =>
                   setPayload({
@@ -1404,12 +1523,22 @@ export default function ClientDiscoveryForm({
             </QBox>
 
             <QBox
-              label={dict.sections.ai.questions.ai_timeline.label}
-              hint={dict.sections.ai.questions.ai_timeline.hint}>
-              <AutoTextarea
-                placeholder={dict.sections.ai.questions.ai_timeline.placeholder}
-                value={payload.ai_timeline}
-                onChange={(v) => setPayload({ ...payload, ai_timeline: v })}
+              label={
+                dict.sections["ai-automations"].questions.ai_budget_range.label
+              }
+              hint={
+                dict.sections["ai-automations"].questions.ai_budget_range.hint
+              }>
+              <ChipSelector
+                options={dict.chips.ai.budget}
+                selected={[payload.ai_budget_range]}
+                onChange={(s) =>
+                  setPayload({
+                    ...payload,
+                    ai_budget_range: s[s.length - 1] || "",
+                  })
+                }
+                max={1}
               />
             </QBox>
           </section>
@@ -1438,12 +1567,16 @@ export default function ClientDiscoveryForm({
             <QBox
               label={dict.sections.crm.questions.crm_current_crm.label}
               hint={dict.sections.crm.questions.crm_current_crm.hint}>
-              <AutoTextarea
-                placeholder={
-                  dict.sections.crm.questions.crm_current_crm.placeholder
+              <ChipSelector
+                options={dict.chips.crm.current}
+                selected={[payload.crm_current_crm]}
+                onChange={(s) =>
+                  setPayload({
+                    ...payload,
+                    crm_current_crm: s[s.length - 1] || "",
+                  })
                 }
-                value={payload.crm_current_crm}
-                onChange={(v) => setPayload({ ...payload, crm_current_crm: v })}
+                max={1}
               />
             </QBox>
 
@@ -1462,6 +1595,18 @@ export default function ClientDiscoveryForm({
             </QBox>
 
             <QBox
+              label={dict.sections.crm.questions.crm_pain_points.label}
+              hint={dict.sections.crm.questions.crm_pain_points.hint}>
+              <AutoTextarea
+                placeholder={
+                  dict.sections.crm.questions.crm_pain_points.placeholder
+                }
+                value={payload.crm_pain_points}
+                onChange={(v) => setPayload({ ...payload, crm_pain_points: v })}
+              />
+            </QBox>
+
+            <QBox
               label={dict.sections.crm.questions.crm_pipeline.label}
               hint={dict.sections.crm.questions.crm_pipeline.hint}>
               <AutoTextarea
@@ -1470,6 +1615,22 @@ export default function ClientDiscoveryForm({
                 }
                 value={payload.crm_pipeline}
                 onChange={(v) => setPayload({ ...payload, crm_pipeline: v })}
+              />
+            </QBox>
+
+            <QBox
+              label={dict.sections.crm.questions.crm_team_size.label}
+              hint={dict.sections.crm.questions.crm_team_size.hint}>
+              <ChipSelector
+                options={dict.chips.crm.team}
+                selected={[payload.crm_team_size]}
+                onChange={(s) =>
+                  setPayload({
+                    ...payload,
+                    crm_team_size: s[s.length - 1] || "",
+                  })
+                }
+                max={1}
               />
             </QBox>
 
@@ -1486,14 +1647,12 @@ export default function ClientDiscoveryForm({
             </QBox>
 
             <QBox
-              label={dict.sections.crm.questions.crm_main_goal.label}
-              hint={dict.sections.crm.questions.crm_main_goal.hint}>
-              <AutoTextarea
-                placeholder={
-                  dict.sections.crm.questions.crm_main_goal.placeholder
-                }
-                value={payload.crm_main_goal}
-                onChange={(v) => setPayload({ ...payload, crm_main_goal: v })}
+              label={dict.sections.crm.questions.crm_ai_features.label}
+              hint={dict.sections.crm.questions.crm_ai_features.hint}>
+              <ChipSelector
+                options={dict.chips.crm.ai}
+                selected={payload.crm_ai_features}
+                onChange={(s) => setPayload({ ...payload, crm_ai_features: s })}
               />
             </QBox>
           </section>

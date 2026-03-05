@@ -14,21 +14,26 @@ export const submissionSchema = z.object({
 
   data: z.object({
     // Sección común
-    q_company_one_liner: z.string().max(MAX_TEXT_LENGTH).optional(),
-    q_company_why: z.string().max(MAX_TEXT_LENGTH).optional(),
+    q_company_one_liner: z.string().max(MAX_TEXT_LENGTH).optional(), // keeping for compatibility
+    q_company_why: z.string().max(MAX_TEXT_LENGTH).optional(), // keeping for compatibility
     q_business_stage: z
       .enum(["starting", "established", "struggling", "relaunching"])
-      .optional().nullable(),
-    q_business_stage_detail: z.string().max(MAX_TEXT_LENGTH).optional(),
-    q_client_voice: z.string().max(MAX_TEXT_LENGTH).optional(),
+      .optional().nullable(), // kept from previous prompt
+    q_business_stage_detail: z.string().max(MAX_TEXT_LENGTH).optional(), // kept from previous prompt
+    q_client_voice: z.string().max(MAX_TEXT_LENGTH).optional(), // keeping for compatibility
+    
+    // Novedades sección común
+    q_origin: z.string().max(MAX_TEXT_LENGTH).optional(),
     q_ideal_client: z.string().max(MAX_TEXT_LENGTH).optional(),
     q_concrete_result: z.string().max(MAX_TEXT_LENGTH).optional(),
     q_differentiator: z.string().max(MAX_TEXT_LENGTH).optional(),
+    q_previous_attempts: z.string().max(MAX_TEXT_LENGTH).optional(),
+    q_internal_obstacle: z.string().max(MAX_TEXT_LENGTH).optional(),
 
     // Branding
     q_perception_rank: z.array(z.string().max(100)).max(10).optional(),
     q_visual_inspiration: z.string().max(MAX_TEXT_LENGTH).optional(),
-    q_visual_avoid: z.array(z.string().max(100)).max(10).optional(),
+    q_visual_avoid: z.union([z.array(z.string().max(100)).max(10), z.string()]).optional(), // can be chips or area
     q_accent_color: z
       .string()
       .regex(/^#[0-9A-Fa-f]{6}$/)
@@ -37,6 +42,7 @@ export const submissionSchema = z.object({
     q_visual_style: z.array(z.string().max(100)).max(10).optional(),
     q_keep_elements: z.string().max(MAX_TEXT_LENGTH).optional(),
     q_voice_attrs: z.array(z.string().max(100)).max(10).optional(),
+    q_concrete_result_brand: z.string().max(MAX_TEXT_LENGTH).optional(),
     q_tone_avoid: z.string().max(MAX_TEXT_LENGTH).optional(),
     q_never: z.string().max(MAX_TEXT_LENGTH).optional(),
 

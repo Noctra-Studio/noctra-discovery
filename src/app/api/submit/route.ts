@@ -93,7 +93,6 @@ export async function POST(request: Request) {
       .insert({
         form_id: formMeta.id,
         responses: data,
-        web_pages: data.web_pages || null,
         web_type: data.web_type || null,
         web_current_site: data.web_current_site || null,
         web_content_owner: data.web_content_owner || null,
@@ -108,6 +107,12 @@ export async function POST(request: Request) {
         q_concrete_result: data.q_concrete_result || null,
         q_business_stage: data.q_business_stage || null,
         q_business_stage_detail: data.q_business_stage_detail || null,
+        q_origin: data.q_origin || null,
+        q_previous_attempts: data.q_previous_attempts || null,
+        q_internal_obstacle: data.q_internal_obstacle || null,
+        q_concrete_result_brand: data.q_concrete_result_brand || null,
+        web_goal: data.web_goal || null,
+        seo_goal: data.seo_goal || null,
       })
       .select()
       .single();
@@ -229,16 +234,16 @@ function buildEmailHTML(data: any, form: any, hasPdf: boolean): string {
   const rows = [
     ['Empresa', form.client_name],
     ['Dirigido a', form.directed_to],
-    ['One liner', data.q_company_one_liner],
-    ['Por qué existe', data.q_company_why],
+    ['Origen', data.q_origin],
+    ['Cliente Ideal', data.q_ideal_client],
+    ['Diferenciador', data.q_differentiator],
     ['Business Stage', data.q_business_stage ? `${data.q_business_stage}${data.q_business_stage_detail ? `: ${data.q_business_stage_detail}` : ''}` : null],
-    ['Voz del cliente', data.q_client_voice],
     ['Resultado concreto', data.q_concrete_result],
     ['Inspiración visual', data.q_visual_inspiration],
-    ['Evitar visualmente', data.q_visual_avoid?.join(', ')],
+    ['Evitar visualmente', Array.isArray(data.q_visual_avoid) ? data.q_visual_avoid.join(', ') : data.q_visual_avoid],
     ['Color acento', data.q_accent_color ? `${data.q_accent_color_name} (${data.q_accent_color})` : null],
     ['Jamás será', data.q_never],
-    ['Estatus contenido web', data.web_content_owner],
+    ['Objetivo web', data.web_goal],
     ['Prioridad AI', data.ai_first_priority],
     ['Cuello de botella CRM', data.crm_main_goal],
   ].filter(([, v]) => v);

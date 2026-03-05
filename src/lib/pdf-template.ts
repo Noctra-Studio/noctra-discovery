@@ -16,8 +16,9 @@ export function buildPDFHtml(data: any, language: string, formMeta: any) {
     );
   };
 
-  const renderChips = (arr: string[] | undefined) => {
-    if (!arr || !arr.length) return '-';
+  const renderChips = (arr: string[] | string | undefined) => {
+    if (!arr || (Array.isArray(arr) && !arr.length)) return '-';
+    if (typeof arr === 'string') return `<div class="q-value">${escapeHtml(arr)}</div>`;
     return `<div class="chips-container">\n${arr.map(item => `<span class="chip">${escapeHtml(item)}</span>`).join('\n')}\n</div>`;
   };
 
@@ -159,12 +160,28 @@ export function buildPDFHtml(data: any, language: string, formMeta: any) {
         <div class="page">
           <h2 class="section-title">Common Insight</h2>
           <div class="q-box">
-            <div class="q-label">One Liner</div>
-            <div class="q-value">${escapeHtml(data.q_company_one_liner) || '-'}</div>
+            <div class="q-label">Origen de la empresa</div>
+            <div class="q-value">${escapeHtml(data.q_origin) || '-'}</div>
           </div>
           <div class="q-box">
-            <div class="q-label">Why? (Propósito)</div>
-            <div class="q-value">${escapeHtml(data.q_company_why) || '-'}</div>
+            <div class="q-label">Cliente Ideal</div>
+            <div class="q-value">${escapeHtml(data.q_ideal_client) || '-'}</div>
+          </div>
+          <div class="q-box">
+            <div class="q-label">Resultado Concreto</div>
+            <div class="q-value">${escapeHtml(data.q_concrete_result) || '-'}</div>
+          </div>
+          <div class="q-box">
+            <div class="q-label">Diferenciador</div>
+            <div class="q-value">${escapeHtml(data.q_differentiator) || '-'}</div>
+          </div>
+          <div class="q-box">
+            <div class="q-label">Intentos Previos</div>
+            <div class="q-value">${escapeHtml(data.q_previous_attempts) || '-'}</div>
+          </div>
+          <div class="q-box">
+            <div class="q-label">Obstáculo Interno</div>
+            <div class="q-value">${escapeHtml(data.q_internal_obstacle) || '-'}</div>
           </div>
           <div class="q-box">
             <div class="q-label">Business Stage</div>
@@ -172,18 +189,6 @@ export function buildPDFHtml(data: any, language: string, formMeta: any) {
               <strong>${data.q_business_stage || '-'}</strong>
               ${data.q_business_stage_detail ? `<div style="margin-top: 5px; font-style: italic; color: #666;">${escapeHtml(data.q_business_stage_detail)}</div>` : ''}
             </div>
-          </div>
-          <div class="q-box">
-            <div class="q-label">Voz del Cliente</div>
-            <div class="q-value">${escapeHtml(data.q_client_voice) || '-'}</div>
-          </div>
-          <div class="q-box">
-            <div class="q-label">Diferenciador</div>
-            <div class="q-value">${escapeHtml(data.q_differentiator) || '-'}</div>
-          </div>
-          <div class="q-box">
-            <div class="q-label">Cliente Ideal</div>
-            <div class="q-value">${escapeHtml(data.q_ideal_client) || '-'}</div>
           </div>
           <div class="footer mono">
             <span>Discovery Report</span>
@@ -218,6 +223,14 @@ export function buildPDFHtml(data: any, language: string, formMeta: any) {
              <div class="q-label">Atributos de Voz</div>
              <div>${renderChips(data.q_voice_attrs)}</div>
           </div>
+          <div class="q-box">
+            <div class="q-label">Evitar Tono</div>
+            <div class="q-value">${escapeHtml(data.q_tone_avoid) || '-'}</div>
+          </div>
+          <div class="q-box">
+            <div class="q-label">Jamás Será</div>
+            <div class="q-value">${escapeHtml(data.q_never) || '-'}</div>
+          </div>
           <div class="footer mono">
             <span>Branding Section</span>
             <span>03</span>
@@ -236,13 +249,123 @@ export function buildPDFHtml(data: any, language: string, formMeta: any) {
             <div class="q-value">${escapeHtml(data.web_goal) || '-'}</div>
           </div>
           <div class="q-box">
-             <div class="q-label">Páginas Requeridas</div>
-             <div>${renderChips(data.web_pages)}</div>
+             <div class="q-label">Características (Features)</div>
+             <div>${renderChips(data.web_features)}</div>
+          </div>
+          <div class="q-box">
+            <div class="q-label">Estatus de Contenido</div>
+            <div class="q-value">${escapeHtml(data.web_content_owner) || '-'}</div>
+          </div>
+          <div class="q-box">
+            <div class="q-label">Fecha Límite</div>
+            <div class="q-value">${escapeHtml(data.web_deadline) || '-'}</div>
           </div>
           <div class="footer mono">
             <span>Web Section</span>
             <span>04</span>
           </div>
+        </div>` : ''}
+
+        ${activeServices.includes("seo") ? `
+        <div class="page">
+          <h2 class="section-title">SEO & Growth</h2>
+          <div class="q-box">
+             <div class="q-label">Sitio Actual</div>
+             <div class="q-value">${escapeHtml(data.seo_current_site) || '-'}</div>
+          </div>
+          <div class="q-box">
+             <div class="q-label">Palabras Clave (Keywords)</div>
+             <div class="q-value">${escapeHtml(data.seo_target_keywords) || '-'}</div>
+          </div>
+          <div class="q-box">
+             <div class="q-label">Competidores</div>
+             <div class="q-value">${escapeHtml(data.seo_competitors) || '-'}</div>
+          </div>
+          <div class="q-box">
+             <div class="q-label">Intentos Previos</div>
+             <div class="q-value">${escapeHtml(data.seo_previous_attempts) || '-'}</div>
+          </div>
+          <div class="q-box">
+             <div class="q-label">Capacidad de Contenido</div>
+             <div class="q-value">${escapeHtml(data.seo_content_capacity) || '-'}</div>
+          </div>
+          <div class="q-box">
+             <div class="q-label">Alcance (Geo)</div>
+             <div class="q-value">${escapeHtml(data.seo_geo) || '-'}</div>
+          </div>
+          <div class="q-box">
+             <div class="q-label">Objetivo de Tráfico</div>
+             <div class="q-value">${escapeHtml(data.seo_goal) || '-'}</div>
+          </div>
+          <div class="footer mono"><span>SEO Section</span><span>05</span></div>
+        </div>` : ''}
+
+        ${activeServices.includes("ai-automations") ? `
+        <div class="page">
+          <h2 class="section-title">AI & Automations</h2>
+          <div class="q-box">
+             <div class="q-label">Herramientas Actuales</div>
+             <div class="q-value">${escapeHtml(data.ai_current_tools) || '-'}</div>
+          </div>
+          <div class="q-box">
+             <div class="q-label">Cuellos de Botella</div>
+             <div class="q-value">${escapeHtml(data.ai_pain_points) || '-'}</div>
+          </div>
+          <div class="q-box">
+             <div class="q-label">Gran Prioridad</div>
+             <div class="q-value">${escapeHtml(data.ai_first_priority) || '-'}</div>
+          </div>
+          <div class="q-box">
+             <div class="q-label">Procesos a Automatizar</div>
+             <div>${renderChips(data.ai_processes)}</div>
+          </div>
+          <div class="q-box">
+             <div class="q-label">Tamaño del Equipo</div>
+             <div class="q-value">${escapeHtml(data.ai_team_size) || '-'}</div>
+          </div>
+          <div class="q-box">
+             <div class="q-label">Nivel Tecnológico</div>
+             <div class="q-value">${escapeHtml(data.ai_tech_level) || '-'}</div>
+          </div>
+          <div class="q-box">
+             <div class="q-label">Presupuesto Estimado</div>
+             <div class="q-value">${escapeHtml(data.ai_budget_range) || '-'}</div>
+          </div>
+          <div class="footer mono"><span>AI Section</span><span>06</span></div>
+        </div>` : ''}
+
+        ${activeServices.includes("crm") ? `
+        <div class="page">
+          <h2 class="section-title">CRM & Systems</h2>
+          <div class="q-box">
+             <div class="q-label">CRM Actual</div>
+             <div class="q-value">${escapeHtml(data.crm_current_crm) || '-'}</div>
+          </div>
+          <div class="q-box">
+             <div class="q-label">Intentos Previos</div>
+             <div class="q-value">${escapeHtml(data.crm_previous_attempt) || '-'}</div>
+          </div>
+          <div class="q-box">
+             <div class="q-label">Puntos de Dolor</div>
+             <div class="q-value">${escapeHtml(data.crm_pain_points) || '-'}</div>
+          </div>
+          <div class="q-box">
+             <div class="q-label">Pipeline (Proceso Comercial)</div>
+             <div class="q-value">${escapeHtml(data.crm_pipeline) || '-'}</div>
+          </div>
+          <div class="q-box">
+             <div class="q-label">Tamaño del Equipo (CRM)</div>
+             <div class="q-value">${escapeHtml(data.crm_team_size) || '-'}</div>
+          </div>
+          <div class="q-box">
+             <div class="q-label">Integraciones Necesarias</div>
+             <div>${renderChips(data.crm_integrations)}</div>
+          </div>
+          <div class="q-box">
+             <div class="q-label">Funciones de IA Deseadas</div>
+             <div>${renderChips(data.crm_ai_features)}</div>
+          </div>
+          <div class="footer mono"><span>CRM Section</span><span>07</span></div>
         </div>` : ''}
 
       </body>
