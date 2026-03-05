@@ -208,22 +208,29 @@ export async function POST(request: Request) {
         emailPayload.attachments = [
           {
             filename: `Discovery_${formMeta.client_name.replace(/\s+/g, '_')}.pdf`,
-            content: pdfBuffer.toString("base64"),
+            content: pdfBuffer,
           }
         ];
       }
 
       const emailResult = await resend.emails.send(emailPayload);
+      
+      if (emailResult.error) {
+        console.error('[submit] ✗ Resend API devolvió un error:', emailResult.error);
+        return NextResponse.json({ success: true, emailSent: false, emailError: emailResult.error, pdfUrl });
+      }
+
       console.log('[submit] ✓ Resultado email:', JSON.stringify(emailResult));
 
       // Marcar como enviado si tenemos tracking por campo (opcional)
       // await updateEmailSentAt(formMeta.id); 
 
     } catch (emailErr: any) {
-      console.error('[submit] ✗ El email falló:', emailErr.message, emailErr);
+      console.error('[submit] ✗ El email falló (Excepción):', emailErr.message, emailErr);
+      return NextResponse.json({ success: true, emailSent: false, emailError: emailErr.message, pdfUrl });
     }
 
-    return NextResponse.json({ success: true, pdfUrl });
+    return NextResponse.json({ success: true, emailSent: true, pdfUrl });
   } catch (error: any) {
     console.error('[submit] ✗ Unhandled error in submit route:', error.message, error);
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });

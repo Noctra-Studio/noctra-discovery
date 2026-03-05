@@ -444,12 +444,19 @@ export default function ClientDiscoveryForm({
     await new Promise((resolve) => setTimeout(resolve, 4000));
 
     const res = await submitDiscoveryForm(formId, slug, payload);
-    if (res.success) {
-      setView("success");
-    } else {
+    if (!res.success) {
       alert(res.error || "Error al enviar");
       setView("form");
+      return;
     }
+
+    if (res.emailSent === false || res.emailError) {
+      console.error("===== ATENCIÓN: ERROR DE RESEND (EMAIL NO ENVIADO) =====");
+      console.error(res.emailError);
+      console.error("======================================================");
+    }
+
+    setView("success");
   };
 
   /* --- RENDER VIEWS --- */

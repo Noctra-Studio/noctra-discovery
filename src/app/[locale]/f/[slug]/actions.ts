@@ -48,20 +48,27 @@ export async function submitDiscoveryForm(formId: string, slug: string, payload:
       return { error: "Respuesta guardada, pero no se pudo actualizar el estado." };
     }
 
-    // 3. Trigger Email/PDF via API route (background-ish)
-    // We don't await this if we want speed, but for discovery, it's safer to wait or at least fire-and-forget
+    // 3. Trigger Email/PDF via API route
     try {
-      const baseUrl = process.env.NEXT_PUBLIC_APP_URL || '';
-      fetch(`${baseUrl}/api/submit`, {
+      const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
+      const apiRes = await fetch(`${baseUrl}/api/submit`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ slug, data: payload, language: payload.language || 'es' }),
-      }).catch(err => console.error("API Trigger Error:", err));
+      });
+      
+      const apiData = await apiRes.json();
+      
+      return { 
+        success: true, 
+        emailSent: apiData.emailSent, 
+        emailError: apiData.emailError 
+      };
+      
     } catch (e) {
       console.error("Fetch implementation error:", e);
+      return { success: true, emailSent: false, emailError: "Fetch to /api/submit failed" };
     }
-
-    return { success: true };
   } catch (err: any) {
     console.error("Submit Exception:", err);
     return { error: "Ocurrió un error inesperado al procesar tu solicitud." };
