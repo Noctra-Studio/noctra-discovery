@@ -61,8 +61,8 @@ const AutoTextarea = ({
       value={value}
       onChange={(e) => onChange(e.target.value)}
       className={cn(
-        "w-full bg-[#0A0A0A] border rounded-2xl px-4 py-3 md:py-[14px] text-[#F5F5F0] text-base md:text-sm placeholder:text-[#333] focus:outline-none focus:border-[#00E5A0]/50 transition-all resize-y min-h-[96px] leading-[1.6]",
-        error ? "border-[#FFB800]/50" : "border-white/5",
+        "w-full bg-[#0D0D0D] border rounded-2xl px-4 py-3.5 md:px-5 md:py-4 text-[#F5F5F0] text-base md:text-[15px] placeholder:text-[#71716B] focus:outline-none focus:border-[#00E5A0]/60 focus:bg-[#101010] transition-all resize-y min-h-[104px] leading-[1.7]",
+        error ? "border-[#FFB800]/50" : "border-white/10",
       )}
       placeholder={placeholder}
     />
@@ -81,25 +81,33 @@ const ChipSelector = ({
   onChange: (s: string[]) => void;
   max?: number;
 }) => {
+  const normalizedSelected = selected.filter(Boolean);
+
   const toggle = (opt: string) => {
-    if (selected.includes(opt)) onChange(selected.filter((x) => x !== opt));
-    else if (selected.length < max) onChange([...selected, opt]);
+    if (normalizedSelected.includes(opt)) {
+      onChange(normalizedSelected.filter((x) => x !== opt));
+      return;
+    }
+
+    if (normalizedSelected.length < max) {
+      onChange([...normalizedSelected, opt]);
+    }
   };
   return (
     <div className="flex flex-wrap gap-2">
       {options.map((opt) => {
-        const active = selected.includes(opt);
+        const active = normalizedSelected.includes(opt);
         return (
           <button
             key={opt}
             type="button"
             onClick={() => toggle(opt)}
-            disabled={!active && selected.length >= max}
-            className={`min-h-[44px] px-4 py-2.5 border rounded-full text-base md:text-[11px] font-medium tracking-[0.12em] uppercase transition-all duration-200 ${
+            disabled={!active && normalizedSelected.length >= max}
+            className={`min-h-[46px] px-4 py-2.5 border rounded-full text-[14px] md:text-[12px] font-medium tracking-[0.12em] uppercase transition-all duration-200 ${
               active
-                ? "border-[#00E5A0] text-[#00E5A0] bg-[#00E5A0]/5"
-                : "border-white/5 text-[#555] hover:border-white/20 hover:text-white bg-[#0A0A0A]"
-            } disabled:opacity-40 disabled:cursor-not-allowed`}>
+                ? "border-[#00E5A0] text-[#00E5A0] bg-[#00E5A0]/10 shadow-[0_0_0_1px_rgba(0,229,160,0.12)]"
+                : "border-white/10 text-[#C9C9C3] hover:border-white/30 hover:text-white bg-[#0D0D0D]"
+            } disabled:opacity-45 disabled:cursor-not-allowed`}>
             {opt}
           </button>
         );
@@ -139,7 +147,7 @@ const SortableItem = ({
       style={style}
       {...attributes}
       {...listeners}
-      className={`flex items-center gap-4 bg-[#0A0A0A] border border-white/5 rounded-2xl px-4 py-3 min-h-[52px] cursor-grab active:cursor-grabbing touch-none mb-3 transition-all hover:border-white/10 ${
+      className={`flex items-center gap-4 bg-[#0D0D0D] border border-white/10 rounded-2xl px-4 py-3 min-h-[52px] cursor-grab active:cursor-grabbing touch-none mb-3 transition-all hover:border-white/20 ${
         isDragging ? "opacity-35 scale-[0.98]" : ""
       }`}>
       <div className="font-medium text-[10px] tracking-[0.18em] uppercase text-[#00E5A0] w-4 flex-shrink-0">
@@ -148,7 +156,7 @@ const SortableItem = ({
       <span className="text-[#F5F5F0] text-base md:text-[13px] font-light flex-1">
         {text}
       </span>
-      <div className="text-[#333] text-sm flex-shrink-0">⋮⋮</div>
+      <div className="text-[#6E6E68] text-sm flex-shrink-0">⋮⋮</div>
     </div>
   );
 };
@@ -173,8 +181,8 @@ const Toggle = ({
           onClick={() => onChange(idx === 0)}
           className={`flex-1 min-h-[44px] border rounded-full text-[11px] font-medium tracking-[0.12em] uppercase transition-all ${
             active
-              ? "border-[#00E5A0] text-[#00E5A0] bg-[#00E5A0]/5"
-              : "border-white/5 text-[#555] hover:border-white/20 bg-[#0A0A0A]"
+              ? "border-[#00E5A0] text-[#00E5A0] bg-[#00E5A0]/10"
+              : "border-white/10 text-[#C9C9C3] hover:border-white/25 bg-[#0D0D0D]"
           }`}>
           {label}
         </button>
@@ -270,7 +278,7 @@ const AddOptionItem = ({
 
   if (isEditing) {
     return (
-      <div className="flex items-center gap-4 bg-[#0A0A0A] border border-[#00E5A0]/30 rounded-xl px-[18px] py-[13px] mb-3 animate-in fade-in duration-300">
+      <div className="flex items-center gap-4 bg-[#0D0D0D] border border-[#00E5A0]/35 rounded-xl px-[18px] py-[13px] mb-3 animate-in fade-in duration-300">
         <div className="w-4 flex-shrink-0" />
         <input
           ref={inputRef}
@@ -293,11 +301,11 @@ const AddOptionItem = ({
     <button
       type="button"
       onClick={() => setIsEditing(true)}
-      className="w-full flex items-center gap-4 bg-transparent border border-white/5 border-dashed rounded-xl px-[18px] py-[13px] mb-3 hover:border-[#00E5A0]/30 transition-all group animate-in fade-in duration-300">
-      <div className="text-[#333] group-hover:text-[#00E5A0] transition-colors">
+      className="w-full flex items-center gap-4 bg-transparent border border-white/10 border-dashed rounded-xl px-[18px] py-[13px] mb-3 hover:border-[#00E5A0]/30 transition-all group animate-in fade-in duration-300">
+      <div className="text-[#6E6E68] group-hover:text-[#00E5A0] transition-colors">
         <Plus size={16} />
       </div>
-      <span className="text-[#555] text-[13px] font-normal group-hover:text-[#F5F5F0] transition-colors">
+      <span className="text-[#B6B6B0] text-[13px] font-normal group-hover:text-[#F5F5F0] transition-colors">
         {addLabel}
       </span>
     </button>
@@ -319,10 +327,10 @@ const QBox = ({
   id?: string;
 }) => (
   <div className="mb-10 last:mb-0" id={id}>
-    <label className="block text-[13px] font-medium text-[#F5F5F0] mb-1 uppercase tracking-wider">
+    <label className="block text-[14px] md:text-[15px] font-medium text-[#F5F5F0] mb-1.5 uppercase tracking-[0.1em] leading-[1.45]">
       {label}
     </label>
-    <p className="text-[12px] font-light text-[#555] mb-3 leading-[1.6]">
+    <p className="text-[13px] md:text-[14px] font-light text-[#93938C] mb-3.5 leading-[1.65]">
       {hint}
     </p>
     {children}
@@ -542,7 +550,7 @@ export default function ClientDiscoveryForm({
             </div>
           )}
 
-          <div className="font-medium text-[10px] tracking-[0.18em] text-[#555] uppercase mb-6">
+          <div className="font-medium text-[11px] tracking-[0.18em] text-[#8A8A84] uppercase mb-6">
             {dict.intro.eyebrow} · {clientName}
           </div>
 
@@ -550,7 +558,7 @@ export default function ClientDiscoveryForm({
             <h1 className="text-[52px] md:text-[86px] font-black mb-8 leading-[1.1] text-white uppercase">
               {directedTo ? (
                 <>
-                  <span className="block text-[#555] text-[32px] md:text-[52px] tracking-normal mb-2">
+                  <span className="block text-[#9A9A94] text-[32px] md:text-[52px] tracking-normal mb-2">
                     {dict.intro.title_hola.replace(
                       "{directedTo}",
                       directedTo.split(" ")[0],
@@ -562,12 +570,12 @@ export default function ClientDiscoveryForm({
                 dict.intro.title
               )}
             </h1>
-            <p className="text-lg md:text-xl text-[#555] font-light mb-12 max-w-2xl mx-auto leading-relaxed">
+            <p className="text-lg md:text-xl text-[#ABABA5] font-light mb-12 max-w-2xl mx-auto leading-relaxed">
               {dict.intro.description}
             </p>
           </div>
 
-          <p className="font-medium text-[10px] text-[#555] tracking-[0.18em] mb-12 uppercase">
+          <p className="font-medium text-[11px] text-[#8A8A84] tracking-[0.18em] mb-12 uppercase">
             {dict.intro.duration.replace(
               "{minutes}",
               (services.length * 5 + 5).toString(),
@@ -583,7 +591,7 @@ export default function ClientDiscoveryForm({
         </div>
 
         <footer className="absolute bottom-8 left-0 right-0 text-center">
-          <div className="font-medium text-[9px] text-[#333] tracking-[0.18em] uppercase">
+          <div className="font-medium text-[10px] text-[#666660] tracking-[0.18em] uppercase">
             Powered by Noctra Studio
           </div>
         </footer>
@@ -683,7 +691,7 @@ export default function ClientDiscoveryForm({
           <span className="text-white block">
             {dict.states.success.title_1 || "Listo."}
           </span>
-          <span className="text-[#333] block">
+          <span className="text-[#6D6D67] block">
             {dict.states.success.title_2 || "Gracias."}
           </span>
         </h1>
@@ -694,11 +702,11 @@ export default function ClientDiscoveryForm({
           </span>
         </div>
 
-        <p className="text-[14px] font-light text-[#555] max-w-[420px] mx-auto mb-12 leading-relaxed">
+        <p className="text-[15px] font-light text-[#A9A9A3] max-w-[420px] mx-auto mb-12 leading-relaxed">
           {dict.states.success.message}
         </p>
 
-        <div className="font-medium text-[9px] text-[#333] tracking-[0.18em] uppercase">
+        <div className="font-medium text-[10px] text-[#666660] tracking-[0.18em] uppercase">
           noctra.studio
         </div>
       </div>
@@ -813,14 +821,14 @@ export default function ClientDiscoveryForm({
         </div>
 
         <div className="hidden md:block flex-1 text-right">
-          <span className="font-medium text-[9px] text-[#333] tracking-[0.18em] uppercase">
+          <span className="font-medium text-[10px] text-[#6E6E68] tracking-[0.18em] uppercase">
             {clientName} · Discovery
           </span>
         </div>
       </header>
       {/* Progress label (desktop) */}
       <div className="fixed top-[58px] left-0 right-0 flex justify-center z-30 hidden md:flex pointer-events-none">
-        <span className="font-medium text-[9px] text-[#555] tracking-[0.18em] uppercase">
+        <span className="font-medium text-[10px] text-[#8A8A84] tracking-[0.18em] uppercase">
           {dict.percentageComplete.replace(
             "{percentage}",
             Math.round(calculateProgress()).toString(),
@@ -831,7 +839,7 @@ export default function ClientDiscoveryForm({
       <main className="flex-1 w-full max-w-3xl mx-auto pt-24 pb-40 px-5 md:px-10">
         {/* --- COMMON SECTION --- */}
         <section className="mb-20">
-          <div className="p-8 lg:p-12 border border-white/5 bg-[#0A0A0A]/50 rounded-2xl md:rounded-3xl backdrop-blur-xl relative overflow-hidden">
+          <div className="p-8 lg:p-12 border border-white/10 bg-[#0D0D0D]/80 rounded-2xl md:rounded-3xl backdrop-blur-xl relative overflow-hidden shadow-[0_24px_80px_rgba(0,0,0,0.28)]">
             <div className="flex items-center gap-3 mb-2">
               <span className="p-1.5 bg-[#00E5A0]/10 text-[#00E5A0]">
                 <Info size={14} />
@@ -843,7 +851,7 @@ export default function ClientDiscoveryForm({
             <h2 className="text-[40px] md:text-[52px] font-black leading-none tracking-tight text-white mb-6 uppercase">
               {dict.sections.common.title}
             </h2>
-            <p className="text-[#555] max-w-xl text-lg font-light leading-relaxed">
+            <p className="text-[#A7A7A1] max-w-xl text-lg font-light leading-relaxed">
               {dict.sections.common.desc}
             </p>
           </div>
@@ -1008,12 +1016,12 @@ export default function ClientDiscoveryForm({
                           });
                       }}
                       className={cn(
-                        "min-h-[44px] px-4 py-2.5 border rounded-2xl text-base md:text-[11px] font-medium tracking-[0.12em] uppercase transition-all duration-200 text-left md:text-center",
+                        "min-h-[46px] px-4 py-2.5 border rounded-2xl text-base md:text-[12px] font-medium tracking-[0.12em] uppercase transition-all duration-200 text-left md:text-center",
                         active
-                          ? "border-[#00E5A0] text-[#00E5A0] bg-[#00E5A0]/5"
+                          ? "border-[#00E5A0] text-[#00E5A0] bg-[#00E5A0]/10"
                           : errors.q_business_stage
-                            ? "border-[#FFB800]/30 text-[#555] bg-red-500/5 hover:border-[#FFB800]/50"
-                            : "border-white/5 text-[#555] hover:border-white/20 hover:text-white bg-[#0A0A0A]",
+                            ? "border-[#FFB800]/30 text-[#C9C9C3] bg-red-500/5 hover:border-[#FFB800]/50"
+                            : "border-white/10 text-[#C9C9C3] hover:border-white/30 hover:text-white bg-[#0D0D0D]",
                       )}>
                       {label}
                     </button>
@@ -1055,7 +1063,7 @@ export default function ClientDiscoveryForm({
         {/* --- BRANDING SECTION --- */}
         {services.includes("branding") && (
           <section className="mb-20">
-            <div className="mb-16 pt-16 border-t border-white/5">
+            <div className="mb-16 pt-16 border-t border-white/10">
               <div className="flex items-center gap-3 mb-2">
                 <span className="p-1.5 bg-[#00E5A0]/10 text-[#00E5A0]">
                   <Sparkles size={14} />
@@ -1070,7 +1078,7 @@ export default function ClientDiscoveryForm({
                   clientName,
                 )}
               </h2>
-              <p className="text-[#555] max-w-xl text-lg font-light leading-relaxed">
+              <p className="text-[#A7A7A1] max-w-xl text-lg font-light leading-relaxed">
                 {dict.sections.branding.desc.replace(
                   "{clientName}",
                   clientName,
@@ -1345,7 +1353,7 @@ export default function ClientDiscoveryForm({
         {/* --- WEB SECTION --- */}
         {services.includes("web") && (
           <section className="mb-20">
-            <div className="mb-16 pt-16 border-t border-white/5">
+            <div className="mb-16 pt-16 border-t border-white/10">
               <div className="flex items-center gap-3 mb-2">
                 <span className="p-1.5 bg-[#00E5A0]/10 text-[#00E5A0]">
                   <Layout size={14} />
@@ -1357,7 +1365,7 @@ export default function ClientDiscoveryForm({
               <h2 className="text-[40px] md:text-[52px] font-black leading-none tracking-tight text-white mb-6 uppercase">
                 {dict.sections.web.title.replace("{clientName}", clientName)}
               </h2>
-              <p className="text-[#555] max-w-xl text-lg font-light leading-relaxed">
+              <p className="text-[#A7A7A1] max-w-xl text-lg font-light leading-relaxed">
                 {dict.sections.web.desc.replace("{clientName}", clientName)}
               </p>
             </div>
@@ -1442,7 +1450,7 @@ export default function ClientDiscoveryForm({
         {/* --- SEO SECTION --- */}
         {services.includes("seo") && (
           <section className="mb-20">
-            <div className="mb-16 pt-16 border-t border-white/5">
+            <div className="mb-16 pt-16 border-t border-white/10">
               <div className="flex items-center gap-3 mb-2">
                 <span className="p-1.5 bg-[#00E5A0]/10 text-[#00E5A0]">
                   <TrendingUp size={14} />
@@ -1454,7 +1462,7 @@ export default function ClientDiscoveryForm({
               <h2 className="text-[40px] md:text-[52px] font-black leading-none tracking-tight text-white mb-6 uppercase">
                 {dict.sections.seo.title.replace("{clientName}", clientName)}
               </h2>
-              <p className="text-[#555] max-w-xl text-lg font-light leading-relaxed">
+              <p className="text-[#A7A7A1] max-w-xl text-lg font-light leading-relaxed">
                 {dict.sections.seo.desc}
               </p>
             </div>
@@ -1560,7 +1568,7 @@ export default function ClientDiscoveryForm({
         {/* --- AI AUTOMATIONS SECTION --- */}
         {services.includes("ai-automations") && (
           <section className="mb-20">
-            <div className="mb-16 pt-16 border-t border-[#1a1a1a]">
+            <div className="mb-16 pt-16 border-t border-white/10">
               <div className="flex items-center gap-3 mb-2">
                 <span className="p-1.5 bg-[#00E5A0]/10 text-[#00E5A0]">
                   <Cpu size={14} />
@@ -1572,7 +1580,7 @@ export default function ClientDiscoveryForm({
               <h2 className="text-[40px] md:text-[52px] font-black leading-none tracking-tight text-white mb-6 uppercase">
                 {aiSection.title.replace("{clientName}", clientName)}
               </h2>
-              <p className="text-[#555] max-w-xl text-lg font-light leading-relaxed">
+              <p className="text-[#A7A7A1] max-w-xl text-lg font-light leading-relaxed">
                 {aiSection.desc.replace("{clientName}", clientName)}
               </p>
             </div>
@@ -1674,7 +1682,7 @@ export default function ClientDiscoveryForm({
         {/* --- CRM SECTION --- */}
         {services.includes("crm") && (
           <section className="mb-20">
-            <div className="mb-16 pt-16 border-t border-[#1a1a1a]">
+            <div className="mb-16 pt-16 border-t border-white/10">
               <div className="flex items-center gap-3 mb-2">
                 <span className="p-1.5 bg-[#00E5A0]/10 text-[#00E5A0]">
                   <Database size={14} />
@@ -1686,7 +1694,7 @@ export default function ClientDiscoveryForm({
               <h2 className="text-[40px] md:text-[52px] font-black leading-none tracking-tight text-white mb-6 uppercase">
                 {dict.sections.crm.title.replace("{clientName}", clientName)}
               </h2>
-              <p className="text-[#555] max-w-xl text-lg font-light leading-relaxed">
+              <p className="text-[#A7A7A1] max-w-xl text-lg font-light leading-relaxed">
                 {dict.sections.crm.desc}
               </p>
             </div>
