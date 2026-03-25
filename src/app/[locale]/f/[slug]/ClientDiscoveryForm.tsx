@@ -1463,7 +1463,7 @@ export default function ClientDiscoveryForm({
                 {dict.sections.seo.title.replace("{clientName}", clientName)}
               </h2>
               <p className="text-[#A7A7A1] max-w-xl text-lg font-light leading-relaxed">
-                {dict.sections.seo.desc}
+                {dict.sections.seo.desc.replace("{clientName}", clientName)}
               </p>
             </div>
 
@@ -1695,7 +1695,7 @@ export default function ClientDiscoveryForm({
                 {dict.sections.crm.title.replace("{clientName}", clientName)}
               </h2>
               <p className="text-[#A7A7A1] max-w-xl text-lg font-light leading-relaxed">
-                {dict.sections.crm.desc}
+                {dict.sections.crm.desc.replace("{clientName}", clientName)}
               </p>
             </div>
 
