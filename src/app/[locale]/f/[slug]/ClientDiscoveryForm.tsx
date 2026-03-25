@@ -356,6 +356,7 @@ export default function ClientDiscoveryForm({
   );
   const { addToast } = useToast();
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const aiSection = dict.sections["ai-automations"];
 
   // Form State
   const [payload, setPayload] = useState<any>({
@@ -744,6 +745,42 @@ export default function ClientDiscoveryForm({
         payload.web_content_owner,
         payload.web_features,
         payload.web_deadline,
+      ]);
+    }
+    if (services.includes("seo")) {
+      totalPoints += 7;
+      filledPoints += countFilled([
+        payload.seo_current_site,
+        payload.seo_target_keywords,
+        payload.seo_competitors,
+        payload.seo_previous_attempts,
+        payload.seo_content_capacity,
+        payload.seo_geo,
+        payload.seo_goal,
+      ]);
+    }
+    if (services.includes("ai-automations")) {
+      totalPoints += 7;
+      filledPoints += countFilled([
+        payload.ai_current_tools,
+        payload.ai_pain_points,
+        payload.ai_first_priority,
+        payload.ai_processes,
+        payload.ai_team_size,
+        payload.ai_tech_level,
+        payload.ai_budget_range,
+      ]);
+    }
+    if (services.includes("crm")) {
+      totalPoints += 7;
+      filledPoints += countFilled([
+        payload.crm_current_crm,
+        payload.crm_previous_attempt,
+        payload.crm_pain_points,
+        payload.crm_pipeline,
+        payload.crm_team_size,
+        payload.crm_integrations,
+        payload.crm_ai_features,
       ]);
     }
 
@@ -1529,29 +1566,22 @@ export default function ClientDiscoveryForm({
                   <Cpu size={14} />
                 </span>
                 <span className="font-medium text-[#00E5A0] text-[10px] uppercase tracking-[0.18em]">
-                  04 {dict.sections.ai.eyebrow}
+                  04 {aiSection.eyebrow}
                 </span>
               </div>
               <h2 className="text-[40px] md:text-[52px] font-black leading-none tracking-tight text-white mb-6 uppercase">
-                {dict.sections.ai.title.replace("{clientName}", clientName)}
+                {aiSection.title.replace("{clientName}", clientName)}
               </h2>
               <p className="text-[#555] max-w-xl text-lg font-light leading-relaxed">
-                {dict.sections.ai.desc}
+                {aiSection.desc.replace("{clientName}", clientName)}
               </p>
             </div>
 
             <QBox
-              label={
-                dict.sections["ai-automations"].questions.ai_current_tools.label
-              }
-              hint={
-                dict.sections["ai-automations"].questions.ai_current_tools.hint
-              }>
+              label={aiSection.questions.ai_current_tools.label}
+              hint={aiSection.questions.ai_current_tools.hint}>
               <AutoTextarea
-                placeholder={
-                  dict.sections["ai-automations"].questions.ai_current_tools
-                    .placeholder
-                }
+                placeholder={aiSection.questions.ai_current_tools.placeholder}
                 value={payload.ai_current_tools}
                 onChange={(v) =>
                   setPayload({ ...payload, ai_current_tools: v })
@@ -1560,35 +1590,20 @@ export default function ClientDiscoveryForm({
             </QBox>
 
             <QBox
-              label={
-                dict.sections["ai-automations"].questions.ai_pain_points.label
-              }
-              hint={
-                dict.sections["ai-automations"].questions.ai_pain_points.hint
-              }>
+              label={aiSection.questions.ai_pain_points.label}
+              hint={aiSection.questions.ai_pain_points.hint}>
               <AutoTextarea
-                placeholder={
-                  dict.sections["ai-automations"].questions.ai_pain_points
-                    .placeholder
-                }
+                placeholder={aiSection.questions.ai_pain_points.placeholder}
                 value={payload.ai_pain_points}
                 onChange={(v) => setPayload({ ...payload, ai_pain_points: v })}
               />
             </QBox>
 
             <QBox
-              label={
-                dict.sections["ai-automations"].questions.ai_first_priority
-                  .label
-              }
-              hint={
-                dict.sections["ai-automations"].questions.ai_first_priority.hint
-              }>
+              label={aiSection.questions.ai_first_priority.label}
+              hint={aiSection.questions.ai_first_priority.hint}>
               <AutoTextarea
-                placeholder={
-                  dict.sections["ai-automations"].questions.ai_first_priority
-                    .placeholder
-                }
+                placeholder={aiSection.questions.ai_first_priority.placeholder}
                 value={payload.ai_first_priority}
                 onChange={(v) =>
                   setPayload({ ...payload, ai_first_priority: v })
@@ -1597,12 +1612,8 @@ export default function ClientDiscoveryForm({
             </QBox>
 
             <QBox
-              label={
-                dict.sections["ai-automations"].questions.ai_processes.label
-              }
-              hint={
-                dict.sections["ai-automations"].questions.ai_processes.hint
-              }>
+              label={aiSection.questions.ai_processes.label}
+              hint={aiSection.questions.ai_processes.hint}>
               <ChipSelector
                 options={dict.chips.ai.processes}
                 selected={payload.ai_processes}
@@ -1611,12 +1622,8 @@ export default function ClientDiscoveryForm({
             </QBox>
 
             <QBox
-              label={
-                dict.sections["ai-automations"].questions.ai_team_size.label
-              }
-              hint={
-                dict.sections["ai-automations"].questions.ai_team_size.hint
-              }>
+              label={aiSection.questions.ai_team_size.label}
+              hint={aiSection.questions.ai_team_size.hint}>
               <ChipSelector
                 options={dict.chips.ai.team}
                 selected={[payload.ai_team_size]}
@@ -1631,12 +1638,8 @@ export default function ClientDiscoveryForm({
             </QBox>
 
             <QBox
-              label={
-                dict.sections["ai-automations"].questions.ai_tech_level.label
-              }
-              hint={
-                dict.sections["ai-automations"].questions.ai_tech_level.hint
-              }>
+              label={aiSection.questions.ai_tech_level.label}
+              hint={aiSection.questions.ai_tech_level.hint}>
               <ChipSelector
                 options={dict.chips.ai.tech}
                 selected={[payload.ai_tech_level]}
@@ -1651,12 +1654,8 @@ export default function ClientDiscoveryForm({
             </QBox>
 
             <QBox
-              label={
-                dict.sections["ai-automations"].questions.ai_budget_range.label
-              }
-              hint={
-                dict.sections["ai-automations"].questions.ai_budget_range.hint
-              }>
+              label={aiSection.questions.ai_budget_range.label}
+              hint={aiSection.questions.ai_budget_range.hint}>
               <ChipSelector
                 options={dict.chips.ai.budget}
                 selected={[payload.ai_budget_range]}
