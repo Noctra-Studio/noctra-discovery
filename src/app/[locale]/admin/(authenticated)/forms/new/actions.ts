@@ -80,17 +80,30 @@ export async function createDiscoveryFormAction(formData: FormData) {
       logoUrl = publicUrlData.publicUrl;
     }
 
+    // Obtener workspace_id del usuario — cast para evitar error de tipos desactualizados
+    const { data: membership } = await (supabase as any)
+      .from("workspace_members")
+      .select("workspace_id")
+      .eq("user_id", user.id)
+      .single();
+
+    if (!membership?.workspace_id) {
+      return { error: "No perteneces a ningún workspace" };
+    }
+
     // Insert to DB
     const { data: newForm, error: insertError } = await supabase
       .from("discovery_forms")
       .insert({
         created_by: user.id,
+        workspace_id: membership.workspace_id as string,
         slug: validatedData.slug,
         client_name: validatedData.clientName,
         client_logo_url: logoUrl,
         directed_to: validatedData.directedTo,
         language: validatedData.language,
         status: "pending",
+        form_url: `https://discovery.noctra.studio/f/${validatedData.slug}`,
         expires_at: validatedData.expiresAt ? new Date(validatedData.expiresAt).toISOString() : null,
         services: validatedData.services as any,
       })

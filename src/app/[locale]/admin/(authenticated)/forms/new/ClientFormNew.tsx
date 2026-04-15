@@ -179,14 +179,12 @@ export default function ClientFormNew({ locale }: { locale: string }) {
     if (result.error) {
       setError(result.error);
       setIsSubmitting(false);
-    } else if (result.success && result.formUrl && result.formId) {
-      // Redirect to dashboard with success param and data
+    } else if (result.success) {
       const params = new URLSearchParams();
       params.append("success", "true");
-      params.append("formUrl", result.formUrl);
+      if (result.formUrl) params.append("formUrl", result.formUrl);
       params.append("slug", slug);
       params.append("clientName", clientName);
-
       router.push(`/${locale}/admin?${params.toString()}`);
     }
   };
