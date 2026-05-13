@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 import { logout } from "@/app/[locale]/admin/actions";
 import { useTranslations } from "next-intl";
+import { getAdminLogoPath, getBrandName } from "@/lib/site-config";
 
 interface AdminLayoutShellProps {
   children: React.ReactNode;
@@ -109,8 +110,8 @@ export function AdminLayoutShell({
         </span>
         <div className="w-36 block">
           <img
-            src="/noctra-logo-white.png"
-            alt="Noctra Logo"
+            src={getAdminLogoPath()}
+            alt={getBrandName()}
             className="w-full h-auto object-contain"
           />
         </div>
@@ -177,8 +178,8 @@ export function AdminLayoutShell({
       <div className="lg:hidden fixed top-0 left-0 right-0 h-16 bg-[#080808] border-b border-[#222] z-40 flex items-center justify-between px-4">
         <div className="w-28 flex-shrink-0">
           <img
-            src="/noctra-logo-white.png"
-            alt="Noctra Logo"
+            src={getAdminLogoPath()}
+            alt={getBrandName()}
             className="w-full h-auto object-contain"
           />
         </div>
@@ -235,7 +236,7 @@ export function AdminLayoutShell({
 
             <div className="bg-[#080808] border border-[#222] rounded-lg px-4 py-3 mb-6 group relative">
               <span className="font-medium text-[12px] text-[#F5F5F0] break-all block pr-8">
-                discovery.noctra.studio/f/{slug || "..."}
+                {formUrl}
               </span>
               <button
                 onClick={async () => {

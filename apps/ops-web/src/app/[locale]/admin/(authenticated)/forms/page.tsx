@@ -1,10 +1,13 @@
 import { createClient } from "@/lib/supabase/server";
 import { getTranslations } from "next-intl/server";
+import { getBrandName } from "@/lib/site-config";
 import FormsClient from "./FormsClient";
 
-export const metadata = {
-  title: "Formularios | Noctra Discovery",
-};
+export async function generateMetadata() {
+  return {
+    title: `Formularios | ${getBrandName()} · Discovery`,
+  };
+}
 
 export default async function FormsPage({
   params,

@@ -56,7 +56,7 @@
   },
   "forms": {
     "title": "Formularios",
-    "eyebrow": "Noctra Discovery · Formularios",
+    "eyebrow": "Discovery · Formularios",
     "subtitle": "{total} formularios · {completed} completados",
     "newForm": "+ Nuevo formulario",
     "search": "Buscar cliente o slug...",
@@ -329,7 +329,7 @@
         }
       },
       "crm": {
-        "eyebrow": "— Noctra CRM / Forge",
+        "eyebrow": "— CRM / Forge",
         "title": "Tu operación comercial.",
         "desc": "Entendamos cómo gestiona {clientName} sus clientes y ventas hoy.",
         "questions": {
@@ -431,7 +431,7 @@
         ],
         "contentOwner": [
           "Yo mismo / mi equipo lo tiene listo",
-          "Necesitamos que Noctra gestione el contenido",
+          "Necesitamos que el estudio cree y gestione el contenido",
           "Tenemos algo pero necesita trabajo",
           "Aún no lo hemos definido"
         ],
@@ -471,7 +471,7 @@
           "Sí, semanalmente",
           "Sí, mensualmente",
           "No tenemos capacidad interna",
-          "Necesitamos que Noctra lo gestione"
+          "Necesitamos que el estudio lo gestione"
         ],
         "traffic": [
           "No lo sé",

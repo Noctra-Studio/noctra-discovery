@@ -17,6 +17,7 @@ import { submitDiscoveryForm } from "./actions";
 import { useToast } from "@/components/ui/Toast";
 import { FieldError } from "@/components/ui/FieldError";
 import { cn } from "@/lib/utils";
+import { getBrandHostLabel, getPoweredByFooterText } from "@/lib/site-config";
 import {
   DndContext,
   closestCenter,
@@ -592,7 +593,7 @@ export default function ClientDiscoveryForm({
 
         <footer className="absolute bottom-8 left-0 right-0 text-center">
           <div className="font-medium text-[10px] text-[#666660] tracking-[0.18em] uppercase">
-            Powered by Noctra Studio
+            {getPoweredByFooterText()}
           </div>
         </footer>
       </div>
@@ -707,7 +708,7 @@ export default function ClientDiscoveryForm({
         </p>
 
         <div className="font-medium text-[10px] text-[#666660] tracking-[0.18em] uppercase">
-          noctra.studio
+          {getBrandHostLabel()}
         </div>
       </div>
     );

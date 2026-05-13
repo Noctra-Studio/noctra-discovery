@@ -13,7 +13,7 @@ export const SERVICE_LABELS: Record<ServiceId, string> = {
   web: 'Diseño Web / Landing Pages',
   seo: 'SEO',
   'ai-automations': 'AI Automations',
-  crm: 'Noctra CRM / Forge',
+  crm: "CRM / Forge",
 }
 
 export type ProposalStatus =

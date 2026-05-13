@@ -1,3 +1,5 @@
+import { getBrandName } from "./site-config";
+
 export function buildPDFHtml(data: any, language: string, formMeta: any) {
   const isEn = language === 'en';
   
@@ -154,7 +156,7 @@ export function buildPDFHtml(data: any, language: string, formMeta: any) {
             </div>
           </div>
           <div class="footer mono">
-            <span>Noctra Studio</span>
+            <span>${escapeHtml(getBrandName())}</span>
             <span>${new Date().getFullYear()}</span>
           </div>
         </div>

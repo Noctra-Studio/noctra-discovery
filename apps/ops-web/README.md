@@ -1,6 +1,6 @@
-# Noctra Discovery
+# Noctra Ops (Discovery + Proposals + Contracts)
 
-> Brand discovery platform for Noctra Studio clients. Generate custom discovery forms, collect brand responses, and automatically produce a branded PDF delivered to your inbox.
+> Internal operations app for Noctra Studio. Same codebase can be **cloned per client** with their own Supabase, domain, and branding — see [`docs/CLIENT_CLONE.md`](./docs/CLIENT_CLONE.md) and [`.env.example`](./.env.example).
 
 ![Status](https://img.shields.io/badge/status-in%20development-yellow?style=flat-square)
 ![Next.js](https://img.shields.io/badge/Next.js-14-black?style=flat-square&logo=next.js)

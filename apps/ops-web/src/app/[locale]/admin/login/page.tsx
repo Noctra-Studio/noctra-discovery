@@ -1,6 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
 import LoginForm from "@/components/admin/LoginForm";
+import { getAdminLogoPath, getBrandName } from "@/lib/site-config";
 import { NextIntlClientProvider } from "next-intl";
 import esMessages from "@/messages/es.json";
 
@@ -37,8 +38,8 @@ export default async function LoginPage({
         {/* Logo + Branding */}
         <div className="w-56 mb-8 relative flex justify-center">
           <img
-            src="/noctra-logo-white.png"
-            alt="Noctra Logo"
+            src={getAdminLogoPath()}
+            alt={getBrandName()}
             className="w-full h-auto object-contain"
           />
         </div>

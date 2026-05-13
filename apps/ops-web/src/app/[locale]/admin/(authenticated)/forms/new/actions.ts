@@ -1,6 +1,7 @@
 "use server";
 
 import { createClient } from "../../../../../../lib/supabase/server";
+import { getDiscoveryFormAbsoluteUrl } from "@/lib/site-url";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 
@@ -103,7 +104,10 @@ export async function createDiscoveryFormAction(formData: FormData) {
         directed_to: validatedData.directedTo,
         language: validatedData.language,
         status: "pending",
-        form_url: `https://discovery.noctra.studio/f/${validatedData.slug}`,
+        form_url: getDiscoveryFormAbsoluteUrl(
+          validatedData.slug,
+          validatedData.language,
+        ),
         expires_at: validatedData.expiresAt ? new Date(validatedData.expiresAt).toISOString() : null,
         services: validatedData.services as any,
       })

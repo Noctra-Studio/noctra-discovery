@@ -4,6 +4,8 @@ import puppeteerCore from "puppeteer-core";
 import chromium from "@sparticuz/chromium";
 import { Resend } from "resend";
 import { buildPDFHtml } from "./pdf-template";
+import { getBrandHostLabel, getBrandName } from "./site-config";
+import { getPublicSiteOrigin } from "./site-url";
 
 const supabaseAdmin = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -92,8 +94,10 @@ export async function processSubmission(slug: string, data: any, language: strin
     const resend = new Resend(process.env.RESEND_API_KEY);
     
     const emailPayload: any = {
-      from: process.env.FROM_EMAIL || "Noctra Studio Discovery <discovery@noctra.studio>",
-      to: process.env.TO_EMAIL || "hello@noctra.studio",
+      from:
+        process.env.FROM_EMAIL ||
+        `${getBrandName()} Discovery <discovery@${getBrandHostLabel()}>`,
+      to: process.env.TO_EMAIL || `hello@${getBrandHostLabel()}`,
       subject: `Discovery completado — ${formMeta.client_name}`,
       html: buildEmailHTML(data, formMeta, !!pdfResult.buffer),
     };
@@ -243,8 +247,11 @@ export async function generateSubmissionPDF(submissionId: string) {
 }
 
 function buildEmailHTML(data: any, form: any, hasPdf: boolean): string {
-  const accentColor = "#00E5A0"; // Noctra Green
-  
+  const accentColor = "#00E5A0";
+  const adminLocale = form.language === "en" ? "en" : "es";
+  const adminFormsUrl = `${getPublicSiteOrigin()}/${adminLocale}/admin/forms/${form.id}`;
+  const brand = getBrandName();
+
   return `
     <!DOCTYPE html>
     <html lang="es">
@@ -285,9 +292,9 @@ function buildEmailHTML(data: any, form: any, hasPdf: boolean): string {
                   <table border="0" cellpadding="0" cellspacing="0">
                     <tr>
                       <td align="center" bgcolor="#ffffff" style="border-radius:100px;">
-                        <a href="${process.env.NEXT_PUBLIC_APP_URL}/es/admin/forms/${form.id}"
+                        <a href="${adminFormsUrl}"
                            style="display:inline-block;padding:18px 36px;font-family:sans-serif;font-size:12px;font-weight:700;line-height:1;text-align:center;text-decoration:none;text-transform:uppercase;letter-spacing:0.12em;color:#000000;background-color:#ffffff;border-radius:100px;border:1px solid #ffffff;">
-                          Ver respuestas completas en Noctra Discovery →
+                          Ver respuestas completas en el panel (${brand}) →
                         </a>
                       </td>
                     </tr>
@@ -308,7 +315,7 @@ function buildEmailHTML(data: any, form: any, hasPdf: boolean): string {
               <tr>
                 <td style="padding-top:48px;">
                   <p style="font-size:10px;color:#444;margin:0;letter-spacing:0.25em;text-transform:uppercase;font-weight:600;">
-                    Noctra Studio
+                    ${brand}
                   </p>
                 </td>
               </tr>

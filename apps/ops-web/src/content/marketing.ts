@@ -1,3 +1,5 @@
+import { applyBrandToStrings } from "@/lib/site-config";
+
 export type MarketingLocale = "es" | "en";
 
 export type MarketingMeta = {
@@ -59,7 +61,7 @@ type ServiceDetail = {
   cta: MarketingCTA;
 };
 
-type LocaleContent = {
+export type LocaleContent = {
   brand: string;
   siteMeta: MarketingMeta;
   nav: {
@@ -1396,5 +1398,6 @@ const marketingContent: Record<MarketingLocale, LocaleContent> = {
 };
 
 export function getMarketingContent(locale: string): LocaleContent {
-  return marketingContent[(locale === "en" ? "en" : "es") as MarketingLocale];
+  const key = (locale === "en" ? "en" : "es") as MarketingLocale;
+  return applyBrandToStrings(marketingContent[key]) as LocaleContent;
 }

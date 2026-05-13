@@ -15,6 +15,11 @@ import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/Toast";
 import { FieldError } from "@/components/ui/FieldError";
 import { cn } from "@/lib/utils";
+import { getPoweredByFooterText } from "@/lib/site-config";
+import {
+  getDiscoveryFormAbsoluteUrl,
+  getPublicSiteOrigin,
+} from "@/lib/site-url";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import {
@@ -435,7 +440,10 @@ export default function ClientFormNew({ locale }: { locale: string }) {
                 type="button"
                 onClick={async () => {
                   await navigator.clipboard.writeText(
-                    `discovery.noctra.studio/f/${slug}`,
+                    getDiscoveryFormAbsoluteUrl(
+                      slug,
+                      language === "en" ? "en" : "es",
+                    ),
                   );
                   setCopied(true);
                   setTimeout(() => setCopied(false), 2000);
@@ -446,9 +454,13 @@ export default function ClientFormNew({ locale }: { locale: string }) {
             </div>
             <FieldError message={errors.slug} />
             <div className="mt-2 flex items-center justify-between">
-              <p className="font-medium text-[11px] text-[#555] tracking-tight">
-                discovery.noctra.studio/f/
-                <span className="text-[#888]">{slug || "..."}</span>
+              <p className="font-medium text-[11px] text-[#555] tracking-tight break-all">
+                {slug
+                  ? getDiscoveryFormAbsoluteUrl(
+                      slug,
+                      language === "en" ? "en" : "es",
+                    )
+                  : `${getPublicSiteOrigin()}/${language === "en" ? "en" : "es"}/f/...`}
               </p>
             </div>
           </div>
@@ -574,7 +586,7 @@ export default function ClientFormNew({ locale }: { locale: string }) {
             </div>
 
             <div className="mt-auto text-center font-medium text-[8px] text-[#222] tracking-[0.18em] uppercase">
-              Powered by Noctra Studio
+              {getPoweredByFooterText()}
             </div>
           </div>
         </div>

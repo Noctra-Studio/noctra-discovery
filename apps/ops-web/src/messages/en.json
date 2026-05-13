@@ -56,7 +56,7 @@
   },
   "forms": {
     "title": "Forms",
-    "eyebrow": "Noctra Discovery · Forms",
+    "eyebrow": "Discovery · Forms",
     "subtitle": "{total} forms · {completed} completed",
     "newForm": "+ New form",
     "search": "Search client or slug...",
@@ -329,7 +329,7 @@
         }
       },
       "crm": {
-        "eyebrow": "— Noctra CRM / Forge",
+        "eyebrow": "— CRM / Forge",
         "title": "Your sales operation.",
         "desc": "Let's understand how {clientName} manages its clients and sales today.",
         "questions": {
@@ -431,7 +431,7 @@
         ],
         "contentOwner": [
           "We have it ready",
-          "We need Noctra to handle content",
+          "We need the studio to handle content",
           "We have something but it needs work",
           "We haven't defined it yet"
         ],
@@ -471,7 +471,7 @@
           "Yes, weekly",
           "Yes, monthly",
           "No internal capacity",
-          "Need Noctra to manage it"
+          "We need the studio to manage it"
         ],
         "traffic": [
           "I don't know",

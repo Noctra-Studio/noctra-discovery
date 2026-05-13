@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { Resend } from "resend";
+import { getBrandName } from "@/lib/site-config";
 
 const contactSchema = z.object({
   name: z.string().min(2).max(120),
@@ -37,7 +38,7 @@ export async function POST(request: NextRequest) {
     await resend.emails.send({
       from,
       to,
-      subject: `[Noctra Contact] ${payload.company} - ${payload.name}`,
+      subject: `[${getBrandName()} · Contacto] ${payload.company} - ${payload.name}`,
       replyTo: payload.email,
       text: [
         `Locale: ${payload.locale ?? "es"}`,

@@ -14,6 +14,7 @@ import {
   Link as LinkIcon,
   RefreshCcw,
 } from "lucide-react";
+import { getBrandName } from "@/lib/site-config";
 import Link from "next/link";
 import { format } from "date-fns";
 import { es, enUS } from "date-fns/locale";
@@ -201,7 +202,6 @@ const translateValue = (key: string, value: any) => {
     },
     web_content_owner: {
       client: "Yo tengo todo el contenido (textos y fotos) listo",
-      noctra: "Necesito que Noctra Studio cree el contenido por mí",
       shared: "Tengo una base pero necesito ayuda profesional para pulirlo",
     },
     seo_geo: {
@@ -215,6 +215,10 @@ const translateValue = (key: string, value: any) => {
       high: "Alto (Estamos tecnificados, buscamos optimizar al máximo)",
     },
   };
+
+  if (key === "web_content_owner" && value === "noctra") {
+    return `Necesito que ${getBrandName()} cree el contenido por mí`;
+  }
 
   if (mappings[key]) {
     return mappings[key][value] || value;

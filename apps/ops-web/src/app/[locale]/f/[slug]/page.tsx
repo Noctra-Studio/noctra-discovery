@@ -1,4 +1,9 @@
 import { createClient } from "@/lib/supabase/server";
+import {
+  getAdminLogoPath,
+  getBrandHostLabel,
+  getBrandName,
+} from "@/lib/site-config";
 import { setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { format } from "date-fns";
@@ -11,7 +16,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  return { title: `Brand Discovery - ${slug}` };
+  return { title: `${getBrandName()} · Discovery — ${slug}` };
 }
 
 export default async function PublicFormPage({
@@ -36,7 +41,7 @@ export default async function PublicFormPage({
         <h1 className="font-black text-8xl text-white/5 mb-4 uppercase">404</h1>
         <p className="text-[#555] text-lg font-light">Este link no existe.</p>
         <div className="mt-12 text-[#333] font-medium text-[10px] tracking-[0.18em] uppercase">
-          noctra.studio
+          {getBrandHostLabel()}
         </div>
       </div>
     );
@@ -56,8 +61,8 @@ export default async function PublicFormPage({
           <div className="flex items-center justify-center gap-3 mb-8">
             <div className="w-12 h-12 relative flex-shrink-0">
               <img
-                src="/noctra-logo-white.png"
-                alt="Noctra"
+                src={getAdminLogoPath()}
+                alt={getBrandName()}
                 className="w-full h-full object-contain"
               />
             </div>
@@ -82,7 +87,7 @@ export default async function PublicFormPage({
         </div>
 
         <div className="absolute bottom-8 text-[#222] font-medium text-[10px] tracking-[0.18em] uppercase">
-          noctra.studio
+          {getBrandHostLabel()}
         </div>
       </div>
     );
@@ -103,11 +108,11 @@ export default async function PublicFormPage({
             {format(new Date(form.expires_at), "PPP", { locale: dateLocale })}.
           </p>
           <p className="text-[#555] text-sm font-light">
-            Contacta a Noctra Studio para generar uno nuevo.
+            Contacta a {getBrandName()} para generar uno nuevo.
           </p>
         </div>
         <div className="absolute bottom-8 text-[#222] font-medium text-[10px] tracking-[0.18em] uppercase">
-          noctra.studio
+          {getBrandHostLabel()}
         </div>
       </div>
     );

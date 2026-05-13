@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { getMarketingContent } from "@/content/marketing";
+import { getBrandName, getMarketingBaseUrl } from "@/lib/site-config";
 
-const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://www.noctra.studio";
+const BASE_URL = getMarketingBaseUrl();
 
 export function resolveLocale(locale: string) {
   return locale === "en" ? "en" : "es";
@@ -32,7 +33,7 @@ export function buildMetadata(
       title: pageMeta.title,
       description: pageMeta.description,
       url,
-      siteName: "Noctra Studio",
+      siteName: getBrandName(),
       locale: safeLocale === "es" ? "es_MX" : "en_US",
       type: "website",
     },
