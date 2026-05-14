@@ -12,6 +12,18 @@ const supabaseAdmin = createClient(
   process.env.SUPABASE_SERVICE_ROLE_KEY!
 );
 
+export async function saveDiscoveryDraft(slug: string, draftData: any) {
+  const { error } = await supabaseAdmin
+    .from("discovery_forms")
+    .update({ draft_data: draftData })
+    .eq("slug", slug);
+
+  if (error) {
+    console.error("[submission-service] Error saving draft:", error.message);
+    throw new Error("Could not save draft");
+  }
+}
+
 export async function processSubmission(slug: string, data: any, language: string = 'es') {
   console.log(`[submission-service] Processing submission for slug: ${slug}`);
 
@@ -70,10 +82,10 @@ export async function processSubmission(slug: string, data: any, language: strin
     throw new Error(`Error saving submission: ${subError.message}`);
   }
 
-  // Update status to completed
+  // Update status to completed and clear draft data
   await supabaseAdmin
     .from("discovery_forms")
-    .update({ status: "completed" })
+    .update({ status: "completed", draft_data: null })
     .eq("id", formMeta.id);
 
   console.log('[submission-service] Saved to DB and marked form as completed');

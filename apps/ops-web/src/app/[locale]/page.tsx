@@ -1,18 +1,14 @@
 import type { Metadata } from "next";
-import { HomePage } from "@/components/marketing/MarketingPages";
-import { buildMetadata } from "@/lib/marketing";
-import { getMarketingContent } from "@/content/marketing";
+import { createClient } from "@/lib/supabase/server";
+import { redirect } from "next/navigation";
+import LoginForm from "@/components/admin/LoginForm";
+import { getAdminLogoPath, getBrandName } from "@/lib/site-config";
+import { NextIntlClientProvider } from "next-intl";
+import esMessages from "@/messages/es.json";
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}): Promise<Metadata> {
-  const { locale } = await params;
-  const content = getMarketingContent(locale);
-
-  return buildMetadata(locale, "/", content.home.meta);
-}
+export const metadata: Metadata = {
+  title: "Login",
+};
 
 export default async function RootPage({
   params,
@@ -20,6 +16,49 @@ export default async function RootPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
-  return <HomePage locale={locale} />;
+  if (user) {
+    redirect(`/${locale}/admin`);
+  }
+
+  return (
+    <div className="min-h-screen bg-[#080808] flex items-center justify-center px-4 relative overflow-hidden">
+      {/* Subtle grid background */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          backgroundImage: `
+            linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px)
+          `,
+          backgroundSize: "60px 60px",
+        }}
+      />
+
+      <div className="relative z-10 w-full max-w-sm flex flex-col items-center">
+        {/* Logo + Branding */}
+        <div className="w-56 mb-8 relative flex justify-center">
+          <img
+            src={getAdminLogoPath()}
+            alt={getBrandName()}
+            className="w-full h-auto object-contain"
+          />
+        </div>
+        <span className="font-medium text-[#111] text-[10px] tracking-[0.3em] uppercase mb-10 text-center">
+          Panel Administrativo
+        </span>
+
+        {/* Login Card */}
+        <div className="w-full border border-[#222] p-8 bg-[#080808]">
+          <NextIntlClientProvider locale="es" messages={esMessages}>
+            <LoginForm />
+          </NextIntlClientProvider>
+        </div>
+      </div>
+    </div>
+  );
 }

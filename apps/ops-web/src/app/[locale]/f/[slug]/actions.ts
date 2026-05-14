@@ -1,6 +1,16 @@
 "use server";
 
-import { processSubmission } from "@/lib/submission-service";
+import { processSubmission, saveDiscoveryDraft } from "@/lib/submission-service";
+
+export async function saveDiscoveryFormDraft(slug: string, payload: any) {
+  try {
+    await saveDiscoveryDraft(slug, payload);
+    return { success: true };
+  } catch (err: any) {
+    console.error("[actions.ts] Save Draft Exception:", err);
+    return { error: err.message };
+  }
+}
 
 export async function submitDiscoveryForm(formId: string, slug: string, payload: any) {
   try {

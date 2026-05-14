@@ -211,7 +211,7 @@ export function buildPDFHtml(data: any, language: string, formMeta: any) {
           </div>
           <div class="q-box">
             <div class="q-label">Estilos visuales a EVITAR</div>
-            <div>${renderChips(data.q_visual_avoid)}</div>
+            <div>${renderChips(data.q_visual_avoid || [])}</div>
           </div>
           <div class="q-box">
             <div class="q-label">Accent Color</div>

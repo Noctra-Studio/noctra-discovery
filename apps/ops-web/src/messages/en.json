@@ -58,7 +58,7 @@
     "title": "Forms",
     "eyebrow": "Discovery · Forms",
     "subtitle": "{total} forms · {completed} completed",
-    "newForm": "+ New form",
+    "newForm": "New form",
     "search": "Search client or slug...",
     "filterAll": "All",
     "filterPending": "Pending",
@@ -171,7 +171,7 @@
             "placeholder": "E.g.: I like Notion because it's clean and unpretentious..."
           },
           "q_visual_avoid": {
-            "label": "Any brand or visual style you definitely DO NOT want to resemble?",
+            "label": "WHAT VISUAL STYLES DO YOU WANT TO AVOID?",
             "hint": "Knowing what you don't want is just as valuable.",
             "placeholder": ""
           },
@@ -374,16 +374,18 @@
     "chips": {
       "branding": {
         "refs": [
-          "Linear",
-          "Vercel",
-          "Stripe",
-          "Palantir",
-          "Apple",
-          "Figma",
-          "SpaceX",
-          "Notion",
-          "AWS",
-          "IBM"
+          "MINIMALIST",
+          "COLORFUL",
+          "SERIOUS",
+          "PLAYFUL",
+          "CORPORATE",
+          "APPROACHABLE",
+          "TECH-FORWARD",
+          "TRADITIONAL",
+          "MODERN",
+          "BUSY",
+          "FORMAL",
+          "INFORMAL"
         ],
         "style": [
           "Extreme minimalism",

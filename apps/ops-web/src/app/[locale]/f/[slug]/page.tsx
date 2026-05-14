@@ -137,6 +137,7 @@ export default async function PublicFormPage({
       formLocale={formLocale}
       dict={dict}
       services={form.services}
+      initialDraft={(form as any).draft_data}
     />
   );
 }

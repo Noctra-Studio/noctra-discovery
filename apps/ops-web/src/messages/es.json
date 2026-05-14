@@ -58,7 +58,7 @@
     "title": "Formularios",
     "eyebrow": "Discovery · Formularios",
     "subtitle": "{total} formularios · {completed} completados",
-    "newForm": "+ Nuevo formulario",
+    "newForm": "Nuevo formulario",
     "search": "Buscar cliente o slug...",
     "filterAll": "Todos",
     "filterPending": "Pendientes",
@@ -171,8 +171,8 @@
             "placeholder": "Ej: Me gusta Notion porque es limpio y sin pretensiones..."
           },
           "q_visual_avoid": {
-            "label": "¿Alguna marca o estilo visual que definitivamente NO quieres que se parezca?",
-            "hint": "Saber lo que no quieres es igual de valioso.",
+            "label": "¿QUÉ ESTILOS VISUALES QUIERES EVITAR?",
+            "hint": "Saber qué no quieres es tan útil como saber qué sí.",
             "placeholder": ""
           },
           "q_visual_style": {
@@ -374,16 +374,18 @@
     "chips": {
       "branding": {
         "refs": [
-          "Linear",
-          "Vercel",
-          "Stripe",
-          "Palantir",
-          "Apple",
-          "Figma",
-          "SpaceX",
-          "Notion",
-          "AWS",
-          "IBM"
+          "MINIMALISTA",
+          "COLORIDO",
+          "SERIO",
+          "JUGUETÓN",
+          "CORPORATIVO",
+          "CERCANO",
+          "TECNOLÓGICO",
+          "TRADICIONAL",
+          "MODERNO",
+          "RECARGADO",
+          "FORMAL",
+          "INFORMAL"
         ],
         "style": [
           "Minimalismo extremo",

@@ -14,6 +14,7 @@ import {
   Info,
 } from "lucide-react";
 import { submitDiscoveryForm } from "./actions";
+import { useFormAutosave } from "@/hooks/useFormAutosave";
 import { useToast } from "@/components/ui/Toast";
 import { FieldError } from "@/components/ui/FieldError";
 import { cn } from "@/lib/utils";
@@ -350,6 +351,7 @@ export default function ClientDiscoveryForm({
   formLocale,
   dict,
   services = ["branding"],
+  initialDraft,
 }: {
   formId: string;
   slug: string;
@@ -359,6 +361,7 @@ export default function ClientDiscoveryForm({
   formLocale: string;
   dict: any;
   services: string[];
+  initialDraft?: any;
 }) {
   const [view, setView] = useState<"intro" | "form" | "submitting" | "success">(
     "intro",
@@ -426,6 +429,7 @@ export default function ClientDiscoveryForm({
     crm_team_size: "",
     crm_integrations: [],
     crm_ai_features: [],
+    ...(initialDraft || {})
   });
 
   // Submission Progress State
@@ -433,6 +437,10 @@ export default function ClientDiscoveryForm({
 
   // Custom Color Ref
   const colorInputRef = useRef<HTMLInputElement>(null);
+
+  const [hasRestoredData, setHasRestoredData] = useState(!!initialDraft && Object.keys(initialDraft).length > 0);
+
+  useFormAutosave(slug, payload);
 
   // DND Sensors
   const sensors = useSensors(
@@ -735,6 +743,7 @@ export default function ClientDiscoveryForm({
     if (services.includes("branding")) {
       totalPoints += 8;
       filledPoints += countFilled([
+        payload.q_perception_rank,
         payload.q_visual_inspiration,
         payload.q_visual_avoid,
         payload.q_accent_color,
@@ -798,6 +807,14 @@ export default function ClientDiscoveryForm({
 
   return (
     <div className="min-h-screen bg-[#080808] flex flex-col animate-in slide-in-from-bottom-5 duration-700">
+      {hasRestoredData && (
+        <div className="fixed top-20 left-1/2 -translate-x-1/2 z-50 bg-[#00E5A0]/10 border border-[#00E5A0]/20 text-[#00E5A0] px-4 py-2 rounded-full text-xs font-medium tracking-wide flex items-center gap-3 backdrop-blur-md animate-in fade-in slide-in-from-top-4 shadow-lg">
+          <span>Retomamos donde lo dejaste.</span>
+          <button onClick={() => setHasRestoredData(false)} className="text-[#00E5A0] hover:text-white transition-colors p-1">
+            ✕
+          </button>
+        </div>
+      )}
       {/* Sticky Header */}
       <header className="fixed top-0 left-0 right-0 h-14 bg-[#080808]/95 backdrop-blur border-b border-[#222] z-40 flex items-center px-5 md:px-14">
         <div className="flex-1 flex items-center gap-3">
