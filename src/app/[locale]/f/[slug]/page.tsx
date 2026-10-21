@@ -1,9 +1,10 @@
-import { createClient } from "@/lib/supabase/server";
+import { getPublicFormBySlug } from "@/lib/get-public-form";
 import { setRequestLocale } from "next-intl/server";
-import { notFound } from "next/navigation";
 import { format } from "date-fns";
 import { es, enUS } from "date-fns/locale";
 import ClientDiscoveryForm from "./ClientDiscoveryForm";
+
+export const dynamic = "force-dynamic";
 
 export async function generateMetadata({
   params,
@@ -22,15 +23,9 @@ export default async function PublicFormPage({
   const { locale, slug } = await params;
   setRequestLocale(locale);
 
-  const supabase = await createClient();
+  const form = await getPublicFormBySlug(slug);
 
-  const { data: form, error } = await supabase
-    .from("discovery_forms")
-    .select("*")
-    .eq("slug", slug)
-    .single();
-
-  if (error || !form) {
+  if (!form) {
     return (
       <div className="min-h-screen bg-[#050505] flex flex-col items-center justify-center p-6 text-center">
         <h1 className="font-black text-8xl text-white/5 mb-4 uppercase">404</h1>
